@@ -1,0 +1,16 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 90px;
+  &__logo-box {
+    position: absolute;
+    left: 20px;
+    top: 0;
+    width: 160px;
+    height: 90px;
+    background: url('../../../assets/images/logo/logolws.png') center / contain
+      no-repeat;
+  }
+}

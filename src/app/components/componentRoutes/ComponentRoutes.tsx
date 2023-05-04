@@ -9,7 +9,6 @@ const ComponentRoutes: FC = () => {
       <Routes>
         <Route path='/' element={<StartPage />} />
       </Routes>
-      ;
     </>
   );
 };

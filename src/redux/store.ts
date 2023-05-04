@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 
+import startScreenSlice from './slices/startScreenSlice';
 import globalSlice from './slices/globalSlice';
 
 const store = configureStore({
-  reducer: { globalSlice },
+  reducer: { startScreenSlice, globalSlice },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
   devTools: process.env.NODE_ENV !== 'production',
 });

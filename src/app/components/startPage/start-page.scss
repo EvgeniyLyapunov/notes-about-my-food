@@ -1,0 +1,38 @@
+.start-page {
+  width: 100%;
+  height: 100vh;
+  padding-top: 90px;
+  background: url('../../../assets/images/mainScreen/main-pic.png') bottom 20vh
+    center / contain no-repeat;
+  &__title-box {
+    margin-top: 5vh;
+    display: flex;
+    flex-direction: column;
+  }
+  &__title {
+    display: inline-block;
+    font-size: 40px;
+    &-notes {
+      margin-left: 2vw;
+      text-shadow: 0 0 10px #fff, 5px 5px 10px #fff, -5px -5px 10px #fff,
+        5px -5px 10px #fff, -5px 5px 10px #fff;
+    }
+    &-about {
+      margin-left: 20vw;
+      text-shadow: 0 0 10px #fff, 5px 5px 10px #fff, -5px -5px 10px #fff,
+        5px -5px 10px #fff, -5px 5px 10px #fff;
+    }
+    &-my {
+      margin-left: auto;
+      margin-right: 25vw;
+      text-shadow: 0 0 10px #fff, 5px 5px 10px #fff, -5px -5px 10px #fff,
+        5px -5px 10px #fff, -5px 5px 10px #fff;
+    }
+    &-food {
+      margin-left: auto;
+      margin-right: 2vw;
+      text-shadow: 0 0 10px #fff, 5px 5px 10px #fff, -5px -5px 10px #fff,
+        5px -5px 10px #fff, -5px 5px 10px #fff;
+    }
+  }
+}

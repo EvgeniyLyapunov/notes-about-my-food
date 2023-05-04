@@ -1,0 +1,27 @@
+.start-menu {
+  position: fixed;
+  left: -100vw;
+  width: 75%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding-left: 50px;
+  background-color: #333;
+  transition: left 500ms ease-in-out;
+  &_active {
+    left: 0;
+  }
+  li {
+    margin-bottom: 30px;
+    font-weight: 500;
+    font-size: 24px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  &__link {
+    color: #ccc;
+  }
+}
