@@ -2,7 +2,7 @@ import { FC } from 'react';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 
-import { useAppSelector } from '../../../hooks/hooks';
+import { useAppSelector } from '../../../hooks/reduxHooks';
 
 import './start-menu.scss';
 

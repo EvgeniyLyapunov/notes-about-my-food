@@ -2,15 +2,22 @@
   width: 100%;
   height: 100vh;
   padding-top: 90px;
-  background: url('../../../assets/images/mainScreen/main-pic.png') bottom 20vh
+  background: url('../../../assets/images/mainScreen/main-pic.png') bottom 27vh
     center / contain no-repeat;
+  &__container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
   &__title-box {
-    margin-top: 5vh;
+    margin-top: 1vh;
     display: flex;
     flex-direction: column;
   }
   &__title {
     display: inline-block;
+    font-family: 'Genos';
     font-size: 40px;
     &-notes {
       margin-left: 2vw;
@@ -33,6 +40,48 @@
       margin-right: 2vw;
       text-shadow: 0 0 10px #fff, 5px 5px 10px #fff, -5px -5px 10px #fff,
         5px -5px 10px #fff, -5px 5px 10px #fff;
+    }
+  }
+  // buttons block
+  &__buttons-box {
+    width: 100%;
+    display: flex;
+    margin-bottom: 2vh;
+    &-left,
+    &-right {
+      width: 50%;
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    &-left {
+      flex-direction: column;
+      padding-right: 20px;
+    }
+    &-right {
+      padding-left: 20px;
+    }
+  }
+  &__btn {
+    width: 150px;
+    height: 40px;
+    display: inline-block;
+    line-height: 40px;
+    text-align: center;
+    color: #333;
+    border: none;
+    border-radius: 10px;
+    background-color: #f2f2f2;
+    box-shadow: -8px -8px 16px #d9d9d9, 8px 8px 16px #fff;
+    transition: transform 0.2s;
+    cursor: pointer;
+    &:active {
+      color: #333;
+      box-shadow: inset -6px -6px 12px #d9d9d9, inset 6px 6px 12px #fff;
+    }
+    &_mb {
+      margin-bottom: 20px;
     }
   }
 }

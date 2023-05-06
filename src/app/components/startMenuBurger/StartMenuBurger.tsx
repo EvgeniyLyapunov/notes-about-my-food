@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import classNames from 'classnames';
 
-import { useAppDispatch } from '../../../hooks/hooks';
+import { useAppDispatch } from '../../../hooks/reduxHooks';
 import { burgerMenuActive } from '../../../redux/slices/startScreenSlice';
 
 import './start-burger.scss';
