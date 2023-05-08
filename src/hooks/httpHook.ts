@@ -25,6 +25,7 @@ export const useHttp = () => {
         throw ex;
       }
     },
+    // eslint-disable-next-line
     []
   );
 

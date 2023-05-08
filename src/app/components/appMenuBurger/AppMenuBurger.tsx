@@ -2,28 +2,28 @@ import { FC, useState } from 'react';
 import classNames from 'classnames';
 
 import { useAppDispatch } from '../../../hooks/reduxHooks';
-import { startBurgerMenuActive } from '../../../redux/slices/headerSlice';
+import { appBurgerMenuActive } from '../../../redux/slices/headerSlice';
 
-import './start-burger.scss';
+import './app-burger.scss';
 
-const StartMenuBurger: FC = () => {
+const AppMenuBurger: FC = () => {
   const [burgerActive, setBurgerActive] = useState(false);
   const dispatch = useAppDispatch();
 
   const handleBurgerActive = (): void => {
     setBurgerActive(!burgerActive);
-    dispatch(startBurgerMenuActive());
+    dispatch(appBurgerMenuActive(!burgerActive));
   };
 
-  const startBurgerClasses = classNames({
+  const appBurgerClasses = classNames({
     active: burgerActive,
   });
 
   return (
-    <div className='start-burger' onClick={handleBurgerActive}>
-      <span className={startBurgerClasses}></span>
+    <div className='app-burger' onClick={handleBurgerActive}>
+      <span className={appBurgerClasses}></span>
     </div>
   );
 };
 
-export default StartMenuBurger;
+export default AppMenuBurger;

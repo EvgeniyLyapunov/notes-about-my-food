@@ -6,17 +6,14 @@ type GlobalState = {
 };
 
 const initialState: GlobalState = {
-  activeWindow: '',
-  activeMenu: '',
+  activeWindow: 'startScreen',
+  activeMenu: 'startMenu',
 };
 
 const globalSlice = createSlice({
   name: 'global',
   initialState,
   reducers: {
-    activeWindow: (state, action: PayloadAction<string>) => {
-      state.activeWindow = action.payload;
-    },
     activeMenu: (state, action: PayloadAction<string>) => {
       state.activeMenu = action.payload;
     },
@@ -25,4 +22,4 @@ const globalSlice = createSlice({
 
 const { actions, reducer } = globalSlice;
 export default reducer;
-export const { activeWindow, activeMenu } = actions;
+export const { activeMenu } = actions;

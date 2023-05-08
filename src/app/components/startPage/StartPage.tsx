@@ -1,9 +1,23 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+
+import { useAppDispatch } from '../../../hooks/reduxHooks';
+import {
+  appBurgerMenuActive,
+  changePageName,
+} from '../../../redux/slices/headerSlice';
 
 import './start-page.scss';
 
 const StartPage: FC = () => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(changePageName('startScreen'));
+    dispatch(appBurgerMenuActive(false));
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <div className='start-page'>
       <div className='container start-page__container'>

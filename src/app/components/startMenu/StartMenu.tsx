@@ -8,7 +8,7 @@ import './start-menu.scss';
 
 const StartMenu: FC = () => {
   const isMenuActive = useAppSelector(
-    (state) => state.startScreenSlice.isStartBurgerActive
+    (state) => state.headerSlice.isStartBurgerActive
   );
   const startMenuClasses = classNames({
     'start-menu': true,

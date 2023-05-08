@@ -4,6 +4,7 @@
   left: 0;
   width: 100vw;
   height: 90px;
+  z-index: 1;
   &__logo-box {
     position: absolute;
     left: 20px;
@@ -12,5 +13,16 @@
     height: 90px;
     background: url('../../../assets/images/logo/logolws.png') center / contain
       no-repeat;
+  }
+  &__name-box {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    left: 30px;
+    top: 0;
+    min-width: 160px;
+    height: 90px;
+    font-weight: 700;
+    font-size: 24px;
   }
 }
