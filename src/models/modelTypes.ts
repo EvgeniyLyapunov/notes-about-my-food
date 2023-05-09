@@ -1,4 +1,6 @@
 type BaseItem = {
+  id?: number;
+  userId?: string;
   name: string;
   calories: number;
   price?: number;
