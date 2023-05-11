@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type GlobalState = {
-  activeWindow: string;
+  userId: string | null;
   activeMenu: string;
 };
 
 const initialState: GlobalState = {
-  activeWindow: 'startScreen',
+  userId: 'wkxuDcalTBo_GC4gu0iM2',
   activeMenu: 'startMenu',
 };
 
@@ -17,9 +17,12 @@ const globalSlice = createSlice({
     activeMenu: (state, action: PayloadAction<string>) => {
       state.activeMenu = action.payload;
     },
+    setUserId: (state, action: PayloadAction<string>) => {
+      state.userId = action.payload;
+    },
   },
 });
 
 const { actions, reducer } = globalSlice;
 export default reducer;
-export const { activeMenu } = actions;
+export const { activeMenu, setUserId } = actions;

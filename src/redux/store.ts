@@ -2,10 +2,10 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import headerSlice from './slices/headerSlice';
 import globalSlice from './slices/globalSlice';
-import knowledgeBase from './slices/knowledgeBaseSlice';
+import knowledgeBaseSlice from './slices/knowledgeBaseSlice';
 
 const store = configureStore({
-  reducer: { headerSlice, globalSlice, knowledgeBase },
+  reducer: { headerSlice, globalSlice, knowledgeBaseSlice },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
   devTools: process.env.NODE_ENV !== 'production',
 });

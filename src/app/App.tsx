@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-
 import Header from './components/header/Header';
 import ComponentRoutes from './components/componentRoutes/ComponentRoutes';
 

@@ -1,14 +1,23 @@
 import { FC } from 'react';
 import { FormikErrors, useFormik } from 'formik';
 import classNames from 'classnames';
+
 import { useAppSelector, useAppDispatch } from '../../../../hooks/reduxHooks';
-import { setAddItemModalVisible } from '../../../../redux/slices/knowledgeBaseSlice';
+import {
+  setAddItemModalVisible,
+  resetErrorStatus,
+  resetLoadingStatus,
+  addItem,
+} from '../../../../redux/slices/knowledgeBaseSlice';
+
 import './add-item.scss';
+import spinner from '../../../../app/components/loading/spinner.gif';
 
 interface IFormValues {
+  userId: string;
   name: string;
-  calories: number | undefined;
-  price?: number | undefined;
+  calories: number;
+  price?: number;
 }
 
 const validate = (values: IFormValues) => {
@@ -32,13 +41,21 @@ const validate = (values: IFormValues) => {
 
 const AddItems: FC = () => {
   const isAddItemModalVisible = useAppSelector(
-    (store) => store.knowledgeBase.isAddItemModalVisible
+    (store) => store.knowledgeBaseSlice.isAddItemModalVisible
+  );
+
+  const userId = useAppSelector((store) => store.globalSlice.userId);
+
+  const { dataLoadingStatus, dataLoadingError } = useAppSelector(
+    (store) => store.knowledgeBaseSlice
   );
 
   const dispatch = useAppDispatch();
 
   const handleModalClose = (): void => {
     dispatch(setAddItemModalVisible(false));
+    dispatch(resetErrorStatus());
+    dispatch(resetLoadingStatus());
     formik.resetForm();
   };
 
@@ -49,16 +66,28 @@ const AddItems: FC = () => {
 
   // Formik
   const initialValues: IFormValues = {
+    userId: `${userId}`,
     name: '',
-    calories: undefined,
-    price: undefined,
+    calories: 0,
+    price: 0,
   };
 
   const formik = useFormik<IFormValues>({
     initialValues,
     validate,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      // async function q() {
+      //   const res = await fetch('server/postGroceriesItem.php', {
+      //     method: 'POST',
+      //     body: JSON.stringify(values),
+      //     headers: { 'Content-type': 'application/json' },
+      //   });
+      //   const data = await res.json();
+      //   console.log(data as IFormValues);
+      // }
+      // q();
+
+      dispatch(addItem(JSON.stringify(values)));
       formik.resetForm();
     },
   });
@@ -70,6 +99,10 @@ const AddItems: FC = () => {
           <span></span>
         </button>
         <form className='add-item__form' onSubmit={formik.handleSubmit}>
+          {dataLoadingStatus && <LoadingStatus />}
+          {dataLoadingError !== null && (
+            <ErrorStatus dataLoadingError={dataLoadingError} />
+          )}
           <h2 className='add-item__form-title'>добавить в Базу Знаний:</h2>
           <label className='add-item__form-input-name-label' htmlFor='name'>
             <span>название продукта</span>
@@ -147,3 +180,19 @@ const AddItems: FC = () => {
 };
 
 export default AddItems;
+
+const LoadingStatus: FC = () => {
+  return (
+    <div className='add-item__loading-status'>
+      <img src={spinner} alt='spinner' />
+    </div>
+  );
+};
+
+interface IErrorStatusProps {
+  dataLoadingError: string;
+}
+
+const ErrorStatus: FC<IErrorStatusProps> = ({ dataLoadingError }) => {
+  return <div className='add-item__loading-status'>{dataLoadingError}</div>;
+};

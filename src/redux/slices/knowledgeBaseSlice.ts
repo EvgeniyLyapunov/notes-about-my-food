@@ -26,10 +26,12 @@ export const fetchData = createAsyncThunk<
   undefined,
   { rejectValue: string }
 >('knowledgeBase/fetchData', async (_, { rejectWithValue }) => {
-  const response = await fetch('server/getdata');
+  const response = await fetch('server/getGroceriesData.php');
 
   if (!response.ok) {
-    return rejectWithValue('Server error!');
+    return rejectWithValue(
+      `Server error! ${response.status}, ${response.type}`
+    );
   }
 
   const data = await response.json();
@@ -42,13 +44,16 @@ export const addItem = createAsyncThunk<
   string,
   { rejectValue: string }
 >('knowledgeBase/addItem', async (newItem, { rejectWithValue }) => {
-  const response = await fetch('server/additem', {
+  const response = await fetch('server/postGroceriesItem.php', {
     method: 'POST',
     headers: { 'Content-type': 'application/json' },
     body: newItem,
   });
+
   if (!response.ok) {
-    return rejectWithValue('Server error!');
+    return rejectWithValue(
+      `Server error!, ${response.status}, ${response.type}, ${response.statusText}`
+    );
   }
   return (await response.json()) as BaseItem;
 });
@@ -62,6 +67,12 @@ const knowledgeBaseSlice = createSlice({
     },
     setAddItemModalVisible: (state, action: PayloadAction<boolean>) => {
       state.isAddItemModalVisible = action.payload;
+    },
+    resetLoadingStatus: (state) => {
+      state.dataLoadingStatus = false;
+    },
+    resetErrorStatus: (state) => {
+      state.dataLoadingError = null;
     },
   },
   extraReducers: (builder) => {
@@ -79,6 +90,7 @@ const knowledgeBaseSlice = createSlice({
         state.dataLoadingError = null;
       })
       .addCase(addItem.fulfilled, (state, action) => {
+        state.dataLoadingStatus = false;
         state.baseItemsList.push(action.payload);
       })
       .addMatcher(isError, (state, action: PayloadAction<string>) => {
@@ -91,7 +103,12 @@ const knowledgeBaseSlice = createSlice({
 
 const { actions, reducer } = knowledgeBaseSlice;
 export default reducer;
-export const { setbaseItems, setAddItemModalVisible } = actions;
+export const {
+  setbaseItems,
+  setAddItemModalVisible,
+  resetErrorStatus,
+  resetLoadingStatus,
+} = actions;
 
 function isError(action: AnyAction) {
   return action.type.endsWith('rejected');
