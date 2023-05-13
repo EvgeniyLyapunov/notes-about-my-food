@@ -1,17 +1,25 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { FormikErrors, useFormik } from 'formik';
 import classNames from 'classnames';
 
+import { BaseItem } from '../../../../models/modelTypes';
 import { useAppSelector, useAppDispatch } from '../../../../hooks/reduxHooks';
+// import {
+//   setAddItemModalVisible,
+//   resetErrorStatus,
+//   resetLoadingStatus,
+//   addItem,
+// } from '../../../../redux/slices/knowledgeBaseSlice';
+
 import {
+  addItemLocal,
+  editItemLocal,
   setAddItemModalVisible,
-  resetErrorStatus,
-  resetLoadingStatus,
-  addItem,
-} from '../../../../redux/slices/knowledgeBaseSlice';
+  resetBaseItemforEdit,
+} from '../../../../redux/slices/localKnowledgeBaseSlise';
 
 import './add-item.scss';
-import spinner from '../../../../app/components/loading/spinner.gif';
+// import spinner from '../../../../app/components/loading/spinner.gif';
 
 interface IFormValues {
   userId: string;
@@ -39,23 +47,28 @@ const validate = (values: IFormValues) => {
   return errors;
 };
 
-const AddItems: FC = () => {
+const AddAndEditModal: FC = () => {
   const isAddItemModalVisible = useAppSelector(
-    (store) => store.knowledgeBaseSlice.isAddItemModalVisible
+    (store) => store.localKnowledgeBaseSlice.isAddItemModalVisible
   );
 
   const userId = useAppSelector((store) => store.globalSlice.userId);
 
-  const { dataLoadingStatus, dataLoadingError } = useAppSelector(
-    (store) => store.knowledgeBaseSlice
+  const editItemValues = useAppSelector(
+    (store) => store.localKnowledgeBaseSlice.baseItemforEdit
   );
+
+  // const { dataLoadingStatus, dataLoadingError } = useAppSelector(
+  //   (store) => store.knowledgeBaseSlice
+  // );
 
   const dispatch = useAppDispatch();
 
   const handleModalClose = (): void => {
+    dispatch(resetBaseItemforEdit());
     dispatch(setAddItemModalVisible(false));
-    dispatch(resetErrorStatus());
-    dispatch(resetLoadingStatus());
+    // dispatch(resetErrorStatus());
+    // dispatch(resetLoadingStatus());
     formik.resetForm();
   };
 
@@ -76,21 +89,26 @@ const AddItems: FC = () => {
     initialValues,
     validate,
     onSubmit: (values) => {
-      // async function q() {
-      //   const res = await fetch('server/postGroceriesItem.php', {
-      //     method: 'POST',
-      //     body: JSON.stringify(values),
-      //     headers: { 'Content-type': 'application/json' },
-      //   });
-      //   const data = await res.json();
-      //   console.log(data as IFormValues);
-      // }
-      // q();
-
-      dispatch(addItem(JSON.stringify(values)));
-      formik.resetForm();
+      if (editItemValues) {
+        const editedValues: BaseItem = { ...values, id: editItemValues.id };
+        dispatch(editItemLocal(editedValues));
+      } else {
+        dispatch(addItemLocal(values));
+      }
+      // dispatch(addItem(JSON.stringify(values)));
+      // сделать проверку куда диспатчить - создать или редактировать
+      handleModalClose();
     },
   });
+
+  useEffect(() => {
+    if (editItemValues) {
+      formik.setFieldValue('name', editItemValues.name);
+      formik.setFieldValue('calories', editItemValues.calories);
+      formik.setFieldValue('price', editItemValues.price);
+    }
+    // eslint-disable-next-line
+  }, [editItemValues]);
 
   return (
     <div className={addItemModalClasses}>
@@ -99,11 +117,15 @@ const AddItems: FC = () => {
           <span></span>
         </button>
         <form className='add-item__form' onSubmit={formik.handleSubmit}>
-          {dataLoadingStatus && <LoadingStatus />}
+          {/* {dataLoadingStatus && <LoadingStatus />}
           {dataLoadingError !== null && (
             <ErrorStatus dataLoadingError={dataLoadingError} />
-          )}
-          <h2 className='add-item__form-title'>добавить в Базу Знаний:</h2>
+          )} */}
+          <h2 className='add-item__form-title'>
+            {editItemValues
+              ? 'отредактировать данные'
+              : 'добавить в Базу Знаний:'}
+          </h2>
           <label className='add-item__form-input-name-label' htmlFor='name'>
             <span>название продукта</span>
             <input
@@ -179,20 +201,20 @@ const AddItems: FC = () => {
   );
 };
 
-export default AddItems;
+export default AddAndEditModal;
 
-const LoadingStatus: FC = () => {
-  return (
-    <div className='add-item__loading-status'>
-      <img src={spinner} alt='spinner' />
-    </div>
-  );
-};
+// const LoadingStatus: FC = () => {
+//   return (
+//     <div className='add-item__loading-status'>
+//       <img src={spinner} alt='spinner' />
+//     </div>
+//   );
+// };
 
-interface IErrorStatusProps {
-  dataLoadingError: string;
-}
+// interface IErrorStatusProps {
+//   dataLoadingError: string;
+// }
 
-const ErrorStatus: FC<IErrorStatusProps> = ({ dataLoadingError }) => {
-  return <div className='add-item__loading-status'>{dataLoadingError}</div>;
-};
+// const ErrorStatus: FC<IErrorStatusProps> = ({ dataLoadingError }) => {
+//   return <div className='add-item__loading-status'>{dataLoadingError}</div>;
+// };

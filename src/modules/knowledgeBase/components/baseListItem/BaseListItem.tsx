@@ -1,28 +1,61 @@
 import { FC } from 'react';
+import classNames from 'classnames';
 
-import { BaseItem } from '../../../../models/modelTypes';
+import { useAppDispatch } from '../../../../hooks/reduxHooks';
+import {
+  setEditItemModalVisible,
+  setBaseItemforEdit,
+} from '../../../../redux/slices/localKnowledgeBaseSlise';
 
 import './base-list-item.scss';
 
-const BaseListItem: FC<BaseItem> = ({ name, calories, price, id }) => {
+interface IBaseListItemProps {
+  id: number;
+  name: string;
+  calories: string | number;
+  price: string | number | undefined;
+  zebra: boolean;
+}
+
+const BaseListItem: FC<IBaseListItemProps> = ({
+  id,
+  name,
+  calories,
+  price,
+  zebra,
+}) => {
+  const dispatch = useAppDispatch();
+  const classesWithZebra = classNames({
+    'base-list-item': true,
+    'base-list-item_zebra': zebra,
+  });
+
+  const handleEditItem = () => {
+    dispatch(setBaseItemforEdit(id));
+    dispatch(setEditItemModalVisible());
+  };
+
   return (
-    <div className='base-list-item'>
+    <div className={classesWithZebra}>
       <div className='base-list-item__infos'>
-        <span className='base-list-item__field base-list-item__field-name'>
-          {name}
-        </span>
-        <span className='base-list-item__field base-list-item__field-calories'>
-          {calories}
-        </span>
-        {price !== 0 ? (
-          <span className='base-list-item__field base-list-item__field-price'>
-            {price}
-          </span>
-        ) : null}
+        <div className='base-list-item__name'>{name}</div>
+        <div className='base-list-item__numbers-block'>
+          <div className='base-list-item__numbers base-list-item__numbers_calories'>
+            {calories}
+          </div>
+          {price && +price !== 0 ? (
+            <div className='base-list-item__numbers base-list-item__numbers_price'>
+              {price}
+            </div>
+          ) : null}
+        </div>
       </div>
       <div className='base-list-item__btns'>
-        <span className='base-list-item__button base-list-item__edit'></span>
-        <span className='base-list-item__button base-list-item__delete'></span>
+        <span
+          className='base-list-item__button base-list-item__button_edit'
+          onClick={handleEditItem}
+        ></span>
+        <span className='base-list-item__button base-list-item__button_delete'></span>
       </div>
     </div>
   );

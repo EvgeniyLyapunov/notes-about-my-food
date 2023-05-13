@@ -1,10 +1,10 @@
-type BaseItem = {
+interface BaseItem {
   id?: number;
   userId?: string;
   name: string;
   calories: number;
   price?: number;
-};
+}
 
 type BaseSet = {
   [key: string]: BaseItem;

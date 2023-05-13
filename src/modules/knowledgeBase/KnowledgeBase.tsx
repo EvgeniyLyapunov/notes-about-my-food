@@ -9,7 +9,7 @@ import {
 } from '../../redux/slices/headerSlice';
 import Tabs from './components/tabs/Tabs';
 import ButtonsBlock from './components/buttonsBlock/ButtonsBlock';
-import AddItems from './components/addItems/addItems';
+import AddAndEditModal from './components/addAndEditModal/addAndEditModal';
 
 import './knowledge-base.scss';
 
@@ -31,7 +31,7 @@ const KnowledgeBase: FC = () => {
     <div className='knowledge-base'>
       <Tabs />
       <ButtonsBlock />
-      <AddItems />
+      <AddAndEditModal />
     </div>
   );
 };

@@ -55,7 +55,9 @@ export const addItem = createAsyncThunk<
       `Server error!, ${response.status}, ${response.type}, ${response.statusText}`
     );
   }
-  return (await response.json()) as BaseItem;
+  const result = await response.json();
+
+  return result.data as BaseItem;
 });
 
 const knowledgeBaseSlice = createSlice({
@@ -89,7 +91,7 @@ const knowledgeBaseSlice = createSlice({
         state.dataLoadingStatus = true;
         state.dataLoadingError = null;
       })
-      .addCase(addItem.fulfilled, (state, action) => {
+      .addCase(addItem.fulfilled, (state, action: PayloadAction<BaseItem>) => {
         state.dataLoadingStatus = false;
         state.baseItemsList.push(action.payload);
       })

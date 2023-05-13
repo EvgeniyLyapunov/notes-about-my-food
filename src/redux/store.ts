@@ -4,8 +4,15 @@ import headerSlice from './slices/headerSlice';
 import globalSlice from './slices/globalSlice';
 import knowledgeBaseSlice from './slices/knowledgeBaseSlice';
 
+import localKnowledgeBaseSlice from './slices/localKnowledgeBaseSlise';
+
 const store = configureStore({
-  reducer: { headerSlice, globalSlice, knowledgeBaseSlice },
+  reducer: {
+    headerSlice,
+    globalSlice,
+    knowledgeBaseSlice,
+    localKnowledgeBaseSlice,
+  },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
   devTools: process.env.NODE_ENV !== 'production',
 });
