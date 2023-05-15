@@ -42,7 +42,7 @@ const AppMenu: FC = () => {
     }
     setHideItem(appMenuListVisible);
     // eslint-disable-next-line
-  }, []);
+  }, [currentPage]);
 
   // console.log(hideItem);
 

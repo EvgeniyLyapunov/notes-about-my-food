@@ -15,7 +15,7 @@ import {
   addItemLocal,
   editItemLocal,
   setAddItemModalVisible,
-  resetBaseItemforEdit,
+  resetBaseItemForEdit,
 } from '../../../../redux/slices/localKnowledgeBaseSlise';
 
 import './add-item.scss';
@@ -55,7 +55,7 @@ const AddAndEditModal: FC = () => {
   const userId = useAppSelector((store) => store.globalSlice.userId);
 
   const editItemValues = useAppSelector(
-    (store) => store.localKnowledgeBaseSlice.baseItemforEdit
+    (store) => store.localKnowledgeBaseSlice.baseItemForEdit
   );
 
   // const { dataLoadingStatus, dataLoadingError } = useAppSelector(
@@ -65,7 +65,7 @@ const AddAndEditModal: FC = () => {
   const dispatch = useAppDispatch();
 
   const handleModalClose = (): void => {
-    dispatch(resetBaseItemforEdit());
+    dispatch(resetBaseItemForEdit());
     dispatch(setAddItemModalVisible(false));
     // dispatch(resetErrorStatus());
     // dispatch(resetLoadingStatus());

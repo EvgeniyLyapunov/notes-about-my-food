@@ -1,0 +1,109 @@
+.meal {
+  width: 96%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  background-color: #f2f2f2;
+  border-radius: 5px;
+  box-shadow: -4px -4px 8px #d9d9d9, 4px 4px 8px #fff;
+  &__header-block {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    margin-bottom: 15px;
+  }
+  &__name {
+    width: 70%;
+    font-size: 18px;
+  }
+  &__name-change-btn {
+    display: block;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    background: url('../../../../assets/icons/knowledgeBase/pencil-square-custom.svg')
+      center / contain no-repeat;
+  }
+  &__food-item-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+  }
+  &__food-item-add {
+    position: relative;
+    width: 100%;
+    height: 25px;
+    padding-right: 40px;
+    margin-bottom: 20px;
+    background: url('../../../../assets/icons/myDay/food-item-add.svg') right
+      center / 30px 30px no-repeat;
+    &::after {
+      position: absolute;
+      content: '';
+      bottom: 0;
+      left: 0;
+      width: calc(100% - 40px);
+      height: 1px;
+      background-color: #333;
+    }
+  }
+  &__res {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 20px;
+    margin-bottom: 20px;
+    &-label {
+      font-weight: 700;
+      font-size: 14px;
+      margin-right: 15px;
+    }
+    &-calories {
+      display: block;
+      min-width: 50px;
+      height: 20px;
+      padding-left: 22px;
+      margin-right: 15px;
+      background: url('../../../../assets/icons/knowledgeBase/yellow-energy-custom.svg')
+        left center / 16px 16px no-repeat;
+    }
+    &-price {
+      min-width: 50px;
+      height: 20px;
+      padding-left: 22px;
+      background: url('../../../../assets/icons/knowledgeBase/green-circle-dollar-custom.svg')
+        left center / 18px 18px no-repeat;
+    }
+  }
+  &__buttons-block {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &__btn {
+    width: 20%;
+    height: 25px;
+    background-color: transparent;
+    border: none;
+    &_delete {
+      background: url('../../../../assets/icons/myDay/meal-delete.svg') center /
+        25px 25px no-repeat;
+    }
+    &_clear {
+      background: url('../../../../assets/icons/myDay/eraser-clear.svg') center /
+        25px 20px no-repeat;
+    }
+    &_save {
+      background: url('../../../../assets/icons/myDay/save-custom.svg') center /
+        16px 16px no-repeat;
+    }
+    &_end {
+      background: url('../../../../assets/icons/myDay/end-custom.svg') center /
+        25px 18px no-repeat;
+    }
+  }
+}

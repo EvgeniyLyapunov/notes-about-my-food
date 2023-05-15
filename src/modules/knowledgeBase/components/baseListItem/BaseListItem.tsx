@@ -4,7 +4,9 @@ import classNames from 'classnames';
 import { useAppDispatch } from '../../../../hooks/reduxHooks';
 import {
   setEditItemModalVisible,
-  setBaseItemforEdit,
+  setBaseItemForEdit,
+  setBaseItemForDelete,
+  setConfirmForDeleteModalVisible,
 } from '../../../../redux/slices/localKnowledgeBaseSlise';
 
 import './base-list-item.scss';
@@ -31,8 +33,13 @@ const BaseListItem: FC<IBaseListItemProps> = ({
   });
 
   const handleEditItem = () => {
-    dispatch(setBaseItemforEdit(id));
+    dispatch(setBaseItemForEdit(id));
     dispatch(setEditItemModalVisible());
+  };
+
+  const handleDeleteItem = () => {
+    dispatch(setBaseItemForDelete(id));
+    dispatch(setConfirmForDeleteModalVisible(true));
   };
 
   return (
@@ -55,7 +62,10 @@ const BaseListItem: FC<IBaseListItemProps> = ({
           className='base-list-item__button base-list-item__button_edit'
           onClick={handleEditItem}
         ></span>
-        <span className='base-list-item__button base-list-item__button_delete'></span>
+        <span
+          className='base-list-item__button base-list-item__button_delete'
+          onClick={handleDeleteItem}
+        ></span>
       </div>
     </div>
   );

@@ -6,39 +6,49 @@ interface BaseItem {
   price?: number;
 }
 
-type BaseSet = {
-  [key: string]: BaseItem;
-};
-
-type BaseRecipe = {
-  foodSet: FoodSet;
-  description: string;
-};
-
-type FoodItem = BaseItem & {
-  weight: number;
-};
-
-type FoodSet = {
-  [key: string]: FoodItem;
-};
-
-type Meal = {
+interface IDataBaseItem {
+  id: number;
+  userId: string;
   name: string;
-  foodstuff: FoodSet[];
-};
+  calories: number;
+  price: number;
+}
 
-type CurrentDay = {
+// type BaseSet = {
+//   [key: string]: BaseItem;
+// };
+
+// type BaseRecipe = {
+//   foodSet: FoodSet;
+//   description: string;
+// };
+
+interface IFoodItem extends IDataBaseItem {
+  weight: number;
+}
+
+// type FoodSet = {
+//   [key: string]: FoodItem;
+// };
+
+interface IMeal {
+  name: string;
+  foodstuff: IFoodItem[];
+  totalCalories: number;
+  totalPrice?: number;
+}
+
+interface ICurrentDay {
   date: string;
-  meals: Meal[];
-};
+  meals: IMeal[];
+}
 
 export type {
   BaseItem,
-  BaseSet,
-  BaseRecipe,
-  FoodItem,
-  FoodSet,
-  Meal,
-  CurrentDay,
+  // BaseSet,
+  // BaseRecipe,
+  IFoodItem,
+  // FoodSet,
+  IMeal,
+  ICurrentDay,
 };

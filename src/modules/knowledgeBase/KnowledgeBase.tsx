@@ -1,7 +1,6 @@
 import { FC, useEffect } from 'react';
 
 import { useAppDispatch } from '../../hooks/reduxHooks';
-import { activeMenu } from '../../redux/slices/globalSlice';
 import {
   appBurgerMenuActive,
   changePageName,
@@ -10,6 +9,7 @@ import {
 import Tabs from './components/tabs/Tabs';
 import ButtonsBlock from './components/buttonsBlock/ButtonsBlock';
 import AddAndEditModal from './components/addAndEditModal/addAndEditModal';
+import ConfirmDeleteModal from './components/confirmDeleteModal/ConfirmDeleteModal';
 
 import './knowledge-base.scss';
 
@@ -18,9 +18,8 @@ const KnowledgeBase: FC = () => {
 
   useEffect(() => {
     dispatch(hidingActivePageLink('knowledgeBase'));
-    dispatch(activeMenu('appMenu'));
     dispatch(changePageName('База знаний'));
-
+    dispatch(appBurgerMenuActive(false));
     return () => {
       dispatch(appBurgerMenuActive(false));
     };
@@ -32,6 +31,7 @@ const KnowledgeBase: FC = () => {
       <Tabs />
       <ButtonsBlock />
       <AddAndEditModal />
+      <ConfirmDeleteModal />
     </div>
   );
 };
