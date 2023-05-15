@@ -5,7 +5,9 @@ import { IFoodItem, IMeal, ICurrentDay } from '../../models/modelTypes';
 interface IMyDay {
   currentDay: ICurrentDay;
   mealsList: IMeal[];
+  currentMeal: IMeal;
   foodItem: IFoodItem;
+  isChangeMealNameVisible: boolean;
 }
 
 const initialState: IMyDay = {
@@ -13,14 +15,13 @@ const initialState: IMyDay = {
     date: '',
     meals: [],
   },
-  mealsList: [
-    {
-      name: 'Приём пищи',
-      foodstuff: [],
-      totalCalories: 0,
-      totalPrice: 0,
-    },
-  ],
+  mealsList: [],
+  currentMeal: {
+    name: 'Приём пищи',
+    foodstuff: [],
+    totalCalories: 0,
+    totalPrice: 0,
+  },
   foodItem: {
     id: 0,
     userId: '',
@@ -29,14 +30,22 @@ const initialState: IMyDay = {
     price: 0,
     weight: 0,
   },
+  isChangeMealNameVisible: false,
 };
 
 const localMyDaySlice = createSlice({
   name: 'localMyDaySlice',
   initialState,
-  reducers: {},
+  reducers: {
+    setChangeMealNameVisible: (state, action: PayloadAction<boolean>) => {
+      state.isChangeMealNameVisible = action.payload;
+    },
+    setMealName: (state, action: PayloadAction<string>) => {
+      state.currentMeal.name = action.payload;
+    },
+  },
 });
 
 const { actions, reducer } = localMyDaySlice;
 export default reducer;
-export const {} = actions;
+export const { setChangeMealNameVisible, setMealName } = actions;

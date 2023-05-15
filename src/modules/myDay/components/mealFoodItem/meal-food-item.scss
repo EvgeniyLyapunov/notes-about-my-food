@@ -1,2 +1,28 @@
 .food-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  &__name {
+    display: flex;
+  }
+  &__nums-block {
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &__num {
+    width: 50%;
+    height: 20px;
+    padding-right: 25px;
+    &-weight {
+      background: url('../../../../assets/icons/myDay/scale-balanced-custom.svg')
+        right center / contain no-repeat;
+    }
+    &-calories {
+      background: url('../../../../assets/icons/knowledgeBase/energy-custom.svg')
+        right center / contain no-repeat;
+    }
+  }
 }

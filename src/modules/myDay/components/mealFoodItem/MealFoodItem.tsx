@@ -1,20 +1,24 @@
 import { FC } from 'react';
 
-import './meal-food-item';
+import { IFoodItem } from '../../../../models/modelTypes';
 
-const MealFoodItem: FC = () => {
+import './meal-food-item.scss';
+
+interface IFoodItemProps {
+  foodItem: IFoodItem;
+}
+
+const MealFoodItem: FC<IFoodItemProps> = (props) => {
+  const { name, weight, calories } = props.foodItem;
   return (
     <div className='food-item'>
-      <input
-        className='food-item__name'
-        type='text'
-        readOnly
-        name='name'
-        id='name'
-        placeholder='добавить продукт'
-      />
-      <span className='food-item__weight'></span>
-      <span className='food-item__calories'></span>
+      <span className='food-item__name'>{name}</span>
+      <div className='food-item__nums-block'>
+        <span className='food-item__num food-item__num-weight'>{weight}</span>
+        <span className='food-item__num food-item__num-calories'>
+          {calories}
+        </span>
+      </div>
     </div>
   );
 };
