@@ -1,7 +1,10 @@
 import { FC } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../../hooks/reduxHooks';
+import { useAppDispatch } from '../../../../hooks/reduxHooks';
 
-import { setChangeMealNameVisible } from '../../../../redux/slices/myDaySlice';
+import {
+  setChangeMealNameVisible,
+  setAddFoodItemVisible,
+} from '../../../../redux/slices/myDaySlice';
 import MealFoodItem from '../mealFoodItem/MealFoodItem';
 
 import { IMeal } from '../../../../models/modelTypes';
@@ -10,15 +13,18 @@ import './meal.scss';
 
 interface IMealProps {
   meal: IMeal;
+  current: boolean;
 }
 
 const Meal: FC<IMealProps> = (props) => {
   const dispatch = useAppDispatch();
-  // const currentMealName = useAppSelector(
-  //   (store) => store.localMyDaySlice.currentMeal.name
-  // );
-  const handleVisible = () => {
+
+  const handleChangeNameVisible = () => {
     dispatch(setChangeMealNameVisible(true));
+  };
+
+  const handleAddFoodItemVisible = () => {
+    dispatch(setAddFoodItemVisible(true));
   };
 
   const { name, foodstuff, totalCalories, totalPrice } = props.meal;
@@ -27,14 +33,24 @@ const Meal: FC<IMealProps> = (props) => {
     <div className='meal'>
       <div className='meal__header-block'>
         <div className='meal__name'>{name}</div>
-        <span className='meal__name-change-btn' onClick={handleVisible}></span>
+        {props.current ? (
+          <span
+            className='meal__name-change-btn'
+            onClick={handleChangeNameVisible}
+          ></span>
+        ) : null}
       </div>
       <ul className='meal__food-item-list'>
         {foodstuff.map((item, i) => {
           return item ? <MealFoodItem key={i} foodItem={item} /> : null;
         })}
       </ul>
-      <div className='meal__food-item-add'></div>
+      {props.current ? (
+        <div
+          className='meal__food-item-add'
+          onClick={handleAddFoodItemVisible}
+        ></div>
+      ) : null}
       <div className='meal__res'>
         <span className='meal__res-label'>Общие значения:</span>
         <span className='meal__res-calories'>{totalCalories}</span>

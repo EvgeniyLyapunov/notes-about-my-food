@@ -14,7 +14,13 @@ const MealsList: FC<IMealsListProps> = ({ mealsItems }) => {
   return (
     <div className='meals-list'>
       {mealsItems.map((item, i) => {
-        return <Meal key={i} meal={item} />;
+        return (
+          <Meal
+            key={i}
+            meal={item}
+            current={mealsItems.length - 1 === i ? true : false}
+          />
+        );
       })}
     </div>
   );

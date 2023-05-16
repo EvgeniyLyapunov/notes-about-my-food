@@ -1,0 +1,12 @@
+@mixin modalOverlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(242, 242, 242, 0.85);
+  z-index: 10;
+}

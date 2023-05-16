@@ -68,7 +68,7 @@ const ChangeMealNameModal: FC = () => {
       <form className='change-meal-name__form' onSubmit={formik.handleSubmit}>
         <h3 className='change-meal-name__form-title'>Название приёма пищи:</h3>
         <div className='change-meal-name__form-inputs-block'>
-          <label className='change-meal-name__form-label'>
+          <label className='change-meal-name__form-label' htmlFor='name'>
             <input
               className='change-meal-name__form-input'
               type='text'
@@ -78,6 +78,11 @@ const ChangeMealNameModal: FC = () => {
               onBlur={formik.handleBlur}
               value={formik.values.name || ''}
             />
+            {formik.touched.name && formik.errors.name ? (
+              <div className='change-meal-name__form-error'>
+                {formik.errors.name}
+              </div>
+            ) : null}
           </label>
           <div className='change-meal-name__form-buttons-block'>
             <button
