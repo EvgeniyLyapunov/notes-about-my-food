@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { useAppDispatch } from '../../../../hooks/reduxHooks';
+import { useAppDispatch, useAppSelector } from '../../../../hooks/reduxHooks';
 
 import {
   setChangeMealNameVisible,
@@ -27,6 +27,8 @@ const Meal: FC<IMealProps> = (props) => {
     dispatch(setAddFoodItemVisible(true));
   };
 
+  const mealList = useAppSelector((state) => state.localMyDaySlice.mealsList);
+
   const { name, foodstuff, totalCalories, totalPrice } = props.meal;
 
   return (
@@ -42,7 +44,10 @@ const Meal: FC<IMealProps> = (props) => {
       </div>
       <ul className='meal__food-item-list'>
         {foodstuff.map((item, i) => {
-          return item ? <MealFoodItem key={i} foodItem={item} /> : null;
+          const zebra = i % 2 === 0 ? true : false;
+          return item ? (
+            <MealFoodItem key={i} foodItem={item} zebra={zebra} />
+          ) : null;
         })}
       </ul>
       {props.current ? (
@@ -57,7 +62,11 @@ const Meal: FC<IMealProps> = (props) => {
         <span className='meal__res-price'>{totalPrice}</span>
       </div>
       <div className='meal__buttons-block'>
-        <button className='meal__btn meal__btn_delete'></button>
+        {mealList.length > 1 ? (
+          <button className='meal__btn meal__btn_delete'></button>
+        ) : (
+          <button className='meal__btn meal__btn_empty'></button>
+        )}
         <button className='meal__btn meal__btn_clear'></button>
         <button className='meal__btn meal__btn_save'></button>
         <button className='meal__btn meal__btn_end'></button>

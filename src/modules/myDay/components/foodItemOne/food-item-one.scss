@@ -1,2 +1,39 @@
 .food-item-one {
+  width: 100%;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  &_zebra {
+    background-color: #dadada;
+    border-radius: 4px;
+  }
+  &__name {
+    display: block;
+    width: 60%;
+    height: 18px;
+    font-size: 14px;
+    line-height: 18px;
+  }
+  &__nums {
+    width: 37%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &__num {
+    display: block;
+    width: 45%;
+    height: 18px;
+    padding-left: 22px;
+    font-size: 14px;
+    &-calories {
+      background: url('../../../../assets/icons/knowledgeBase/yellow-energy-custom.svg')
+        left center / 13px 13px no-repeat;
+    }
+    &-price {
+      background: url('../../../../assets/icons/knowledgeBase/green-circle-dollar-custom.svg')
+        left center / 13px 13px no-repeat;
+    }
+  }
 }

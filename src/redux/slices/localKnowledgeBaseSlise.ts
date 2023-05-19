@@ -6,16 +6,20 @@ interface KnowledgeBase {
   baseItemsList: BaseItem[];
   isAddItemModalVisible: boolean;
   isConfirmDeleteVisible: boolean;
+  isCalcPriceVisible: boolean;
   baseItemForEdit?: BaseItem;
   baseItemForDelete?: number;
+  baseItemCalcPrice: number;
 }
 
 const initialState: KnowledgeBase = {
   baseItemsList: [],
   isAddItemModalVisible: false,
   isConfirmDeleteVisible: false,
+  isCalcPriceVisible: false,
   baseItemForEdit: undefined,
   baseItemForDelete: undefined,
+  baseItemCalcPrice: 0,
 };
 
 const localKnowledgeBaseSlice = createSlice({
@@ -73,6 +77,16 @@ const localKnowledgeBaseSlice = createSlice({
     ) => {
       state.isConfirmDeleteVisible = action.payload;
     },
+    // установка флага для открытия окна калькулятора стоимости 100 грамм продукта
+    setCalcPriceVisible: (state, action: PayloadAction<boolean>) => {
+      state.isCalcPriceVisible = action.payload;
+    },
+    setCalcResult: (state, action: PayloadAction<number>) => {
+      state.baseItemCalcPrice = action.payload;
+    },
+    resetCalcResult: (state) => {
+      state.baseItemCalcPrice = 0;
+    },
   },
 });
 
@@ -89,4 +103,7 @@ export const {
   setConfirmForDeleteModalVisible,
   resetBaseItemForDelete,
   deleteItemLocal,
+  setCalcPriceVisible,
+  setCalcResult,
+  resetCalcResult,
 } = actions;

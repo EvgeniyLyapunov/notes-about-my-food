@@ -4,6 +4,7 @@ import classNames from 'classnames';
 
 import { BaseItem } from '../../../../models/modelTypes';
 import { useAppSelector, useAppDispatch } from '../../../../hooks/reduxHooks';
+
 // import {
 //   setAddItemModalVisible,
 //   resetErrorStatus,
@@ -15,7 +16,9 @@ import {
   addItemLocal,
   editItemLocal,
   setAddItemModalVisible,
+  setCalcPriceVisible,
   resetBaseItemForEdit,
+  resetCalcResult,
 } from '../../../../redux/slices/localKnowledgeBaseSlise';
 
 import './add-item.scss';
@@ -58,6 +61,10 @@ const AddAndEditModal: FC = () => {
     (store) => store.localKnowledgeBaseSlice.baseItemForEdit
   );
 
+  const calcPrice = useAppSelector(
+    (store) => store.localKnowledgeBaseSlice.baseItemCalcPrice
+  );
+
   // const { dataLoadingStatus, dataLoadingError } = useAppSelector(
   //   (store) => store.knowledgeBaseSlice
   // );
@@ -70,6 +77,10 @@ const AddAndEditModal: FC = () => {
     // dispatch(resetErrorStatus());
     // dispatch(resetLoadingStatus());
     formik.resetForm();
+  };
+
+  const handleCalcVisible = () => {
+    dispatch(setCalcPriceVisible(true));
   };
 
   const addItemModalClasses = classNames({
@@ -97,6 +108,7 @@ const AddAndEditModal: FC = () => {
       }
       // dispatch(addItem(JSON.stringify(values)));
       // сделать проверку куда диспатчить - создать или редактировать
+      dispatch(resetCalcResult());
       handleModalClose();
     },
   });
@@ -109,6 +121,10 @@ const AddAndEditModal: FC = () => {
     }
     // eslint-disable-next-line
   }, [editItemValues]);
+
+  useEffect(() => {
+    formik.setFieldValue('price', calcPrice);
+  }, [calcPrice]);
 
   return (
     <div className={addItemModalClasses}>
@@ -123,8 +139,8 @@ const AddAndEditModal: FC = () => {
           )} */}
           <h2 className='add-item__form-title'>
             {editItemValues
-              ? 'отредактировать данные'
-              : 'добавить в Базу Знаний:'}
+              ? 'Отредактировать данные'
+              : 'Добавить в Базу Знаний:'}
           </h2>
           <label className='add-item__form-input-name-label' htmlFor='name'>
             <span>название продукта</span>
@@ -164,15 +180,21 @@ const AddAndEditModal: FC = () => {
             </label>
             <label className='add-item__form-input-group-label' htmlFor='price'>
               <span>цена / 100гр</span>
-              <input
-                className='add-item__form-input-group-item'
-                id='price'
-                type='number'
-                name='price'
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.price || ''}
-              />
+              <div className='add-item__form-input-calc-group'>
+                <input
+                  className='add-item__form-input-group-item add-item__form-input-group-item-calc'
+                  id='price'
+                  type='number'
+                  name='price'
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.price || ''}
+                />
+                <span
+                  className='add-item__form-input-calc-btn'
+                  onClick={handleCalcVisible}
+                ></span>
+              </div>
               {formik.touched.price && formik.errors.price ? (
                 <div className='add-item__form-error'>
                   {formik.errors.price}

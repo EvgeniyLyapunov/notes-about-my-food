@@ -6,9 +6,12 @@ import { useAppSelector, useAppDispatch } from '../../../../hooks/reduxHooks';
 import {
   setAddFoodItemVisible,
   setSelectFoodItemVisible,
+  setTotalCalories,
+  setTotalPrice,
   addToFoodStuff,
   resetCurrenFoodItem,
 } from '../../../../redux/slices/myDaySlice';
+import { caloriesCalc, priceCalc } from '../../../../utils/calc';
 
 import './add-food-item-modal.scss';
 
@@ -63,8 +66,25 @@ const AddFoodItemModal: FC = () => {
     initialValues,
     validate,
     onSubmit: (values) => {
-      dispatch(addToFoodStuff(JSON.parse(JSON.stringify(selectedFoodItem))));
+      // расчёт калорий веса выбранного продукта
+      const foodWeightCalories = caloriesCalc(
+        selectedFoodItem.calories,
+        values.weight
+      );
+      // расчёт цены веса выбранного продукта
+      const foodWeightPrice = priceCalc(selectedFoodItem.price, values.weight);
+      // формирование продукта со значениями для заданного веса для записи в лист текущего приёма пищи
+      const foodItem = {
+        ...selectedFoodItem,
+        price: foodWeightPrice,
+        calories: foodWeightCalories,
+        weight: values.weight,
+      };
+      dispatch(addToFoodStuff(JSON.parse(JSON.stringify(foodItem))));
+      dispatch(setTotalCalories(foodItem.calories));
+      dispatch(setTotalPrice(foodItem.price));
       dispatch(resetCurrenFoodItem());
+      dispatch(setAddFoodItemVisible(false));
       formik.resetForm();
     },
   });
@@ -87,8 +107,6 @@ const AddFoodItemModal: FC = () => {
                 id='name'
                 name='name'
                 readOnly
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
                 value={formik.values.name || ''}
               />
               {formik.touched.name && formik.errors.name ? (

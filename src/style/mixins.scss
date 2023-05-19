@@ -10,3 +10,50 @@
   background-color: rgba(242, 242, 242, 0.85);
   z-index: 10;
 }
+
+@mixin modalWindow {
+  position: relative;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  background-color: #f2f2f2;
+  border-radius: 5px;
+  box-shadow: -4px -4px 8px #d9d9d9, 4px 4px 8px #fff;
+}
+
+@mixin modalInput {
+  border: none;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  box-shadow: -2px -2px 7px #d9d9d9, 2px 2px 7px #fff;
+  &:focus {
+    outline: none;
+    box-shadow: inset -2px -2px 5px #d9d9d9, inset 2px 2px 5px #fff;
+  }
+}
+
+@mixin modalButton {
+  border-radius: 5px;
+  border: none;
+  background-color: #f2f2f2;
+  box-shadow: -2px -2px 7px #d9d9d9, 2px 2px 7px #fff;
+  cursor: pointer;
+  &:active {
+    box-shadow: inset -2px -2px 5px #d9d9d9, inset 2px 2px 5px #fff;
+  }
+  &:focus {
+    outline: none;
+  }
+}
+
+@mixin modalIconButton {
+  border-radius: 5px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  &:focus {
+    outline: none;
+  }
+}

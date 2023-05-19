@@ -1,3 +1,4 @@
+@import '../../../../style/variables.scss';
 @import '../../../../style/mixins.scss';
 
 .select-food-item {
@@ -21,5 +22,23 @@
     margin-bottom: 25px;
     font-weight: 400;
     font-size: 16px;
+  }
+  &__list {
+  }
+  &__empty {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    &-text {
+      font-size: 14px;
+      color: $error-message;
+    }
+    &-cansel {
+      width: 25px;
+      height: 25px;
+      background: url('../../../../assets/icons/myDay/arrow-cancel.svg') center /
+        cover no-repeat;
+    }
   }
 }

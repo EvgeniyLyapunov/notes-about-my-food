@@ -10,6 +10,7 @@ import Tabs from './components/tabs/Tabs';
 import ButtonsBlock from './components/buttonsBlock/ButtonsBlock';
 import AddAndEditModal from './components/addAndEditModal/addAndEditModal';
 import ConfirmDeleteModal from './components/confirmDeleteModal/ConfirmDeleteModal';
+import CalcPriceModal from './components/calcPriceModal/CalcPriceModal';
 
 import './knowledge-base.scss';
 
@@ -32,6 +33,7 @@ const KnowledgeBase: FC = () => {
       <ButtonsBlock />
       <AddAndEditModal />
       <ConfirmDeleteModal />
+      <CalcPriceModal />
     </div>
   );
 };

@@ -1,6 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { IFoodItem, IMeal, ICurrentDay } from '../../models/modelTypes';
+import {
+  BaseItem,
+  IFoodItem,
+  IMeal,
+  ICurrentDay,
+} from '../../models/modelTypes';
 
 interface IMyDay {
   currentDay: ICurrentDay;
@@ -53,6 +58,24 @@ const localMyDaySlice = createSlice({
     setMealName: (state, action: PayloadAction<string>) => {
       state.currentMeal.name = action.payload;
     },
+    setSelectedItemOne: (state, action: PayloadAction<BaseItem>) => {
+      state.foodItem = {
+        id: action.payload.id as number,
+        userId: action.payload.userId as string,
+        name: action.payload.name,
+        calories: action.payload.calories,
+        price: action.payload.price as number,
+        weight: 0,
+      };
+    },
+    setTotalCalories: (state, action: PayloadAction<number>) => {
+      state.currentMeal.totalCalories =
+        state.currentMeal.totalCalories + action.payload;
+    },
+    setTotalPrice: (state, action: PayloadAction<number>) => {
+      state.currentMeal.totalPrice =
+        (state.currentMeal.totalPrice as number) + action.payload;
+    },
     addToFoodStuff: (state, action: PayloadAction<IFoodItem>) => {
       state.currentMeal.foodstuff = [
         ...state.currentMeal.foodstuff,
@@ -78,6 +101,9 @@ export const {
   setChangeMealNameVisible,
   setAddFoodItemVisible,
   setSelectFoodItemVisible,
+  setSelectedItemOne,
+  setTotalCalories,
+  setTotalPrice,
   setMealName,
   addToFoodStuff,
   resetCurrenFoodItem,
