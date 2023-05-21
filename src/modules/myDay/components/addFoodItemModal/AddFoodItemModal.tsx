@@ -10,6 +10,9 @@ import {
   setTotalPrice,
   addToFoodStuff,
   resetCurrenFoodItem,
+  clearMealFoodstuffItem,
+  setTotalPriceMinus,
+  setTotalCaloriesMinus,
 } from '../../../../redux/slices/myDaySlice';
 import { caloriesCalc, priceCalc } from '../../../../utils/calc';
 
@@ -39,6 +42,9 @@ const AddFoodItemModal: FC = () => {
   );
   const selectedFoodItem = useAppSelector(
     (store) => store.localMyDaySlice.foodItem
+  );
+  const foodstuffList = useAppSelector(
+    (state) => state.localMyDaySlice.currentMeal.foodstuff
   );
 
   const modalClasses = classNames({
@@ -80,6 +86,17 @@ const AddFoodItemModal: FC = () => {
         calories: foodWeightCalories,
         weight: values.weight,
       };
+
+      // проверяем, есть ли уже такой продукт в списке, и если да, то получаем его
+      const checkedItem = foodstuffList.find((item) => item.id === foodItem.id);
+      // если добавляемый продукт уже был в списке, вычитаем значение его полей из общего значения этих полей
+      // и удаляем его из списка
+      if (checkedItem) {
+        dispatch(setTotalCaloriesMinus(checkedItem.calories));
+        dispatch(setTotalPriceMinus(checkedItem.price));
+        dispatch(clearMealFoodstuffItem(checkedItem.id));
+      }
+
       dispatch(addToFoodStuff(JSON.parse(JSON.stringify(foodItem))));
       dispatch(setTotalCalories(foodItem.calories));
       dispatch(setTotalPrice(foodItem.price));

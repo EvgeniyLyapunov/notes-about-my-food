@@ -3,6 +3,8 @@ import { FC } from 'react';
 import { BaseItem } from '../../../../models/modelTypes';
 import BaseListItem from '../baseListItem/BaseListItem';
 
+import { sortList } from '../../../../utils/sortList';
+
 import './base-list.scss';
 
 interface IBaseListProps {
@@ -14,18 +16,8 @@ const BaseList: FC<IBaseListProps> = (props) => {
 
   let listForSort = [...items];
 
-  if (listForSort && listForSort.length > 2) {
-    listForSort.sort((a, b) => {
-      const nameA = a.name.toUpperCase();
-      const nameB = b.name.toUpperCase();
-      if (nameA < nameB) {
-        return -1;
-      }
-      if (nameA > nameB) {
-        return 1;
-      }
-      return 0;
-    });
+  if (listForSort && listForSort.length > 1) {
+    sortList(listForSort);
     items = listForSort;
   }
 

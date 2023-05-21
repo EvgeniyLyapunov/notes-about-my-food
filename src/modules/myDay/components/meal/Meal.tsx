@@ -1,24 +1,44 @@
 import { FC } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../../hooks/reduxHooks';
+import classNames from 'classnames';
 
 import {
   setChangeMealNameVisible,
   setAddFoodItemVisible,
+  setClearActiveMode,
+  addToMealList,
+  resetCurrentMeal,
+  deleteNexEmptyCurrentMeal,
 } from '../../../../redux/slices/myDaySlice';
 import MealFoodItem from '../mealFoodItem/MealFoodItem';
 
 import { IMeal } from '../../../../models/modelTypes';
 
+import { sortList } from '../../../../utils/sortList';
+
 import './meal.scss';
 
 interface IMealProps {
   meal: IMeal;
-  current: boolean;
 }
 
 const Meal: FC<IMealProps> = (props) => {
   const dispatch = useAppDispatch();
+  const mealList = useAppSelector((state) => state.localMyDaySlice.mealsList);
+  const isViewMode = useAppSelector(
+    (state) => state.localMyDaySlice.isViewMode
+  );
 
+  const { name, foodstuff, totalCalories, totalPrice } = props.meal;
+
+  let listForSort = [...foodstuff];
+  if (listForSort.length > 1) {
+    sortList(listForSort);
+  }
+
+  const isClearModeActive = useAppSelector(
+    (state) => state.localMyDaySlice.isClearModeActive
+  );
   const handleChangeNameVisible = () => {
     dispatch(setChangeMealNameVisible(true));
   };
@@ -27,15 +47,36 @@ const Meal: FC<IMealProps> = (props) => {
     dispatch(setAddFoodItemVisible(true));
   };
 
-  const mealList = useAppSelector((state) => state.localMyDaySlice.mealsList);
+  const handleClearActive = () => {
+    if (isClearModeActive) {
+      dispatch(setClearActiveMode(false));
+    } else {
+      dispatch(setClearActiveMode(true));
+    }
+  };
 
-  const { name, foodstuff, totalCalories, totalPrice } = props.meal;
+  const handleEndMeal = () => {
+    if (foodstuff.length > 0) {
+      dispatch(addToMealList(JSON.parse(JSON.stringify(props.meal))));
+      dispatch(resetCurrentMeal());
+    }
+  };
+
+  const handleDeleteMeal = () => {
+    dispatch(deleteNexEmptyCurrentMeal());
+  };
+
+  const clearClasses = classNames({
+    meal__btn: true,
+    'meal__btn-clear': true,
+    'meal__btn-clear_active': isClearModeActive,
+  });
 
   return (
     <div className='meal'>
       <div className='meal__header-block'>
         <div className='meal__name'>{name}</div>
-        {props.current ? (
+        {!isViewMode ? (
           <span
             className='meal__name-change-btn'
             onClick={handleChangeNameVisible}
@@ -43,14 +84,14 @@ const Meal: FC<IMealProps> = (props) => {
         ) : null}
       </div>
       <ul className='meal__food-item-list'>
-        {foodstuff.map((item, i) => {
+        {listForSort.map((item, i) => {
           const zebra = i % 2 === 0 ? true : false;
           return item ? (
             <MealFoodItem key={i} foodItem={item} zebra={zebra} />
           ) : null;
         })}
       </ul>
-      {props.current ? (
+      {!isViewMode ? (
         <div
           className='meal__food-item-add'
           onClick={handleAddFoodItemVisible}
@@ -61,16 +102,23 @@ const Meal: FC<IMealProps> = (props) => {
         <span className='meal__res-calories'>{totalCalories}</span>
         <span className='meal__res-price'>{totalPrice}</span>
       </div>
-      <div className='meal__buttons-block'>
-        {mealList.length > 1 ? (
-          <button className='meal__btn meal__btn_delete'></button>
-        ) : (
-          <button className='meal__btn meal__btn_empty'></button>
-        )}
-        <button className='meal__btn meal__btn_clear'></button>
-        <button className='meal__btn meal__btn_save'></button>
-        <button className='meal__btn meal__btn_end'></button>
-      </div>
+      {!isViewMode ? (
+        <div className='meal__buttons-block'>
+          {mealList.length > 0 && !isViewMode ? (
+            <button
+              className='meal__btn meal__btn-delete'
+              onClick={handleDeleteMeal}
+            ></button>
+          ) : (
+            <button className='meal__btn meal__btn_empty'></button>
+          )}
+          <button className={clearClasses} onClick={handleClearActive}></button>
+          <button
+            className='meal__btn meal__btn-end'
+            onClick={handleEndMeal}
+          ></button>
+        </div>
+      ) : null}
     </div>
   );
 };

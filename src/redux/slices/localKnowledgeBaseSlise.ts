@@ -81,9 +81,11 @@ const localKnowledgeBaseSlice = createSlice({
     setCalcPriceVisible: (state, action: PayloadAction<boolean>) => {
       state.isCalcPriceVisible = action.payload;
     },
+    // промежуточное сохранение результата вычисления цены за 100 грамм продукта
     setCalcResult: (state, action: PayloadAction<number>) => {
       state.baseItemCalcPrice = action.payload;
     },
+    // сброс промежуточного результата вычисления цены за 100 грамм продукта
     resetCalcResult: (state) => {
       state.baseItemCalcPrice = 0;
     },

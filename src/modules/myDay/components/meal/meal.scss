@@ -1,8 +1,10 @@
 .meal {
   width: 96%;
   padding: 10px;
+  margin-bottom: 15px;
   display: flex;
   flex-direction: column;
+  align-items: flex-end;
   background-color: #f2f2f2;
   border-radius: 5px;
   box-shadow: -4px -4px 8px #d9d9d9, 4px 4px 8px #fff;
@@ -83,7 +85,7 @@
     }
   }
   &__buttons-block {
-    width: 100%;
+    width: 75%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -93,22 +95,25 @@
     height: 25px;
     background-color: transparent;
     border: none;
+    transition: 0.5s all ease-in-out;
     &_empty {
       background: none;
     }
-    &_delete {
+    &-delete {
       background: url('../../../../assets/icons/myDay/meal-delete.svg') center /
         25px 25px no-repeat;
     }
-    &_clear {
+    &-clear {
       background: url('../../../../assets/icons/myDay/eraser-clear.svg') center /
         25px 20px no-repeat;
+      &_active {
+        background: url('../../../../assets/icons/myDay/eraser-clear.svg')
+          center / 30px 25px no-repeat;
+        filter: drop-shadow(2px 2px 8px #ffed66)
+          drop-shadow(-2px -2px 8px #ffed66);
+      }
     }
-    &_save {
-      background: url('../../../../assets/icons/myDay/save-custom.svg') center /
-        16px 16px no-repeat;
-    }
-    &_end {
+    &-end {
       background: url('../../../../assets/icons/myDay/end-custom.svg') center /
         25px 18px no-repeat;
     }

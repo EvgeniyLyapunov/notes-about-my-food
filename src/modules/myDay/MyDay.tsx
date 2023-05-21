@@ -25,6 +25,9 @@ const MyDay: FC = () => {
   const dbFoodItemsList = useAppSelector(
     (state) => state.localKnowledgeBaseSlice.baseItemsList
   );
+  const isViewMode = useAppSelector(
+    (store) => store.localMyDaySlice.isViewMode
+  );
 
   useEffect(() => {
     dispatch(hidingActivePageLink('myday'));
@@ -38,7 +41,7 @@ const MyDay: FC = () => {
 
   return (
     <div className='my-day'>
-      <MealsList mealsItems={[...mealsList, currentMeal]} />
+      <MealsList mealsItems={isViewMode ? mealsList : [currentMeal]} />
       <ButtonsBlock />
       <ChangeMealNameModal />
       <AddFoodItemModal />
