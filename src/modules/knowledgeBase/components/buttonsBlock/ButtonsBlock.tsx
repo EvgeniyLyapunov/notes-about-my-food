@@ -1,8 +1,7 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../../../hooks/reduxHooks';
-// import { setAddItemModalVisible } from '../../../../redux/slices/knowledgeBaseSlice';
-import { setAddItemModalVisible } from '../../../../redux/slices/localKnowledgeBaseSlise';
+import { setAddItemModalVisible } from '../../../../redux/slices/knowledgeBaseViewSlice';
 
 import './buttons-block.scss';
 

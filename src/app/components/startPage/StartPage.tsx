@@ -16,7 +16,7 @@ const StartPage: FC = () => {
     dispatch(changePageName('startScreen'));
     dispatch(appBurgerMenuActive(false));
     // eslint-disable-next-line
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className='start-page'>

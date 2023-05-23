@@ -5,24 +5,18 @@ import classNames from 'classnames';
 import { BaseItem } from '../../../../models/modelTypes';
 import { useAppSelector, useAppDispatch } from '../../../../hooks/reduxHooks';
 
-// import {
-//   setAddItemModalVisible,
-//   resetErrorStatus,
-//   resetLoadingStatus,
-//   addItem,
-// } from '../../../../redux/slices/knowledgeBaseSlice';
-
+import {
+  setAddItemModalVisible,
+  setCalcPriceVisible,
+} from '../../../../redux/slices/knowledgeBaseViewSlice';
 import {
   addItemLocal,
   editItemLocal,
-  setAddItemModalVisible,
-  setCalcPriceVisible,
   resetBaseItemForEdit,
   resetCalcResult,
 } from '../../../../redux/slices/localKnowledgeBaseSlise';
 
 import './add-item.scss';
-// import spinner from '../../../../app/components/loading/spinner.gif';
 
 interface IFormValues {
   userId: string;
@@ -52,7 +46,7 @@ const validate = (values: IFormValues) => {
 
 const AddAndEditModal: FC = () => {
   const isAddItemModalVisible = useAppSelector(
-    (store) => store.localKnowledgeBaseSlice.isAddItemModalVisible
+    (store) => store.knowledgeBaseViewSlice.isAddItemModalVisible
   );
 
   const userId = useAppSelector((store) => store.globalSlice.userId);
@@ -65,17 +59,11 @@ const AddAndEditModal: FC = () => {
     (store) => store.localKnowledgeBaseSlice.baseItemCalcPrice
   );
 
-  // const { dataLoadingStatus, dataLoadingError } = useAppSelector(
-  //   (store) => store.knowledgeBaseSlice
-  // );
-
   const dispatch = useAppDispatch();
 
   const handleModalClose = (): void => {
     dispatch(resetBaseItemForEdit());
     dispatch(setAddItemModalVisible(false));
-    // dispatch(resetErrorStatus());
-    // dispatch(resetLoadingStatus());
     formik.resetForm();
   };
 
@@ -106,8 +94,6 @@ const AddAndEditModal: FC = () => {
       } else {
         dispatch(addItemLocal(values));
       }
-      // dispatch(addItem(JSON.stringify(values)));
-      // сделать проверку куда диспатчить - создать или редактировать
       dispatch(resetCalcResult());
       handleModalClose();
     },

@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { useAppSelector, useAppDispatch } from '../../../../hooks/reduxHooks';
 import classNames from 'classnames';
+import { setConfirmForDeleteModalVisible } from '../../../../redux/slices/knowledgeBaseViewSlice';
 import {
-  setConfirmForDeleteModalVisible,
   resetBaseItemForDelete,
   deleteItemLocal,
 } from '../../../../redux/slices/localKnowledgeBaseSlise';
@@ -11,7 +11,7 @@ import './confirm-delete.scss';
 
 const ConfirmDeleteModal: FC = () => {
   const isVisible = useAppSelector(
-    (store) => store.localKnowledgeBaseSlice.isConfirmDeleteVisible
+    (store) => store.knowledgeBaseViewSlice.isConfirmDeleteVisible
   );
 
   const dispatch = useAppDispatch();

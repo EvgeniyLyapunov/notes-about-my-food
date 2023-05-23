@@ -3,10 +3,8 @@ import classNames from 'classnames';
 import { FormikErrors, useFormik } from 'formik';
 
 import { useAppDispatch, useAppSelector } from '../../../../hooks/reduxHooks';
-import {
-  setCalcPriceVisible,
-  setCalcResult,
-} from '../../../../redux/slices/localKnowledgeBaseSlise';
+import { setCalcPriceVisible } from '../../../../redux/slices/knowledgeBaseViewSlice';
+import { setCalcResult } from '../../../../redux/slices/localKnowledgeBaseSlise';
 import { basePriceCalc } from '../../../../utils/calc';
 
 import './calc-price-modal.scss';
@@ -33,7 +31,7 @@ const validate = (values: IFormValues) => {
 const CalcPriceModal: FC = () => {
   const dispatch = useAppDispatch();
   const modalVisible = useAppSelector(
-    (state) => state.localKnowledgeBaseSlice.isCalcPriceVisible
+    (state) => state.knowledgeBaseViewSlice.isCalcPriceVisible
   );
 
   const handleCansel = () => {

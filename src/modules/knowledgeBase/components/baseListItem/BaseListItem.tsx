@@ -4,9 +4,11 @@ import classNames from 'classnames';
 import { useAppDispatch } from '../../../../hooks/reduxHooks';
 import {
   setEditItemModalVisible,
+  setConfirmForDeleteModalVisible,
+} from '../../../../redux/slices/knowledgeBaseViewSlice';
+import {
   setBaseItemForEdit,
   setBaseItemForDelete,
-  setConfirmForDeleteModalVisible,
 } from '../../../../redux/slices/localKnowledgeBaseSlise';
 
 import './base-list-item.scss';

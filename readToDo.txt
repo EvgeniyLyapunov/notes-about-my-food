@@ -61,6 +61,8 @@ Header всегда сверху. На главном экране бургер 
 
 *knoledgeBase -> local -> knoledgeBase*
 
+Поправить тип возвращаемого значения в файле browserStorage - убрать BaseItem  из юнионтипа
+
 AddAndEditModal.tsx 
 Tabs.tsx 
 BaseList.tsx -> поменять источник id

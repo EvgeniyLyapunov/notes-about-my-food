@@ -4,9 +4,6 @@ import { BaseItem } from '../../models/modelTypes';
 
 interface KnowledgeBase {
   baseItemsList: BaseItem[];
-  isAddItemModalVisible: boolean;
-  isConfirmDeleteVisible: boolean;
-  isCalcPriceVisible: boolean;
   baseItemForEdit?: BaseItem;
   baseItemForDelete?: number;
   baseItemCalcPrice: number;
@@ -14,9 +11,6 @@ interface KnowledgeBase {
 
 const initialState: KnowledgeBase = {
   baseItemsList: [],
-  isAddItemModalVisible: false,
-  isConfirmDeleteVisible: false,
-  isCalcPriceVisible: false,
   baseItemForEdit: undefined,
   baseItemForDelete: undefined,
   baseItemCalcPrice: 0,
@@ -26,6 +20,10 @@ const localKnowledgeBaseSlice = createSlice({
   name: 'localKnowledgeBaseSlice',
   initialState,
   reducers: {
+    // инициализация baseItemsList из localStorage
+    setListFromStorage: (state, action: PayloadAction<BaseItem[]>) => {
+      state.baseItemsList = action.payload;
+    },
     // добавление новой записи
     addItemLocal: (state, action: PayloadAction<BaseItem>) => {
       action.payload.id = state.baseItemsList.length + 1;
@@ -62,25 +60,6 @@ const localKnowledgeBaseSlice = createSlice({
     resetBaseItemForDelete: (state) => {
       state.baseItemForDelete = undefined;
     },
-    // установка флага для открытия окна редактирования в режиме создания нового объекта
-    setAddItemModalVisible: (state, action: PayloadAction<boolean>) => {
-      state.isAddItemModalVisible = action.payload;
-    },
-    // установка флага для открытия окна редактирования в режиме редактирования выбранного объекта
-    setEditItemModalVisible: (state) => {
-      state.isAddItemModalVisible = true;
-    },
-    // установка флага для показа окна подтверждения удаления записи из Базы Знания
-    setConfirmForDeleteModalVisible: (
-      state,
-      action: PayloadAction<boolean>
-    ) => {
-      state.isConfirmDeleteVisible = action.payload;
-    },
-    // установка флага для открытия окна калькулятора стоимости 100 грамм продукта
-    setCalcPriceVisible: (state, action: PayloadAction<boolean>) => {
-      state.isCalcPriceVisible = action.payload;
-    },
     // промежуточное сохранение результата вычисления цены за 100 грамм продукта
     setCalcResult: (state, action: PayloadAction<number>) => {
       state.baseItemCalcPrice = action.payload;
@@ -95,17 +74,14 @@ const localKnowledgeBaseSlice = createSlice({
 const { actions, reducer } = localKnowledgeBaseSlice;
 export default reducer;
 export const {
+  setListFromStorage,
   addItemLocal,
-  setAddItemModalVisible,
   editItemLocal,
-  setEditItemModalVisible,
   setBaseItemForEdit,
   resetBaseItemForEdit,
   setBaseItemForDelete,
-  setConfirmForDeleteModalVisible,
   resetBaseItemForDelete,
   deleteItemLocal,
-  setCalcPriceVisible,
   setCalcResult,
   resetCalcResult,
 } = actions;
