@@ -1,17 +1,16 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { IDataBaseItem } from '../../models/modelTypes';
 
-export const postNewKnowledgeBaseItem = createAsyncThunk<
-  IDataBaseItem,
+export const deleteKnowledgeBaseItem = createAsyncThunk<
+  number,
   string,
   { rejectValue: string }
 >(
-  'knowledgeBaseData/postNewKnowledgeBaseItem',
-  async (newItem, { rejectWithValue }) => {
-    const response = await fetch('server/postNewGroceriesItem.php', {
+  'knowledgeBaseData/deleteKnowledgeBaseItem',
+  async (deleteItemId, { rejectWithValue }) => {
+    const response = await fetch('server/deleteGroceriesItem.php', {
       method: 'POST',
       headers: { 'Content-type': 'application/json' },
-      body: newItem,
+      body: deleteItemId,
     });
 
     if (!response.ok) {
@@ -21,6 +20,6 @@ export const postNewKnowledgeBaseItem = createAsyncThunk<
     }
     const result = await response.json();
 
-    return result.data as IDataBaseItem;
+    return result.data as number;
   }
 );

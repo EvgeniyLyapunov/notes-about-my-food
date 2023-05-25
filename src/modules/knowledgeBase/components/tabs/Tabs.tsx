@@ -4,8 +4,6 @@ import classNames from 'classnames';
 import { useAppSelector } from '../../../../hooks/reduxHooks';
 import BaseList from '../baseList/BaseList';
 
-// import { BaseItem } from '../../../../models/modelTypes';
-
 import './tabs.scss';
 
 type ActiveTabs = {
@@ -15,12 +13,8 @@ type ActiveTabs = {
 };
 
 const Tabs: FC = () => {
-  // const foodItems = useAppSelector(
-  //   (state) => state.knowledgeBaseSlice.baseItemsList
-  // );
-
   const foodItems = useAppSelector(
-    (state) => state.localKnowledgeBaseSlice.baseItemsList
+    (state) => state.knowledgeBaseDataSlice.baseItemsList
   );
 
   const activeTabsList: ActiveTabs = { food: true, set: false, recipe: false };

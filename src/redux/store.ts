@@ -2,19 +2,17 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import headerSlice from './slices/headerSlice';
 import globalSlice from './slices/globalSlice';
-import knowledgeBaseSlice from './slices/knowledgeBaseDataSlice';
 import knowledgeBaseViewSlice from './slices/knowledgeBaseViewSlice';
+import knowledgeBaseDataSlice from './slices/knowledgeBaseDataSlice';
 
-import localKnowledgeBaseSlice from './slices/localKnowledgeBaseSlise';
 import localMyDaySlice from './slices/myDaySlice';
 
 const store = configureStore({
   reducer: {
     headerSlice,
     globalSlice,
-    knowledgeBaseSlice,
     knowledgeBaseViewSlice,
-    localKnowledgeBaseSlice,
+    knowledgeBaseDataSlice,
     localMyDaySlice,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),

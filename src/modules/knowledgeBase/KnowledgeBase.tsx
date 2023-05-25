@@ -8,7 +8,7 @@ import {
 } from '../../redux/slices/headerSlice';
 import Tabs from './components/tabs/Tabs';
 import ButtonsBlock from './components/buttonsBlock/ButtonsBlock';
-import AddAndEditModal from './components/addAndEditModal/addAndEditModal';
+import CreateAndEditModal from './components/createAndEditModal/CreateAndEditModal';
 import ConfirmDeleteModal from './components/confirmDeleteModal/ConfirmDeleteModal';
 import CalcPriceModal from './components/calcPriceModal/CalcPriceModal';
 
@@ -31,7 +31,7 @@ const KnowledgeBase: FC = () => {
     <div className='knowledge-base'>
       <Tabs />
       <ButtonsBlock />
-      <AddAndEditModal />
+      <CreateAndEditModal />
       <ConfirmDeleteModal />
       <CalcPriceModal />
     </div>

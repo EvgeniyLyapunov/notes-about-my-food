@@ -1,11 +1,8 @@
-import { IDataBaseItem, BaseItem } from '../models/modelTypes';
+import { IDataBaseItem } from '../models/modelTypes';
 
 const KBKEY = 'knowledgeBase';
 
-export function knowledgeBaseLoadState():
-  | IDataBaseItem[]
-  | BaseItem
-  | undefined {
+export function knowledgeBaseLoadState(): IDataBaseItem[] | undefined {
   try {
     const serializedState = localStorage.getItem(KBKEY);
     if (!serializedState) return undefined;

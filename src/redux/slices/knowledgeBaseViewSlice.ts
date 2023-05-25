@@ -17,7 +17,7 @@ const knowledgeBaseViewSlice = createSlice({
   initialState,
   reducers: {
     // установка флага для открытия окна редактирования в режиме создания нового объекта
-    setAddItemModalVisible: (state, action: PayloadAction<boolean>) => {
+    setCreateItemModalVisible: (state, action: PayloadAction<boolean>) => {
       state.isAddItemModalVisible = action.payload;
     },
     // установка флага для открытия окна редактирования в режиме редактирования выбранного объекта
@@ -41,7 +41,7 @@ const knowledgeBaseViewSlice = createSlice({
 const { actions, reducer } = knowledgeBaseViewSlice;
 export default reducer;
 export const {
-  setAddItemModalVisible,
+  setCreateItemModalVisible,
   setEditItemModalVisible,
   setConfirmForDeleteModalVisible,
   setCalcPriceVisible,

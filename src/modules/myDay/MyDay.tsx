@@ -23,7 +23,7 @@ const MyDay: FC = () => {
     (store) => store.localMyDaySlice.currentMeal
   );
   const dbFoodItemsList = useAppSelector(
-    (state) => state.localKnowledgeBaseSlice.baseItemsList
+    (state) => state.knowledgeBaseDataSlice.baseItemsList
   );
   const isViewMode = useAppSelector(
     (store) => store.localMyDaySlice.isViewMode

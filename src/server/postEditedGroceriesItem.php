@@ -10,11 +10,11 @@
   $userId = mysqli_real_escape_string($connection, $_POST["userId"]);
   $price = mysqli_real_escape_string($connection, $_POST["price"]);
 
-  $queryUpdate = "UPDATE `groceries` `name`= '$name',`calories`= '$calories',`price`= '$price',`userid`= '$userId' WHERE `id` = '$id'";
+  $queryUpdate = "UPDATE `groceries` SET `name`= '$name',`calories`= '$calories',`price`= '$price',`userid`= '$userId' WHERE `id` = '$id'";
 
   $result = mysqli_query($connection, $queryUpdate);
 
-  $querySelectLast = "SELECT * FROM `groceries` WHERE `id` = $id";
+  $querySelectLast = "SELECT * FROM `groceries` WHERE `id` = '$id'";
   $resData = mysqli_query($connection, $querySelectLast);
 
   $data = array();

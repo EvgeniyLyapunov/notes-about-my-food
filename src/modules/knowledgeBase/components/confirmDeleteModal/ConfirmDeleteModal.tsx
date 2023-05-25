@@ -2,16 +2,19 @@ import { FC } from 'react';
 import { useAppSelector, useAppDispatch } from '../../../../hooks/reduxHooks';
 import classNames from 'classnames';
 import { setConfirmForDeleteModalVisible } from '../../../../redux/slices/knowledgeBaseViewSlice';
-import {
-  resetBaseItemForDelete,
-  deleteItemLocal,
-} from '../../../../redux/slices/localKnowledgeBaseSlise';
+
+import { resetBaseItemIdForDelete } from '../../../../redux/slices/knowledgeBaseDataSlice';
+import { deleteKnowledgeBaseItem } from '../../../../redux/asyncThunks/deleteKnowledgeBaseItem';
 
 import './confirm-delete.scss';
 
 const ConfirmDeleteModal: FC = () => {
   const isVisible = useAppSelector(
     (store) => store.knowledgeBaseViewSlice.isConfirmDeleteVisible
+  );
+
+  const deleteItemId = useAppSelector(
+    (store) => store.knowledgeBaseDataSlice.baseItemIdForDelete
   );
 
   const dispatch = useAppDispatch();
@@ -23,13 +26,15 @@ const ConfirmDeleteModal: FC = () => {
 
   const handleCancel = () => {
     dispatch(setConfirmForDeleteModalVisible(false));
-    dispatch(resetBaseItemForDelete());
+    dispatch(resetBaseItemIdForDelete());
   };
 
   const handleDelete = () => {
-    dispatch(deleteItemLocal());
+    dispatch(
+      deleteKnowledgeBaseItem(JSON.stringify({ id: deleteItemId as number }))
+    );
     dispatch(setConfirmForDeleteModalVisible(false));
-    dispatch(resetBaseItemForDelete());
+    dispatch(resetBaseItemIdForDelete());
   };
 
   return (

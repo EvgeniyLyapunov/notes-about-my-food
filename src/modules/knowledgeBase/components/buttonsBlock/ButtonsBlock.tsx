@@ -1,15 +1,15 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../../../hooks/reduxHooks';
-import { setAddItemModalVisible } from '../../../../redux/slices/knowledgeBaseViewSlice';
+import { setCreateItemModalVisible } from '../../../../redux/slices/knowledgeBaseViewSlice';
 
 import './buttons-block.scss';
 
 const ButtonsBlock: FC = () => {
   const dispatch = useAppDispatch();
 
-  const handleAddItem = (): void => {
-    dispatch(setAddItemModalVisible(true));
+  const handleCreateItem = (): void => {
+    dispatch(setCreateItemModalVisible(true));
   };
 
   return (
@@ -17,7 +17,7 @@ const ButtonsBlock: FC = () => {
       <Link className='buttons-block__btn' to={'/'}>
         Назад
       </Link>
-      <button className='buttons-block__btn' onClick={handleAddItem}>
+      <button className='buttons-block__btn' onClick={handleCreateItem}>
         Добавить
       </button>
     </div>

@@ -4,7 +4,7 @@ import { FormikErrors, useFormik } from 'formik';
 
 import { useAppDispatch, useAppSelector } from '../../../../hooks/reduxHooks';
 import { setCalcPriceVisible } from '../../../../redux/slices/knowledgeBaseViewSlice';
-import { setCalcResult } from '../../../../redux/slices/localKnowledgeBaseSlise';
+import { setCalcResult } from '../../../../redux/slices/knowledgeBaseDataSlice';
 import { basePriceCalc } from '../../../../utils/calc';
 
 import './calc-price-modal.scss';

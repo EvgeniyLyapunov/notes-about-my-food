@@ -8,8 +8,8 @@ import {
 } from '../../../../redux/slices/knowledgeBaseViewSlice';
 import {
   setBaseItemForEdit,
-  setBaseItemForDelete,
-} from '../../../../redux/slices/localKnowledgeBaseSlise';
+  setBaseItemIdForDelete,
+} from '../../../../redux/slices/knowledgeBaseDataSlice';
 
 import './base-list-item.scss';
 
@@ -40,7 +40,7 @@ const BaseListItem: FC<IBaseListItemProps> = ({
   };
 
   const handleDeleteItem = () => {
-    dispatch(setBaseItemForDelete(id));
+    dispatch(setBaseItemIdForDelete(id));
     dispatch(setConfirmForDeleteModalVisible(true));
   };
 

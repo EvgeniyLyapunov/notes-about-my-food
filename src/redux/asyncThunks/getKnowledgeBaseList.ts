@@ -3,18 +3,21 @@ import { IDataBaseItem } from '../../models/modelTypes';
 
 export const getKnowledgeBaseList = createAsyncThunk<
   IDataBaseItem[],
-  undefined,
+  string,
   { rejectValue: string }
->('knowledgeBaseData/getKnowledgeBaseList', async (_, { rejectWithValue }) => {
-  const response = await fetch('server/getGroceriesData.php');
-
-  if (!response.ok) {
-    return rejectWithValue(
-      `Server error! ${response.status}, ${response.type}`
+>(
+  'knowledgeBaseData/getKnowledgeBaseList',
+  async (userId, { rejectWithValue }) => {
+    const response = await fetch(
+      `server/getGroceriesData.php?userId=${userId}`
     );
+
+    if (!response.ok) {
+      return rejectWithValue(
+        `Server error! ${response.status}, ${response.type}`
+      );
+    }
+    const data = await response.json();
+    return data.data as IDataBaseItem[];
   }
-
-  const data = await response.json();
-
-  return data;
-});
+);

@@ -2,19 +2,20 @@ import { FC, useEffect } from 'react';
 import { FormikErrors, useFormik } from 'formik';
 import classNames from 'classnames';
 
-import { BaseItem } from '../../../../models/modelTypes';
+import { IDataBaseItem } from '../../../../models/modelTypes';
 import { useAppSelector, useAppDispatch } from '../../../../hooks/reduxHooks';
 
 import {
-  setAddItemModalVisible,
+  setCreateItemModalVisible,
   setCalcPriceVisible,
 } from '../../../../redux/slices/knowledgeBaseViewSlice';
+
 import {
-  addItemLocal,
-  editItemLocal,
   resetBaseItemForEdit,
   resetCalcResult,
-} from '../../../../redux/slices/localKnowledgeBaseSlise';
+} from '../../../../redux/slices/knowledgeBaseDataSlice';
+import { postEditedKnowledgeBaseItem } from '../../../../redux/asyncThunks/postEditedKnowledgeBaseItem';
+import { postNewKnowledgeBaseItem } from '../../../../redux/asyncThunks/postNewKnowledgeBaseItem';
 
 import './add-item.scss';
 
@@ -22,7 +23,7 @@ interface IFormValues {
   userId: string;
   name: string;
   calories: number;
-  price?: number;
+  price: number;
 }
 
 const validate = (values: IFormValues) => {
@@ -44,7 +45,7 @@ const validate = (values: IFormValues) => {
   return errors;
 };
 
-const AddAndEditModal: FC = () => {
+const CreateAndEditModal: FC = () => {
   const isAddItemModalVisible = useAppSelector(
     (store) => store.knowledgeBaseViewSlice.isAddItemModalVisible
   );
@@ -52,18 +53,18 @@ const AddAndEditModal: FC = () => {
   const userId = useAppSelector((store) => store.globalSlice.userId);
 
   const editItemValues = useAppSelector(
-    (store) => store.localKnowledgeBaseSlice.baseItemForEdit
+    (store) => store.knowledgeBaseDataSlice.baseItemForEdit
   );
 
   const calcPrice = useAppSelector(
-    (store) => store.localKnowledgeBaseSlice.baseItemCalcPrice
+    (store) => store.knowledgeBaseDataSlice.baseItemCalcPrice
   );
 
   const dispatch = useAppDispatch();
 
   const handleModalClose = (): void => {
     dispatch(resetBaseItemForEdit());
-    dispatch(setAddItemModalVisible(false));
+    dispatch(setCreateItemModalVisible(false));
     formik.resetForm();
   };
 
@@ -89,10 +90,13 @@ const AddAndEditModal: FC = () => {
     validate,
     onSubmit: (values) => {
       if (editItemValues) {
-        const editedValues: BaseItem = { ...values, id: editItemValues.id };
-        dispatch(editItemLocal(editedValues));
+        const editedValues: IDataBaseItem = {
+          ...values,
+          id: editItemValues.id,
+        };
+        dispatch(postEditedKnowledgeBaseItem(JSON.stringify(editedValues)));
       } else {
-        dispatch(addItemLocal(values));
+        dispatch(postNewKnowledgeBaseItem(JSON.stringify(values)));
       }
       dispatch(resetCalcResult());
       handleModalClose();
@@ -209,7 +213,7 @@ const AddAndEditModal: FC = () => {
   );
 };
 
-export default AddAndEditModal;
+export default CreateAndEditModal;
 
 // const LoadingStatus: FC = () => {
 //   return (
