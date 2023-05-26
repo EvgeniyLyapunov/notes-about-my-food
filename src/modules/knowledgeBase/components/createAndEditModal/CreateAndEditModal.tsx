@@ -109,7 +109,6 @@ const CreateAndEditModal: FC = () => {
       formik.setFieldValue('calories', editItemValues.calories);
       formik.setFieldValue('price', editItemValues.price);
     }
-    // eslint-disable-next-line
   }, [editItemValues]);
 
   useEffect(() => {

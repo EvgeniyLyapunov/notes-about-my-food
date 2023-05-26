@@ -7,19 +7,14 @@ import {
   ICurrentDay,
 } from '../../models/modelTypes';
 
-interface IMyDay {
+interface IMyDayData {
   currentDay: ICurrentDay;
   mealsList: IMeal[];
   currentMeal: IMeal;
   foodItem: IFoodItem;
-  isChangeMealNameVisible: boolean;
-  isAddFoodItemVisible: boolean;
-  isSelectFoodItemVisible: boolean;
-  isClearModeActive: boolean;
-  isViewMode: boolean;
 }
 
-const initialState: IMyDay = {
+const initialState: IMyDayData = {
   currentDay: {
     date: '',
     meals: [],
@@ -39,29 +34,12 @@ const initialState: IMyDay = {
     price: 0,
     weight: 0,
   },
-  isChangeMealNameVisible: false,
-  isAddFoodItemVisible: false,
-  isSelectFoodItemVisible: false,
-  isClearModeActive: false,
-  isViewMode: false,
 };
 
-const localMyDaySlice = createSlice({
-  name: 'localMyDaySlice',
+const myDayDataSlice = createSlice({
+  name: 'myDayDataSlice',
   initialState,
   reducers: {
-    // устанавливает флаг видимости для окна изменения названия приёма пищи
-    setChangeMealNameVisible: (state, action: PayloadAction<boolean>) => {
-      state.isChangeMealNameVisible = action.payload;
-    },
-    // устанавливает флаг видимости для окна добавления продукта в лист приёма пищи
-    setAddFoodItemVisible: (state, action: PayloadAction<boolean>) => {
-      state.isAddFoodItemVisible = action.payload;
-    },
-    // устанавливает флаг видимости для окна списка продуктов из базы знания
-    setSelectFoodItemVisible: (state, action: PayloadAction<boolean>) => {
-      state.isSelectFoodItemVisible = action.payload;
-    },
     // сохраняет изменения названия приёма пищи
     setMealName: (state, action: PayloadAction<string>) => {
       state.currentMeal.name = action.payload;
@@ -133,40 +111,28 @@ const localMyDaySlice = createSlice({
         totalPrice: 0,
       };
     },
-    // установка флага активности режима удаление продуктов из списка приёма пищи
-    setClearActiveMode: (state, action: PayloadAction<boolean>) => {
-      state.isClearModeActive = action.payload;
-    },
     // удаление продукта из спика приёма пищи
     clearMealFoodstuffItem: (state, action: PayloadAction<number>) => {
       state.currentMeal.foodstuff = state.currentMeal.foodstuff.filter(
         (item) => item.id !== action.payload
       );
     },
-    setViewMode: (state) => {
-      state.isViewMode = !state.isViewMode;
-    },
   },
 });
 
-const { actions, reducer } = localMyDaySlice;
+const { actions, reducer } = myDayDataSlice;
 export default reducer;
 export const {
-  setChangeMealNameVisible,
-  setAddFoodItemVisible,
-  setSelectFoodItemVisible,
+  setMealName,
   setSelectedItemOne,
   setTotalCalories,
   setTotalCaloriesMinus,
   setTotalPrice,
   setTotalPriceMinus,
-  setMealName,
   addToFoodStuff,
   resetCurrenFoodItem,
   addToMealList,
-  resetCurrentMeal,
-  setClearActiveMode,
-  clearMealFoodstuffItem,
   deleteNexEmptyCurrentMeal,
-  setViewMode,
+  resetCurrentMeal,
+  clearMealFoodstuffItem,
 } = actions;

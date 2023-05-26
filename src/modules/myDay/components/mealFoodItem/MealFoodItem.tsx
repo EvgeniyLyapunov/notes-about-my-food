@@ -5,10 +5,11 @@ import { useAppDispatch, useAppSelector } from '../../../../hooks/reduxHooks';
 import { IFoodItem } from '../../../../models/modelTypes';
 import {
   clearMealFoodstuffItem,
-  setClearActiveMode,
   setTotalCaloriesMinus,
   setTotalPriceMinus,
-} from '../../../../redux/slices/myDaySlice';
+} from '../../../../redux/slices/myDayDataSlice';
+
+import { setClearActiveMode } from '../../../../redux/slices/myDayViewSlice';
 
 import './meal-food-item.scss';
 
@@ -20,7 +21,7 @@ interface IFoodItemProps {
 const MealFoodItem: FC<IFoodItemProps> = (props) => {
   const dispatch = useAppDispatch();
   const isClearModeActive = useAppSelector(
-    (state) => state.localMyDaySlice.isClearModeActive
+    (state) => state.myDayViewSlice.isClearModeActive
   );
   const handleClearItem = (id: number): void => {
     if (isClearModeActive) {

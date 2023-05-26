@@ -3,13 +3,17 @@ import { useAppDispatch, useAppSelector } from '../../../../hooks/reduxHooks';
 import classNames from 'classnames';
 
 import {
-  setChangeMealNameVisible,
-  setAddFoodItemVisible,
-  setClearActiveMode,
   addToMealList,
   resetCurrentMeal,
   deleteNexEmptyCurrentMeal,
-} from '../../../../redux/slices/myDaySlice';
+} from '../../../../redux/slices/myDayDataSlice';
+
+import {
+  setChangeMealNameVisible,
+  setAddFoodItemVisible,
+  setClearActiveMode,
+} from '../../../../redux/slices/myDayViewSlice';
+
 import MealFoodItem from '../mealFoodItem/MealFoodItem';
 
 import { IMeal } from '../../../../models/modelTypes';
@@ -24,10 +28,8 @@ interface IMealProps {
 
 const Meal: FC<IMealProps> = (props) => {
   const dispatch = useAppDispatch();
-  const mealList = useAppSelector((state) => state.localMyDaySlice.mealsList);
-  const isViewMode = useAppSelector(
-    (state) => state.localMyDaySlice.isViewMode
-  );
+  const mealList = useAppSelector((state) => state.myDayDataSlice.mealsList);
+  const isViewMode = useAppSelector((state) => state.myDayViewSlice.isViewMode);
 
   const { name, foodstuff, totalCalories, totalPrice } = props.meal;
 
@@ -37,7 +39,7 @@ const Meal: FC<IMealProps> = (props) => {
   }
 
   const isClearModeActive = useAppSelector(
-    (state) => state.localMyDaySlice.isClearModeActive
+    (state) => state.myDayViewSlice.isClearModeActive
   );
   const handleChangeNameVisible = () => {
     dispatch(setChangeMealNameVisible(true));

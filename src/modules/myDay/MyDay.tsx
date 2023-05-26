@@ -18,16 +18,14 @@ import './my-day.scss';
 
 const MyDay: FC = () => {
   const dispatch = useAppDispatch();
-  const mealsList = useAppSelector((store) => store.localMyDaySlice.mealsList);
+  const mealsList = useAppSelector((store) => store.myDayDataSlice.mealsList);
   const currentMeal = useAppSelector(
-    (store) => store.localMyDaySlice.currentMeal
+    (store) => store.myDayDataSlice.currentMeal
   );
   const dbFoodItemsList = useAppSelector(
     (state) => state.knowledgeBaseDataSlice.baseItemsList
   );
-  const isViewMode = useAppSelector(
-    (store) => store.localMyDaySlice.isViewMode
-  );
+  const isViewMode = useAppSelector((store) => store.myDayViewSlice.isViewMode);
 
   useEffect(() => {
     dispatch(hidingActivePageLink('myday'));

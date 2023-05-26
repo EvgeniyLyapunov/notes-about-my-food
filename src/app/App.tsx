@@ -9,7 +9,10 @@ import { useAppDispatch, useAppSelector } from '../hooks/reduxHooks';
 import { setListFromStorage } from '../redux/slices/knowledgeBaseDataSlice';
 import { getKnowledgeBaseList } from '../redux/asyncThunks/getKnowledgeBaseList';
 
-import { knowledgeBaseLoadState } from '../utils/browserStorage';
+import {
+  knowledgeBaseLoadState,
+  myDayLoadState,
+} from '../utils/browserStorage';
 
 import './app.scss';
 
@@ -22,6 +25,16 @@ const App: FC = () => {
       dispatch(setListFromStorage(localData as IDataBaseItem[]));
     } else {
       dispatch(getKnowledgeBaseList(user as string));
+    }
+
+    const localMyDay = myDayLoadState();
+    if (localMyDay && localMyDay.date !== new Date().toLocaleDateString()) {
+      // загрузка в БД и удаление из ЛокалСторедж
+    } else if (
+      localMyDay &&
+      localMyDay.date === new Date().toLocaleDateString()
+    ) {
+      // инициализация store
     }
   }, [dispatch]);
   return (

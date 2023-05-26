@@ -1,24 +1,23 @@
 import { FC } from 'react';
 import classNames from 'classnames';
 import { useAppDispatch } from '../../../../hooks/reduxHooks';
-import {
-  setSelectedItemOne,
-  setSelectFoodItemVisible,
-} from '../../../../redux/slices/myDaySlice';
+import { setSelectedItemOne } from '../../../../redux/slices/myDayDataSlice';
 
-import { BaseItem } from '../../../../models/modelTypes';
+import { setSelectFoodItemVisible } from '../../../../redux/slices/myDayViewSlice';
+
+import { IDataBaseItem } from '../../../../models/modelTypes';
 
 import './food-item-one.scss';
 
 interface IFoodItemOneProps {
-  itemOne: BaseItem;
+  itemOne: IDataBaseItem;
   zebra: boolean;
 }
 
 const FoodItemOne: FC<IFoodItemOneProps> = (props) => {
   const { name, calories, price } = props.itemOne;
   const dispatch = useAppDispatch();
-  const handleSelectThis = (item: BaseItem) => {
+  const handleSelectThis = (item: IDataBaseItem) => {
     dispatch(setSelectedItemOne(item));
     dispatch(setSelectFoodItemVisible(false));
   };

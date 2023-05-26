@@ -4,8 +4,8 @@ import headerSlice from './slices/headerSlice';
 import globalSlice from './slices/globalSlice';
 import knowledgeBaseViewSlice from './slices/knowledgeBaseViewSlice';
 import knowledgeBaseDataSlice from './slices/knowledgeBaseDataSlice';
-
-import localMyDaySlice from './slices/myDaySlice';
+import myDayViewSlice from './slices/myDayViewSlice';
+import myDayDataSlice from './slices/myDayDataSlice';
 
 const store = configureStore({
   reducer: {
@@ -13,7 +13,8 @@ const store = configureStore({
     globalSlice,
     knowledgeBaseViewSlice,
     knowledgeBaseDataSlice,
-    localMyDaySlice,
+    myDayViewSlice,
+    myDayDataSlice,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
   devTools: process.env.NODE_ENV !== 'production',

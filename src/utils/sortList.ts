@@ -1,6 +1,6 @@
-import { BaseItem, IFoodItem } from '../models/modelTypes';
+import { BaseItem, IFoodItem, IDataBaseItem } from '../models/modelTypes';
 
-const sortList = (list: BaseItem[] | IFoodItem[]): void => {
+const sortList = (list: BaseItem[] | IFoodItem[] | IDataBaseItem[]): void => {
   list.sort((a, b) => {
     const nameA = a.name.toUpperCase();
     const nameB = b.name.toUpperCase();

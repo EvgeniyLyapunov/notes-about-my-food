@@ -4,8 +4,6 @@ import classNames from 'classnames';
 import { useAppSelector, useAppDispatch } from '../../../../hooks/reduxHooks';
 
 import {
-  setAddFoodItemVisible,
-  setSelectFoodItemVisible,
   setTotalCalories,
   setTotalPrice,
   addToFoodStuff,
@@ -13,7 +11,13 @@ import {
   clearMealFoodstuffItem,
   setTotalPriceMinus,
   setTotalCaloriesMinus,
-} from '../../../../redux/slices/myDaySlice';
+} from '../../../../redux/slices/myDayDataSlice';
+
+import {
+  setAddFoodItemVisible,
+  setSelectFoodItemVisible,
+} from '../../../../redux/slices/myDayViewSlice';
+
 import { caloriesCalc, priceCalc } from '../../../../utils/calc';
 
 import './add-food-item-modal.scss';
@@ -38,13 +42,13 @@ const validate = (values: IFormValues) => {
 const AddFoodItemModal: FC = () => {
   const dispatch = useAppDispatch();
   const isModalVisible = useAppSelector(
-    (store) => store.localMyDaySlice.isAddFoodItemVisible
+    (store) => store.myDayViewSlice.isAddFoodItemVisible
   );
   const selectedFoodItem = useAppSelector(
-    (store) => store.localMyDaySlice.foodItem
+    (store) => store.myDayDataSlice.foodItem
   );
   const foodstuffList = useAppSelector(
-    (state) => state.localMyDaySlice.currentMeal.foodstuff
+    (state) => state.myDayDataSlice.currentMeal.foodstuff
   );
 
   const modalClasses = classNames({

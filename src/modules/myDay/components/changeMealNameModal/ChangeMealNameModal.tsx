@@ -2,10 +2,9 @@ import { FC, useEffect } from 'react';
 import { FormikErrors, useFormik } from 'formik';
 import classNames from 'classnames';
 import { useAppSelector, useAppDispatch } from '../../../../hooks/reduxHooks';
-import {
-  setChangeMealNameVisible,
-  setMealName,
-} from '../../../../redux/slices/myDaySlice';
+import { setMealName } from '../../../../redux/slices/myDayDataSlice';
+
+import { setChangeMealNameVisible } from '../../../../redux/slices/myDayViewSlice';
 
 import './change-meal-name-modal.scss';
 
@@ -25,10 +24,10 @@ const validate = (values: IFormValues) => {
 
 const ChangeMealNameModal: FC = () => {
   const isModalVisible = useAppSelector(
-    (store) => store.localMyDaySlice.isChangeMealNameVisible
+    (store) => store.myDayViewSlice.isChangeMealNameVisible
   );
   const currentMeal = useAppSelector(
-    (store) => store.localMyDaySlice.currentMeal
+    (store) => store.myDayDataSlice.currentMeal
   );
   const dispatch = useAppDispatch();
 

@@ -3,33 +3,25 @@ import { useAppSelector, useAppDispatch } from '../../../../hooks/reduxHooks';
 import classNames from 'classnames';
 
 import FoodItemOne from '../foodItemOne/FoodItemOne';
-import { setSelectFoodItemVisible } from '../../../../redux/slices/myDaySlice';
-import { BaseItem } from '../../../../models/modelTypes';
+import { setSelectFoodItemVisible } from '../../../../redux/slices/myDayViewSlice';
+import { IDataBaseItem } from '../../../../models/modelTypes';
+
+import { sortList } from '../../../../utils/sortList';
 
 import './select-food-item-modal.scss';
 
 interface IFoodItemListProps {
-  list: BaseItem[];
+  list: IDataBaseItem[];
 }
 const SelectFoodItemModal: FC<IFoodItemListProps> = ({ list }) => {
   let listForSort = [...list];
 
   if (listForSort && listForSort.length > 2) {
-    listForSort.sort((a, b) => {
-      const nameA = a.name.toUpperCase();
-      const nameB = b.name.toUpperCase();
-      if (nameA < nameB) {
-        return -1;
-      }
-      if (nameA > nameB) {
-        return 1;
-      }
-      return 0;
-    });
+    sortList(listForSort);
   }
 
   const isVisible = useAppSelector(
-    (state) => state.localMyDaySlice.isSelectFoodItemVisible
+    (state) => state.myDayViewSlice.isSelectFoodItemVisible
   );
 
   const selectClasses = classNames({

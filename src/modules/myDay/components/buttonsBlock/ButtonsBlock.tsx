@@ -3,16 +3,14 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../../hooks/reduxHooks';
 import classNames from 'classnames';
 
-import { setViewMode } from '../../../../redux/slices/myDaySlice';
+import { setViewMode } from '../../../../redux/slices/myDayViewSlice';
 
 import './buttons-block.scss';
 
 const ButtonsBlock: FC = () => {
   const dispatch = useAppDispatch();
-  const isViewMode = useAppSelector(
-    (state) => state.localMyDaySlice.isViewMode
-  );
-  const mealList = useAppSelector((state) => state.localMyDaySlice.mealsList);
+  const isViewMode = useAppSelector((state) => state.myDayViewSlice.isViewMode);
+  const mealList = useAppSelector((state) => state.myDayDataSlice.mealsList);
 
   const handleCangeViewMode = (): void => {
     dispatch(setViewMode());

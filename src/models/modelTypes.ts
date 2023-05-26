@@ -33,6 +33,11 @@ interface IMeal {
   totalPrice?: number;
 }
 
+interface ICurrentDay {
+  date: string;
+  meals: IMeal[];
+}
+
 // type BaseSet = {
 //   [key: string]: BaseItem;
 // };
@@ -45,11 +50,6 @@ interface IMeal {
 // type FoodSet = {
 //   [key: string]: FoodItem;
 // };
-
-interface ICurrentDay {
-  date: string;
-  meals: IMeal[];
-}
 
 export type {
   BaseItem,

@@ -80,6 +80,9 @@ const CalcPriceModal: FC = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.price || ''}
+            onKeyDown={(e) => {
+              e.key === 'Enter' && e.preventDefault();
+            }}
           />
           {formik.touched.price && formik.errors.price ? (
             <div className='calc-price__box-price-error'>
@@ -99,6 +102,9 @@ const CalcPriceModal: FC = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.weight || ''}
+            onKeyDown={(e) => {
+              e.key === 'Enter' && e.preventDefault();
+            }}
           />
           {formik.touched.weight && formik.errors.weight ? (
             <div className='calc-price__box-weight-error'>

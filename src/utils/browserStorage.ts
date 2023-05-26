@@ -1,6 +1,7 @@
-import { IDataBaseItem } from '../models/modelTypes';
+import { IDataBaseItem, ICurrentDay } from '../models/modelTypes';
 
 const KBKEY = 'knowledgeBase';
+const MDKEY = 'myDay';
 
 export function knowledgeBaseLoadState(): IDataBaseItem[] | undefined {
   try {
@@ -16,6 +17,25 @@ export async function knowledgeBaseSaveState(state: IDataBaseItem[]) {
   try {
     const serializedState = JSON.stringify(state);
     localStorage.setItem(KBKEY, serializedState);
+  } catch (e) {
+    // Ignore
+  }
+}
+
+export function myDayLoadState(): ICurrentDay | undefined {
+  try {
+    const serializedState = localStorage.getItem(MDKEY);
+    if (!serializedState) return undefined;
+    return JSON.parse(serializedState);
+  } catch (e) {
+    return undefined;
+  }
+}
+
+export async function myDaySaveState(state: ICurrentDay) {
+  try {
+    const serializedState = JSON.stringify(state);
+    localStorage.setItem(MDKEY, serializedState);
   } catch (e) {
     // Ignore
   }
