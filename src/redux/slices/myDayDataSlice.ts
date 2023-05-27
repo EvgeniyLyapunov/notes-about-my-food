@@ -7,19 +7,25 @@ import {
   ICurrentDay,
 } from '../../models/modelTypes';
 
+import { postMyDay } from '../asyncThunks/postMyDay';
+
+import {
+  myDayLoadState,
+  currentMealLoadState,
+  clearLocalStorage,
+} from '../../utils/browserStorage';
+
 interface IMyDayData {
   currentDay: ICurrentDay;
-  mealsList: IMeal[];
   currentMeal: IMeal;
   foodItem: IFoodItem;
 }
 
 const initialState: IMyDayData = {
   currentDay: {
-    date: '',
+    date: new Date().toLocaleDateString(),
     meals: [],
   },
-  mealsList: [],
   currentMeal: {
     name: 'Приём пищи',
     foodstuff: [],
@@ -40,6 +46,11 @@ const myDayDataSlice = createSlice({
   name: 'myDayDataSlice',
   initialState,
   reducers: {
+    // инициализация данными из localStorage
+    setDataFromLocalStorage: (state) => {
+      state.currentDay = myDayLoadState() as ICurrentDay;
+      state.currentMeal = currentMealLoadState() as IMeal;
+    },
     // сохраняет изменения названия приёма пищи
     setMealName: (state, action: PayloadAction<string>) => {
       state.currentMeal.name = action.payload;
@@ -95,11 +106,11 @@ const myDayDataSlice = createSlice({
     },
     // сохранение приёма пищи в списке дневных приёмов пищи
     addToMealList: (state, action: PayloadAction<IMeal>) => {
-      state.mealsList = [...state.mealsList, action.payload];
+      state.currentDay.meals = [...state.currentDay.meals, action.payload];
     },
     // удаление текущего приёма пищи и возврат предыдущего в статус текущего
     deleteNexEmptyCurrentMeal: (state) => {
-      const temp = state.mealsList.pop();
+      const temp = state.currentDay.meals.pop();
       state.currentMeal = temp as IMeal;
     },
     // сброс текущего приёма пищи к начальным значениям
@@ -118,11 +129,17 @@ const myDayDataSlice = createSlice({
       );
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(postMyDay.fulfilled, () => {
+      clearLocalStorage();
+    });
+  },
 });
 
 const { actions, reducer } = myDayDataSlice;
 export default reducer;
 export const {
+  setDataFromLocalStorage,
   setMealName,
   setSelectedItemOne,
   setTotalCalories,

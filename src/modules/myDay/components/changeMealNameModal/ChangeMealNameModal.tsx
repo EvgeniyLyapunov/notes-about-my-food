@@ -29,6 +29,7 @@ const ChangeMealNameModal: FC = () => {
   const currentMeal = useAppSelector(
     (store) => store.myDayDataSlice.currentMeal
   );
+
   const dispatch = useAppDispatch();
 
   const handleModalClose = (

@@ -10,7 +10,9 @@ import './buttons-block.scss';
 const ButtonsBlock: FC = () => {
   const dispatch = useAppDispatch();
   const isViewMode = useAppSelector((state) => state.myDayViewSlice.isViewMode);
-  const mealList = useAppSelector((state) => state.myDayDataSlice.mealsList);
+  const mealList = useAppSelector(
+    (state) => state.myDayDataSlice.currentDay.meals
+  );
 
   const handleCangeViewMode = (): void => {
     dispatch(setViewMode());

@@ -38,27 +38,19 @@ interface ICurrentDay {
   meals: IMeal[];
 }
 
-// type BaseSet = {
-//   [key: string]: BaseItem;
-// };
-
-// type BaseRecipe = {
-//   foodSet: FoodSet;
-//   description: string;
-// };
-
-// type FoodSet = {
-//   [key: string]: FoodItem;
-// };
+interface IMyDayResult {
+  date: string;
+  totalCalories: number;
+  totalPrice: number;
+  userid: string;
+}
 
 export type {
   BaseItem,
   IBaseItem,
-  // BaseSet,
-  // BaseRecipe,
   IDataBaseItem,
   IFoodItem,
-  // FoodSet,
   IMeal,
   ICurrentDay,
+  IMyDayResult,
 };

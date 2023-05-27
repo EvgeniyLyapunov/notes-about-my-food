@@ -28,7 +28,9 @@ interface IMealProps {
 
 const Meal: FC<IMealProps> = (props) => {
   const dispatch = useAppDispatch();
-  const mealList = useAppSelector((state) => state.myDayDataSlice.mealsList);
+  const mealList = useAppSelector(
+    (state) => state.myDayDataSlice.currentDay.meals
+  );
   const isViewMode = useAppSelector((state) => state.myDayViewSlice.isViewMode);
 
   const { name, foodstuff, totalCalories, totalPrice } = props.meal;

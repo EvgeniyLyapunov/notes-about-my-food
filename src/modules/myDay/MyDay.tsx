@@ -14,14 +14,22 @@ import {
   hidingActivePageLink,
 } from '../../redux/slices/headerSlice';
 
+import {
+  currentMealSaveState,
+  myDaySaveState,
+} from '../../utils/browserStorage';
+
 import './my-day.scss';
 
 const MyDay: FC = () => {
   const dispatch = useAppDispatch();
-  const mealsList = useAppSelector((store) => store.myDayDataSlice.mealsList);
+  const mealsList = useAppSelector(
+    (store) => store.myDayDataSlice.currentDay.meals
+  );
   const currentMeal = useAppSelector(
     (store) => store.myDayDataSlice.currentMeal
   );
+  const currentDay = useAppSelector((store) => store.myDayDataSlice.currentDay);
   const dbFoodItemsList = useAppSelector(
     (state) => state.knowledgeBaseDataSlice.baseItemsList
   );
@@ -36,6 +44,12 @@ const MyDay: FC = () => {
     };
     // eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    // работа с localStorage
+    currentMealSaveState(currentMeal);
+    myDaySaveState(currentDay);
+  }, [currentMeal]);
 
   return (
     <div className='my-day'>

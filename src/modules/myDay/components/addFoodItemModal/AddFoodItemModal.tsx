@@ -144,6 +144,9 @@ const AddFoodItemModal: FC = () => {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.weight || ''}
+                onKeyDown={(e) => {
+                  e.key === 'Enter' && e.preventDefault();
+                }}
               />
               {formik.touched.weight && formik.errors.weight ? (
                 <div className='form__error'>{formik.errors.weight}</div>
