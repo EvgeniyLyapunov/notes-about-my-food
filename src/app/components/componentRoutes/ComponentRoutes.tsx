@@ -1,6 +1,5 @@
 import { FC, lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
-
 import Loading from '../loading/loading';
 
 const StartPage = lazy(() => import('../startPage/StartPage'));

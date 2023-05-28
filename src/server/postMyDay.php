@@ -10,13 +10,19 @@
   $totalPrice = mysqli_real_escape_string($connection, $_POST["totalPrice"]);
   $userid = mysqli_real_escape_string($connection, $_POST["userid"]);
 
-  $queryInsert = "INSERT INTO `myDayResult`(`date`, `totalCalories`, `totalPrice`, `userid`)
+  if($totalCalories == 0 && $totalPrice == 0) {
+    echo json_encode([
+      'data' => false
+    ]);
+  } else {
+    $queryInsert = "INSERT INTO `myDayResult`(`date`, `totalCalories`, `totalPrice`, `userid`)
                     VALUES ('$date', '$totalCalories', '$totalPrice', '$userid')";
-  $result = mysqli_query($connection, $queryInsert);
+    $result = mysqli_query($connection, $queryInsert);
 
-  echo json_encode([
-    'data' => $result
-  ]);
+    echo json_encode([
+      'data' => $result
+    ]);
+  }
 
   mysqli_close($connection);
 ?>

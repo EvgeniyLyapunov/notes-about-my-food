@@ -118,86 +118,88 @@ const CreateAndEditModal: FC = () => {
   return (
     <div className={addItemModalClasses}>
       <div className='add-item__window'>
-        <button className='add-item__window-close' onClick={handleModalClose}>
-          <span></span>
-        </button>
         <form className='add-item__form' onSubmit={formik.handleSubmit}>
           {/* {dataLoadingStatus && <LoadingStatus />}
           {dataLoadingError !== null && (
             <ErrorStatus dataLoadingError={dataLoadingError} />
           )} */}
-          <h2 className='add-item__form-title'>
-            {editItemValues
-              ? 'Отредактировать данные'
-              : 'Добавить в Базу Знаний:'}
-          </h2>
-          <label className='add-item__form-input-name-label' htmlFor='name'>
-            <span>название продукта</span>
-            <input
-              className='add-item__form-input-name'
-              id='name'
-              type='text'
-              name='name'
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.name || ''}
-            />
-            {formik.touched.name && formik.errors.name ? (
-              <div className='add-item__form-error'>{formik.errors.name}</div>
-            ) : null}
-          </label>
-          <div className='add-item__form-input-group'>
-            <label
-              className='add-item__form-input-group-label'
-              htmlFor='calories'
-            >
-              <span>ккал / 100гр</span>
+          <div className='add-item__form-fields-block'>
+            <h2 className='add-item__form-title'>
+              {editItemValues
+                ? 'Отредактировать данные'
+                : 'Добавить в Базу Знаний:'}
+            </h2>
+            <label className='add-item__form-input-name-label' htmlFor='name'>
+              <span>название продукта</span>
               <input
-                className='add-item__form-input-group-item'
-                id='calories'
-                type='number'
-                name='calories'
+                className='add-item__form-input-name'
+                id='name'
+                type='text'
+                name='name'
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                value={formik.values.calories || ''}
+                value={formik.values.name || ''}
               />
-              {formik.touched.calories && formik.errors.calories ? (
-                <div className='add-item__form-error'>
-                  {formik.errors.calories}
-                </div>
+              {formik.touched.name && formik.errors.name ? (
+                <div className='add-item__form-error'>{formik.errors.name}</div>
               ) : null}
             </label>
-            <label className='add-item__form-input-group-label' htmlFor='price'>
-              <span>цена / 100гр</span>
-              <div className='add-item__form-input-calc-group'>
+            <div className='add-item__form-input-group'>
+              <label
+                className='add-item__form-input-group-label'
+                htmlFor='calories'
+              >
+                <span>ккал / 100гр</span>
                 <input
-                  className='add-item__form-input-group-item add-item__form-input-group-item-calc'
-                  id='price'
+                  className='add-item__form-input-group-item'
+                  id='calories'
                   type='number'
-                  name='price'
+                  name='calories'
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  value={formik.values.price || ''}
+                  value={formik.values.calories || ''}
                 />
-                <span
-                  className='add-item__form-input-calc-btn'
-                  onClick={handleCalcVisible}
-                ></span>
-              </div>
-              {formik.touched.price && formik.errors.price ? (
-                <div className='add-item__form-error'>
-                  {formik.errors.price}
+                {formik.touched.calories && formik.errors.calories ? (
+                  <div className='add-item__form-error'>
+                    {formik.errors.calories}
+                  </div>
+                ) : null}
+              </label>
+              <label
+                className='add-item__form-input-group-label'
+                htmlFor='price'
+              >
+                <span>цена / 100гр</span>
+                <div className='add-item__form-input-calc-group'>
+                  <input
+                    className='add-item__form-input-group-item add-item__form-input-group-item-calc'
+                    id='price'
+                    type='number'
+                    name='price'
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.price || ''}
+                  />
+                  <span
+                    className='add-item__form-input-calc-btn'
+                    onClick={handleCalcVisible}
+                  ></span>
                 </div>
-              ) : null}
-            </label>
+                {formik.touched.price && formik.errors.price ? (
+                  <div className='add-item__form-error'>
+                    {formik.errors.price}
+                  </div>
+                ) : null}
+              </label>
+            </div>
           </div>
           <div className='add-item__form-btn-group'>
             <button
               className='add-item__form-btn add-item__form-btn-reset'
               type='reset'
-              onClick={(e) => formik.resetForm()}
+              onClick={handleModalClose}
             >
-              Очистить
+              Закрыть
             </button>
             <button
               className='add-item__form-btn add-item__form-btn-submit'
@@ -213,14 +215,6 @@ const CreateAndEditModal: FC = () => {
 };
 
 export default CreateAndEditModal;
-
-// const LoadingStatus: FC = () => {
-//   return (
-//     <div className='add-item__loading-status'>
-//       <img src={spinner} alt='spinner' />
-//     </div>
-//   );
-// };
 
 // interface IErrorStatusProps {
 //   dataLoadingError: string;

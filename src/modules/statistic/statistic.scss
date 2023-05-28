@@ -1,9 +1,36 @@
+@import '../../style/variables.scss';
+
 .statistic {
+  position: relative;
   padding-top: 90px;
-  width: 100%;
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  flex-direction: column;
+  justify-content: space-between;
+  &__loading-status {
+    padding: 50px 20px;
+    text-align: center;
+    color: $error-message;
+  }
+  &__buttons-block {
+    padding: 20px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  &__button-close {
+    width: 40vw;
+    height: 40px;
+    display: inline-block;
+    line-height: 40px;
+    text-align: center;
+    border: none;
+    border-radius: 10px;
+    background-color: #f2f2f2;
+    box-shadow: -8px -8px 16px #d9d9d9, 8px 8px 16px #fff;
+    transition: transform 0.2s;
+    cursor: pointer;
+    &:active {
+      box-shadow: inset -6px -6px 12px #d9d9d9, inset 6px 6px 12px #fff;
+    }
+  }
 }

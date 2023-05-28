@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction, AnyAction } from '@reduxjs/toolkit';
 
-import { BaseItem, IDataBaseItem, IBaseItem } from '../../models/modelTypes';
+import { IDataBaseItem } from '../../models/modelTypes';
 
 import { getKnowledgeBaseList } from '../asyncThunks/getKnowledgeBaseList';
 import { postNewKnowledgeBaseItem } from '../asyncThunks/postNewKnowledgeBaseItem';

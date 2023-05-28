@@ -6,6 +6,7 @@ import knowledgeBaseViewSlice from './slices/knowledgeBaseViewSlice';
 import knowledgeBaseDataSlice from './slices/knowledgeBaseDataSlice';
 import myDayViewSlice from './slices/myDayViewSlice';
 import myDayDataSlice from './slices/myDayDataSlice';
+import statisticSlice from './slices/statisticSlice';
 
 const store = configureStore({
   reducer: {
@@ -15,6 +16,7 @@ const store = configureStore({
     knowledgeBaseDataSlice,
     myDayViewSlice,
     myDayDataSlice,
+    statisticSlice,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
   devTools: process.env.NODE_ENV !== 'production',

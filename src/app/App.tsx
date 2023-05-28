@@ -1,5 +1,5 @@
 import { FC, useEffect } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import Header from './components/header/Header';
 import ComponentRoutes from './components/componentRoutes/ComponentRoutes';
 
@@ -49,12 +49,12 @@ const App: FC = () => {
   }, [dispatch]);
   return (
     <div className='App'>
-      <BrowserRouter>
+      <HashRouter>
         <div className='container'>
           <Header />
           <ComponentRoutes />
         </div>
-      </BrowserRouter>
+      </HashRouter>
     </div>
   );
 };

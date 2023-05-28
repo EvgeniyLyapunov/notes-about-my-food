@@ -24,8 +24,7 @@ const KnowledgeBase: FC = () => {
     return () => {
       dispatch(appBurgerMenuActive(false));
     };
-    // eslint-disable-next-line
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className='knowledge-base'>
