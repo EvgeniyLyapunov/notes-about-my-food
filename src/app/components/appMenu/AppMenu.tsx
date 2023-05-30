@@ -2,7 +2,12 @@ import { FC, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 
-import { useAppSelector } from '../../../hooks/reduxHooks';
+import { useAppSelector, useAppDispatch } from '../../../hooks/reduxHooks';
+
+import {
+  appBurgerMenuActive,
+  startBurgerMenuActive,
+} from '../../../redux/slices/headerSlice';
 
 import './app-menu.scss';
 
@@ -14,6 +19,8 @@ type AppMenuListVisible = {
 };
 
 const AppMenu: FC = () => {
+  const dispatch = useAppDispatch();
+
   const appMenuListVisible: AppMenuListVisible = {
     myday: false,
     knowledgeBase: false,
@@ -44,7 +51,10 @@ const AppMenu: FC = () => {
     // eslint-disable-next-line
   }, [currentPage]);
 
-  // console.log(hideItem);
+  const handleCloseMenuPanel = () => {
+    dispatch(appBurgerMenuActive(false));
+    dispatch(startBurgerMenuActive());
+  };
 
   const appMenuClasses = classNames({
     'app-menu': true,
@@ -94,7 +104,11 @@ const AppMenu: FC = () => {
         </Link>
       </li>
       <li className={usersguideHide}>
-        <Link className='start-menu__link' to={'/usersguide'}>
+        <Link
+          className='start-menu__link'
+          to={'/usersguide'}
+          onClick={handleCloseMenuPanel}
+        >
           Руководство
         </Link>
       </li>

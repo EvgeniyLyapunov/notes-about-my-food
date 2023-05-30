@@ -5,6 +5,7 @@ import { useAppDispatch } from '../../../hooks/reduxHooks';
 import {
   appBurgerMenuActive,
   changePageName,
+  setPageFrom,
 } from '../../../redux/slices/headerSlice';
 
 import './start-page.scss';
@@ -14,6 +15,7 @@ const StartPage: FC = () => {
 
   useEffect(() => {
     dispatch(changePageName('startScreen'));
+    dispatch(setPageFrom('startScreen'));
     dispatch(appBurgerMenuActive(false));
     // eslint-disable-next-line
   }, [dispatch]);

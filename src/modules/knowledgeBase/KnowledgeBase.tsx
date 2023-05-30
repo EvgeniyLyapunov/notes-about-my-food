@@ -4,6 +4,7 @@ import { useAppDispatch } from '../../hooks/reduxHooks';
 import {
   appBurgerMenuActive,
   changePageName,
+  setPageFrom,
   hidingActivePageLink,
 } from '../../redux/slices/headerSlice';
 import Tabs from './components/tabs/Tabs';
@@ -20,6 +21,7 @@ const KnowledgeBase: FC = () => {
   useEffect(() => {
     dispatch(hidingActivePageLink('knowledgeBase'));
     dispatch(changePageName('База знаний'));
+    dispatch(setPageFrom('База знаний'));
     dispatch(appBurgerMenuActive(false));
     return () => {
       dispatch(appBurgerMenuActive(false));

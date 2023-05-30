@@ -4,6 +4,7 @@ type HeaderBlockState = {
   isStartBurgerActive: boolean;
   isAppBurgerActive: boolean;
   pageName: string;
+  pageFrom: string;
   hideActivePageLink: string;
 };
 
@@ -11,6 +12,7 @@ const initialState: HeaderBlockState = {
   isStartBurgerActive: false,
   isAppBurgerActive: false,
   pageName: 'startScreen',
+  pageFrom: 'startScreen',
   hideActivePageLink: '',
 };
 
@@ -27,6 +29,9 @@ const HeaderSlice = createSlice({
     changePageName: (state, action: PayloadAction<string>) => {
       state.pageName = action.payload;
     },
+    setPageFrom: (state, action: PayloadAction<string>) => {
+      state.pageFrom = action.payload;
+    },
     hidingActivePageLink: (state, action: PayloadAction<string>) => {
       state.hideActivePageLink = action.payload;
     },
@@ -39,5 +44,6 @@ export const {
   startBurgerMenuActive,
   appBurgerMenuActive,
   changePageName,
+  setPageFrom,
   hidingActivePageLink,
 } = actions;

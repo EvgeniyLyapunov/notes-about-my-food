@@ -11,6 +11,7 @@ import SelectFoodItemModal from './components/selectFoodItemModal/SelectFoodItem
 import {
   appBurgerMenuActive,
   changePageName,
+  setPageFrom,
   hidingActivePageLink,
 } from '../../redux/slices/headerSlice';
 
@@ -38,6 +39,7 @@ const MyDay: FC = () => {
   useEffect(() => {
     dispatch(hidingActivePageLink('myday'));
     dispatch(changePageName('Мой день'));
+    dispatch(setPageFrom('Мой день'));
     dispatch(appBurgerMenuActive(false));
     return () => {
       dispatch(appBurgerMenuActive(false));

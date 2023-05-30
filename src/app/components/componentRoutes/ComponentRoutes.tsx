@@ -5,7 +5,7 @@ import Loading from '../loading/loading';
 const StartPage = lazy(() => import('../startPage/StartPage'));
 const Auth = lazy(() => import('../../../modules/authModule/Auth'));
 const UserGuide = lazy(
-  () => import('../../../modules/userGuideModule/UserGuid')
+  () => import('../../../modules/userGuideModule/UserGuide')
 );
 const About = lazy(() => import('../../../modules/userGuideModule/About'));
 const KnowledgeBase = lazy(

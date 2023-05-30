@@ -1,0 +1,141 @@
+@import '../../../style/variables.scss';
+
+.knowledge-base-ug {
+  width: 100%;
+  padding: 5px;
+  &__header {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 5px;
+    margin-bottom: 20px;
+    &-icon {
+      display: block;
+      width: 40px;
+      height: 40px;
+      margin-right: 25px;
+      background: url('../../../assets/icons/userGuide/books.svg') left center /
+        cover no-repeat;
+    }
+    &-title {
+      position: relative;
+      font-weight: 400;
+      font-size: 20px;
+      &::after {
+        position: absolute;
+        right: 0;
+        bottom: -4px;
+        content: '';
+        width: 80%;
+        height: 2px;
+        background-color: rgba(51, 51, 51, 0.7);
+      }
+    }
+  }
+  &__subtitle {
+    margin-bottom: 10px;
+    font-weight: 400;
+    font-size: 14px;
+    text-align: right;
+    background: url('../../../assets/icons/userGuide/open-book.svg') left center /
+      20px 20px no-repeat;
+  }
+  &__text {
+    font-size: 14px;
+    line-height: 20px;
+    text-indent: 15px;
+    margin-bottom: 10px;
+    &::first-letter {
+      font-size: 22px;
+      line-height: 20px;
+      color: $error-message;
+      margin-right: 1px;
+    }
+  }
+  &__end-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &-flower {
+      display: block;
+      width: 30px;
+      height: 30px;
+      background: url('../../../assets/icons/userGuide/flower.svg') center /
+        30px 30px no-repeat;
+    }
+  }
+}
+
+.text-icon {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  margin-right: 3px;
+  margin-left: 3px;
+  &_energy {
+    background: url('../../../assets/icons/knowledgeBase/yellow-energy-custom.svg')
+      center / cover no-repeat;
+  }
+  &_price {
+    background: url('../../../assets/icons/knowledgeBase/green-circle-dollar-custom.svg')
+      center / cover no-repeat;
+  }
+  &_calc {
+    position: relative;
+    top: 3px;
+    width: 18px;
+    height: 18px;
+    margin-right: 5px;
+    margin-left: 5px;
+    background: url('../../../assets/icons/knowledgeBase/calculator.svg') center /
+      cover no-repeat;
+  }
+  &_trash {
+    position: relative;
+    top: 3px;
+    width: 18px;
+    height: 18px;
+    margin-right: 5px;
+    margin-left: 5px;
+    background: url('../../../assets/icons/knowledgeBase/trash-custom.svg')
+      center / cover no-repeat;
+  }
+  &_edit {
+    position: relative;
+    top: 3px;
+    width: 18px;
+    height: 18px;
+    margin-right: 5px;
+    margin-left: 5px;
+    background: url('../../../assets/icons/knowledgeBase/pencil-square-custom.svg')
+      center / cover no-repeat;
+  }
+  &_menu {
+    position: relative;
+    top: 5px;
+    width: 28px;
+    height: 18px;
+    margin-right: 5px;
+    margin-left: 5px;
+    background: url('../../../assets/icons/header/dots-three-outline.svg')
+      center / cover no-repeat;
+    background-color: #d4d4d4;
+  }
+}
+
+@media (max-width: 320px) {
+  .knowledge-base-ug {
+    &__header {
+      &-icon {
+        margin-right: 20px;
+        width: 35px;
+        height: 35px;
+      }
+      &-title {
+        font-size: 18px;
+      }
+    }
+  }
+}

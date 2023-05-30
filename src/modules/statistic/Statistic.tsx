@@ -5,13 +5,12 @@ import { Link } from 'react-router-dom';
 import {
   appBurgerMenuActive,
   changePageName,
+  setPageFrom,
   hidingActivePageLink,
 } from '../../redux/slices/headerSlice';
 
 import DaysList from './components/daysList/DaysList';
 import Loading from '../../app/components/loading/loading';
-
-import { IMyDayResult } from '../../models/modelTypes';
 
 import { resetErrorInfo } from '../../redux/slices/statisticSlice';
 import { getDaysResult } from '../../redux/asyncThunks/getDaysResult';
@@ -35,6 +34,7 @@ const Statistic: FC = () => {
     dispatch(getDaysResult(user as string));
     dispatch(hidingActivePageLink('statistic'));
     dispatch(changePageName('Статистика'));
+    dispatch(setPageFrom('Статистика'));
     dispatch(appBurgerMenuActive(false));
     return () => {
       dispatch(appBurgerMenuActive(false));
