@@ -1,0 +1,41 @@
+@import '../../../../style/mixins.scss';
+
+.error-page {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(242, 242, 242, 0.85);
+  z-index: 10;
+  &__window {
+    position: relative;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 10px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    box-shadow: -4px -4px 8px #d9d9d9, 4px 4px 8px #fff;
+  }
+  &__text {
+    display: block;
+    font-style: 18px;
+    text-align: right;
+  }
+  &__btn-block {
+    width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  &__btn {
+    @include modalButton;
+    padding: 5px 10px;
+    font-size: 14px;
+  }
+}

@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type HeaderBlockState = {
   isStartBurgerActive: boolean;
+  isStartBurgerNone: boolean;
   isAppBurgerActive: boolean;
   pageName: string;
   pageFrom: string;
@@ -10,6 +11,7 @@ type HeaderBlockState = {
 
 const initialState: HeaderBlockState = {
   isStartBurgerActive: false,
+  isStartBurgerNone: false,
   isAppBurgerActive: false,
   pageName: 'startScreen',
   pageFrom: 'startScreen',
@@ -20,8 +22,11 @@ const HeaderSlice = createSlice({
   name: 'headerBlock',
   initialState,
   reducers: {
-    startBurgerMenuActive: (state) => {
-      state.isStartBurgerActive = !state.isStartBurgerActive;
+    startBurgerMenuActive: (state, action: PayloadAction<boolean>) => {
+      state.isStartBurgerActive = action.payload;
+    },
+    setStartBurgerMenuVisible: (state, action: PayloadAction<boolean>) => {
+      state.isStartBurgerNone = action.payload;
     },
     appBurgerMenuActive: (state, action: PayloadAction<boolean>) => {
       state.isAppBurgerActive = action.payload;
@@ -42,6 +47,7 @@ const { actions, reducer } = HeaderSlice;
 export default reducer;
 export const {
   startBurgerMenuActive,
+  setStartBurgerMenuVisible,
   appBurgerMenuActive,
   changePageName,
   setPageFrom,

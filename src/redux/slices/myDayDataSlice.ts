@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import {
   BaseItem,
@@ -19,6 +19,9 @@ interface IMyDayData {
   currentDay: ICurrentDay;
   currentMeal: IMeal;
   foodItem: IFoodItem;
+  dataLoadingStatus: boolean;
+  dataLoadingError: string | null;
+  isError: boolean;
 }
 
 const initialState: IMyDayData = {
@@ -40,6 +43,9 @@ const initialState: IMyDayData = {
     price: 0,
     weight: 0,
   },
+  dataLoadingStatus: false,
+  dataLoadingError: null,
+  isError: false,
 };
 
 const myDayDataSlice = createSlice({
@@ -128,11 +134,30 @@ const myDayDataSlice = createSlice({
         (item) => item.id !== action.payload
       );
     },
+    resetLoadingStatus: (state) => {
+      state.dataLoadingStatus = false;
+    },
+    resetErrorStatus: (state) => {
+      state.dataLoadingError = null;
+      state.isError = false;
+    },
   },
   extraReducers: (builder) => {
-    builder.addCase(postMyDay.fulfilled, () => {
-      clearLocalStorage();
+    builder.addCase(postMyDay.pending, (state) => {
+      state.dataLoadingStatus = true;
+      state.dataLoadingError = null;
     });
+    builder
+      .addCase(postMyDay.fulfilled, (state) => {
+        state.dataLoadingStatus = false;
+        clearLocalStorage();
+      })
+      .addMatcher(isError, (state, action: PayloadAction<string>) => {
+        state.dataLoadingError = action.payload;
+        state.dataLoadingStatus = false;
+        state.isError = true;
+      })
+      .addDefaultCase(() => {});
   },
 });
 
@@ -152,4 +177,10 @@ export const {
   deleteNexEmptyCurrentMeal,
   resetCurrentMeal,
   clearMealFoodstuffItem,
+  resetLoadingStatus,
+  resetErrorStatus,
 } = actions;
+
+function isError(action: AnyAction) {
+  return action.type.endsWith('rejected');
+}

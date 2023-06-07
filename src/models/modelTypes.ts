@@ -45,6 +45,13 @@ interface IMyDayResult {
   userid: string;
 }
 
+interface IDataUser {
+  id: number;
+  userId: string;
+  nickname: string;
+  password: string;
+}
+
 export type {
   BaseItem,
   IBaseItem,
@@ -53,4 +60,5 @@ export type {
   IMeal,
   ICurrentDay,
   IMyDayResult,
+  IDataUser,
 };

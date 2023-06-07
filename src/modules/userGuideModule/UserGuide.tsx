@@ -25,7 +25,7 @@ const UserGuide: FC = () => {
     dispatch(hidingActivePageLink('usersguide'));
     dispatch(changePageName('Руководство'));
     dispatch(appBurgerMenuActive(false));
-    dispatch(startBurgerMenuActive());
+    dispatch(startBurgerMenuActive(false));
     return () => {
       dispatch(appBurgerMenuActive(false));
     };

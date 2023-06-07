@@ -1,8 +1,14 @@
-import { IDataBaseItem, ICurrentDay, IMeal } from '../models/modelTypes';
+import {
+  IDataBaseItem,
+  ICurrentDay,
+  IMeal,
+  IDataUser,
+} from '../models/modelTypes';
 
 const KBKEY = 'knowledgeBase';
 const MDKEY = 'myDay';
 const CMKEY = 'currentMeal';
+const USER = 'userId';
 
 export function knowledgeBaseLoadState(): IDataBaseItem[] | undefined {
   try {
@@ -65,6 +71,25 @@ export function clearLocalStorage(): void {
   try {
     localStorage.removeItem(CMKEY);
     localStorage.removeItem(MDKEY);
+  } catch (e) {
+    // Ignore
+  }
+}
+
+export function userLoadState(): IDataUser | undefined {
+  try {
+    const serializedState = localStorage.getItem(USER);
+    if (!serializedState) return undefined;
+    return JSON.parse(serializedState);
+  } catch (e) {
+    return undefined;
+  }
+}
+
+export async function userSaveState(state: IDataUser) {
+  try {
+    const serializedState = JSON.stringify(state);
+    localStorage.setItem(USER, serializedState);
   } catch (e) {
     // Ignore
   }

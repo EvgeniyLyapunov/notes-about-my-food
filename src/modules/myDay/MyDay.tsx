@@ -7,6 +7,8 @@ import ButtonsBlock from './components/buttonsBlock/ButtonsBlock';
 import ChangeMealNameModal from './components/changeMealNameModal/ChangeMealNameModal';
 import AddFoodItemModal from './components/addFoodItemModal/AddFoodItemModal';
 import SelectFoodItemModal from './components/selectFoodItemModal/SelectFoodItemModal';
+import Loading from '../../app/components/loading/loading';
+import ErrorPage from './components/error/ErrorPage';
 
 import {
   appBurgerMenuActive,
@@ -15,15 +17,21 @@ import {
   hidingActivePageLink,
 } from '../../redux/slices/headerSlice';
 
+import { setDataFromLocalStorage } from '../../redux/slices/myDayDataSlice';
+import { postMyDay } from '../../redux/asyncThunks/postMyDay';
+
 import {
   currentMealSaveState,
+  myDayLoadState,
   myDaySaveState,
 } from '../../utils/browserStorage';
+import { createMyDayForDB } from '../../utils/createMyDayForDB';
 
 import './my-day.scss';
 
 const MyDay: FC = () => {
   const dispatch = useAppDispatch();
+  const userId = useAppSelector((state) => state.authSlice.user?.userId);
   const mealsList = useAppSelector(
     (store) => store.myDayDataSlice.currentDay.meals
   );
@@ -36,16 +44,35 @@ const MyDay: FC = () => {
   );
   const isViewMode = useAppSelector((store) => store.myDayViewSlice.isViewMode);
 
+  const isLoading = useAppSelector(
+    (state) => state.myDayDataSlice.dataLoadingStatus
+  );
+  const isError = useAppSelector((state) => state.myDayDataSlice.isError);
+
   useEffect(() => {
     dispatch(hidingActivePageLink('myday'));
     dispatch(changePageName('Мой день'));
     dispatch(setPageFrom('Мой день'));
     dispatch(appBurgerMenuActive(false));
+
+    const localMyDay = myDayLoadState();
+    // если в localStorage есть данные не на текущую дату
+    if (localMyDay && localMyDay.date !== new Date().toLocaleDateString()) {
+      // загрузка в БД
+      dispatch(postMyDay(createMyDayForDB(localMyDay, userId as string)));
+    } else if (
+      // если в localStorage сохранены данные на текущую дату
+      localMyDay &&
+      localMyDay.date === new Date().toLocaleDateString()
+    ) {
+      // инициализация store
+      dispatch(setDataFromLocalStorage());
+    }
+
     return () => {
       dispatch(appBurgerMenuActive(false));
     };
-    // eslint-disable-next-line
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     // работа с localStorage
@@ -55,11 +82,17 @@ const MyDay: FC = () => {
 
   return (
     <div className='my-day'>
-      <MealsList mealsItems={isViewMode ? mealsList : [currentMeal]} />
-      <ButtonsBlock />
-      <ChangeMealNameModal />
-      <AddFoodItemModal />
-      <SelectFoodItemModal list={dbFoodItemsList} />
+      {isLoading ? <Loading /> : null}
+      {isError ? <ErrorPage /> : null}
+      {!isLoading && !isError ? (
+        <>
+          <MealsList mealsItems={isViewMode ? mealsList : [currentMeal]} />
+          <ButtonsBlock />
+          <ChangeMealNameModal />
+          <AddFoodItemModal />
+          <SelectFoodItemModal list={dbFoodItemsList} />
+        </>
+      ) : null}
     </div>
   );
 };

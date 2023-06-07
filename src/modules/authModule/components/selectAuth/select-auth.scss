@@ -1,0 +1,42 @@
+@import '../../../../style/mixins.scss';
+
+.select-auth {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &__container {
+    @include modalWindow;
+    flex-direction: row;
+    justify-content: center;
+    padding: 40px 0;
+  }
+  &__case {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 50px;
+    &:last-child {
+      margin-right: 0;
+    }
+    &-icon {
+      display: block;
+      width: 50px;
+      height: 50px;
+      margin-bottom: 10px;
+      &_reg {
+        background: url('../../../../assets/icons/auth/user-add.svg') center /
+          contain no-repeat;
+      }
+      &_log {
+        background: url('../../../../assets/icons/auth/door-open.svg') center /
+          contain no-repeat;
+      }
+    }
+    &-text {
+      font-size: 14px;
+      text-align: center;
+    }
+  }
+}

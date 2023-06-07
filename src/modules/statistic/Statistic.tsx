@@ -18,7 +18,7 @@ import { getDaysResult } from '../../redux/asyncThunks/getDaysResult';
 import './statistic.scss';
 
 const Statistic: FC = () => {
-  const user = useAppSelector((state) => state.globalSlice.userId);
+  const user = useAppSelector((state) => state.authSlice.user?.userId);
 
   const isLoading = useAppSelector(
     (state) => state.statisticSlice.dataLoadingStatus

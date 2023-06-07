@@ -50,7 +50,7 @@ const CreateAndEditModal: FC = () => {
     (store) => store.knowledgeBaseViewSlice.isAddItemModalVisible
   );
 
-  const userId = useAppSelector((store) => store.globalSlice.userId);
+  const user = useAppSelector((store) => store.authSlice.user);
 
   const editItemValues = useAppSelector(
     (store) => store.knowledgeBaseDataSlice.baseItemForEdit
@@ -79,7 +79,7 @@ const CreateAndEditModal: FC = () => {
 
   // Formik
   const initialValues: IFormValues = {
-    userId: `${userId}`,
+    userId: `${user?.userId}`,
     name: '',
     calories: 0,
     price: 0,
@@ -119,10 +119,6 @@ const CreateAndEditModal: FC = () => {
     <div className={addItemModalClasses}>
       <div className='add-item__window'>
         <form className='add-item__form' onSubmit={formik.handleSubmit}>
-          {/* {dataLoadingStatus && <LoadingStatus />}
-          {dataLoadingError !== null && (
-            <ErrorStatus dataLoadingError={dataLoadingError} />
-          )} */}
           <div className='add-item__form-fields-block'>
             <h2 className='add-item__form-title'>
               {editItemValues
@@ -215,11 +211,3 @@ const CreateAndEditModal: FC = () => {
 };
 
 export default CreateAndEditModal;
-
-// interface IErrorStatusProps {
-//   dataLoadingError: string;
-// }
-
-// const ErrorStatus: FC<IErrorStatusProps> = ({ dataLoadingError }) => {
-//   return <div className='add-item__loading-status'>{dataLoadingError}</div>;
-// };

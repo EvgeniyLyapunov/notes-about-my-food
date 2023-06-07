@@ -11,11 +11,11 @@ import './header.scss';
 
 const Header: FC = () => {
   const nameActivePage = useAppSelector((state) => state.headerSlice.pageName);
-
+  const nickname = useAppSelector((state) => state.authSlice.user?.nickname);
   return (
     <div className='header'>
       {nameActivePage === 'startScreen' ? (
-        <StartHeader />
+        <StartHeader nickname={nickname as string} />
       ) : (
         <AppHeader nameActivePage={nameActivePage} />
       )}
@@ -23,10 +23,20 @@ const Header: FC = () => {
   );
 };
 
-const StartHeader: FC = () => {
+interface IStartUserHeaderProps {
+  nickname: string;
+}
+
+const StartHeader: FC<IStartUserHeaderProps> = ({ nickname }) => {
   return (
     <>
-      <div className='header__logo-box'></div>
+      {nickname ? (
+        <div className='header__user-box'>
+          <span>{nickname}</span>
+        </div>
+      ) : (
+        <div className='header__logo-box'></div>
+      )}
       <StartMenu />
       <StartMenuBurger />
     </>

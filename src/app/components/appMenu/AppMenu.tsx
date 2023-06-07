@@ -53,7 +53,7 @@ const AppMenu: FC = () => {
 
   const handleCloseMenuPanel = () => {
     dispatch(appBurgerMenuActive(false));
-    dispatch(startBurgerMenuActive());
+    dispatch(startBurgerMenuActive(false));
   };
 
   const appMenuClasses = classNames({

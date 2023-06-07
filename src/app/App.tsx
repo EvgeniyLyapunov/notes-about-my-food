@@ -3,50 +3,24 @@ import { HashRouter } from 'react-router-dom';
 import Header from './components/header/Header';
 import ComponentRoutes from './components/componentRoutes/ComponentRoutes';
 
-import { IDataBaseItem } from '../models/modelTypes';
-import { useAppDispatch, useAppSelector } from '../hooks/reduxHooks';
+import { useAppDispatch } from '../hooks/reduxHooks';
 
-import { setListFromStorage } from '../redux/slices/knowledgeBaseDataSlice';
-import { getKnowledgeBaseList } from '../redux/asyncThunks/getKnowledgeBaseList';
-import { setDataFromLocalStorage } from '../redux/slices/myDayDataSlice';
+import { setUser } from '../redux/slices/AuthSlice';
 
-import { postMyDay } from '../redux/asyncThunks/postMyDay';
-
-import {
-  knowledgeBaseLoadState,
-  myDayLoadState,
-} from '../utils/browserStorage';
-
-import { createMyDayForDB } from '../utils/createMyDayForDB';
+import { userLoadState } from '../utils/browserStorage';
 
 import './app.scss';
 
 const App: FC = () => {
   const dispatch = useAppDispatch();
-  const user = useAppSelector((store) => store.globalSlice.userId);
 
-  // проверка и работа с localStorage
   useEffect(() => {
-    const localData = knowledgeBaseLoadState();
-    if (localData) {
-      dispatch(setListFromStorage(localData as IDataBaseItem[]));
-    } else {
-      dispatch(getKnowledgeBaseList(user as string));
-    }
-    const localMyDay = myDayLoadState();
-    // если в localStorage есть данные не на текущую дату
-    if (localMyDay && localMyDay.date !== new Date().toLocaleDateString()) {
-      // загрузка в БД
-      dispatch(postMyDay(createMyDayForDB(localMyDay, user as string)));
-    } else if (
-      // если в localStorage сохранены данные на текущую дату
-      localMyDay &&
-      localMyDay.date === new Date().toLocaleDateString()
-    ) {
-      // инициализация store
-      dispatch(setDataFromLocalStorage());
+    const user = userLoadState();
+    if (user) {
+      dispatch(setUser(user));
     }
   }, [dispatch]);
+
   return (
     <div className='App'>
       <HashRouter>

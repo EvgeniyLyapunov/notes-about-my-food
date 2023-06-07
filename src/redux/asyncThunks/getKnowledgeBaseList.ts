@@ -8,16 +8,20 @@ export const getKnowledgeBaseList = createAsyncThunk<
 >(
   'knowledgeBaseData/getKnowledgeBaseList',
   async (userId, { rejectWithValue }) => {
-    const response = await fetch(
-      `server/getGroceriesData.php?userId=${userId}`
-    );
-
-    if (!response.ok) {
-      return rejectWithValue(
-        `Server error! ${response.status}, ${response.type}`
+    try {
+      const response = await fetch(
+        `server/getGroceriesData.php?userId=${userId}`
       );
+
+      if (!response.ok) {
+        return rejectWithValue(
+          `Server error! ${response.status}, ${response.type}`
+        );
+      }
+      const data = await response.json();
+      return data.data as IDataBaseItem[];
+    } catch {
+      return rejectWithValue(`Ooops, error!`);
     }
-    const data = await response.json();
-    return data.data as IDataBaseItem[];
   }
 );

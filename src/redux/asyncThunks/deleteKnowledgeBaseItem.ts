@@ -7,19 +7,23 @@ export const deleteKnowledgeBaseItem = createAsyncThunk<
 >(
   'knowledgeBaseData/deleteKnowledgeBaseItem',
   async (deleteItemId, { rejectWithValue }) => {
-    const response = await fetch('server/deleteGroceriesItem.php', {
-      method: 'POST',
-      headers: { 'Content-type': 'application/json' },
-      body: deleteItemId,
-    });
+    try {
+      const response = await fetch('server/deleteGroceriesItem.php', {
+        method: 'POST',
+        headers: { 'Content-type': 'application/json' },
+        body: deleteItemId,
+      });
 
-    if (!response.ok) {
-      return rejectWithValue(
-        `Server error!, ${response.status}, ${response.type}, ${response.statusText}`
-      );
+      if (!response.ok) {
+        return rejectWithValue(
+          `Server error!, ${response.status}, ${response.type}, ${response.statusText}`
+        );
+      }
+      const result = await response.json();
+
+      return result.data as number;
+    } catch {
+      return rejectWithValue(`Ooops, error`);
     }
-    const result = await response.json();
-
-    return result.data as number;
   }
 );

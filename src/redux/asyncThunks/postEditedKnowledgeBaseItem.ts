@@ -8,19 +8,23 @@ export const postEditedKnowledgeBaseItem = createAsyncThunk<
 >(
   'knowledgeBaseData/postEditedKnowledgeBaseItem',
   async (EditedItem, { rejectWithValue }) => {
-    const response = await fetch('server/postEditedGroceriesItem.php', {
-      method: 'POST',
-      headers: { 'Content-type': 'application/json' },
-      body: EditedItem,
-    });
+    try {
+      const response = await fetch('server/postEditedGroceriesItem.php', {
+        method: 'POST',
+        headers: { 'Content-type': 'application/json' },
+        body: EditedItem,
+      });
 
-    if (!response.ok) {
-      return rejectWithValue(
-        `Server error!, ${response.status}, ${response.type}, ${response.statusText}`
-      );
+      if (!response.ok) {
+        return rejectWithValue(
+          `Server error!, ${response.status}, ${response.type}, ${response.statusText}`
+        );
+      }
+      const result = await response.json();
+
+      return result.data as IDataBaseItem;
+    } catch {
+      return rejectWithValue(`Ooops, error!`);
     }
-    const result = await response.json();
-
-    return result.data as IDataBaseItem;
   }
 );

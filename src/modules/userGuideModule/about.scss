@@ -1,0 +1,160 @@
+@import '../../style/variables.scss';
+
+.about {
+  position: relative;
+  padding-top: 90px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: url('../../assets/icons/about/green-circle-dollar-custom.svg')
+    bottom 30px right / 150px 150px no-repeat;
+  &__content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  &__author {
+    width: 100%;
+    padding-top: 15px;
+    padding-bottom: 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: url('../../assets/icons/about/lightning.svg') bottom right /
+      150px 150px no-repeat;
+    &-info {
+      text-align: center;
+    }
+  }
+  &__descr {
+    width: 100%;
+    height: 40vh;
+    overflow: hidden;
+    overflow-y: scroll;
+    padding: 5px 0;
+    padding-top: 15px;
+    padding-bottom: 5px;
+    background: url('../../assets/icons/about/scales-2-line.svg') bottom 80px
+      left / 170px 170px no-repeat;
+    &-text {
+      font-size: 14px;
+      line-height: 20px;
+      text-indent: 15px;
+      margin-bottom: 10px;
+      &::first-letter {
+        font-size: 22px;
+        line-height: 20px;
+        color: $error-message;
+        margin-right: 1px;
+      }
+    }
+  }
+  &__contacts {
+    width: 100%;
+    // padding-top: 2vh;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-shrink: 0;
+    &-item {
+      display: flex;
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+    }
+    &-link {
+      display: flex;
+      flex-shrink: 0;
+      width: 100%;
+      height: 100%;
+      font-size: 1px;
+      color: transparent;
+      cursor: pointer;
+      &_site {
+        background: url('../../assets/icons/about/site.svg') center / contain
+          no-repeat;
+      }
+      &_email {
+        background: url('../../assets/icons/about/email.svg') center / contain
+          no-repeat;
+      }
+      &_telegram {
+        background: url('../../assets/icons/about/telegram.svg') center /
+          contain no-repeat;
+      }
+      &_github {
+        background: url('../../assets/icons/about/github.svg') center / contain
+          no-repeat;
+      }
+    }
+  }
+  &__buttons-block {
+    padding: 20px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  &__button-close {
+    width: 40vw;
+    height: 40px;
+    display: inline-block;
+    line-height: 40px;
+    text-align: center;
+    border: none;
+    border-radius: 10px;
+    background-color: #f2f2f2;
+    box-shadow: -8px -8px 16px #d9d9d9, 8px 8px 16px #fff;
+    transition: transform 0.2s;
+    cursor: pointer;
+    &:active {
+      box-shadow: inset -6px -6px 12px #d9d9d9, inset 6px 6px 12px #fff;
+    }
+  }
+}
+
+@media (max-width: 320px) {
+  .about {
+    background: url('../../assets/icons/about/green-circle-dollar-custom.svg')
+      bottom 30px right 40px / 120px 120px no-repeat;
+    &__author {
+      width: 100%;
+      padding-top: 5px;
+      padding-bottom: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: url('../../assets/icons/about/lightning.svg') bottom right /
+        100px 100px no-repeat;
+      &-info {
+        font-size: 14px;
+        text-align: center;
+      }
+    }
+    &__descr {
+      width: 100%;
+      height: 33vh;
+      overflow: hidden;
+      overflow-y: scroll;
+      padding: 5px 0;
+      padding-top: 5px;
+      padding-bottom: 10px;
+      background: url('../../assets/icons/about/scales-2-line.svg') bottom 30px
+        left / 120px 120px no-repeat;
+      &-text {
+        font-size: 14px;
+        line-height: 20px;
+        text-indent: 15px;
+        margin-bottom: 10px;
+        &::first-letter {
+          font-size: 22px;
+          line-height: 20px;
+          color: $error-message;
+          margin-right: 1px;
+        }
+      }
+    }
+  }
+}

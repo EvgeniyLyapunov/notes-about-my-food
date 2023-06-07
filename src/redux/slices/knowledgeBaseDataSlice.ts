@@ -16,6 +16,7 @@ interface IKnowledgeBase {
   baseItemCalcPrice: number;
   dataLoadingStatus: boolean;
   dataLoadingError: string | null;
+  isError: boolean;
 }
 
 const initialState: IKnowledgeBase = {
@@ -25,6 +26,7 @@ const initialState: IKnowledgeBase = {
   baseItemCalcPrice: 0,
   dataLoadingStatus: false,
   dataLoadingError: null,
+  isError: false,
 };
 
 const knowledgeBaseSlice = createSlice({
@@ -32,7 +34,7 @@ const knowledgeBaseSlice = createSlice({
   initialState,
   reducers: {
     // инициализация baseItemsList из localStorage
-    setListFromStorage: (state, action: PayloadAction<IDataBaseItem[]>) => {
+    setList: (state, action: PayloadAction<IDataBaseItem[]>) => {
       state.baseItemsList = action.payload;
     },
     // выбор объекта для редактирования и сохранение его в стэйт для передачи в модальное окно
@@ -66,6 +68,7 @@ const knowledgeBaseSlice = createSlice({
     },
     resetErrorStatus: (state) => {
       state.dataLoadingError = null;
+      state.isError = false;
     },
   },
   extraReducers: (builder) => {
@@ -133,6 +136,7 @@ const knowledgeBaseSlice = createSlice({
       .addMatcher(isError, (state, action: PayloadAction<string>) => {
         state.dataLoadingError = action.payload;
         state.dataLoadingStatus = false;
+        state.isError = true;
       })
       .addDefaultCase(() => {});
   },
@@ -141,7 +145,7 @@ const knowledgeBaseSlice = createSlice({
 const { actions, reducer } = knowledgeBaseSlice;
 export default reducer;
 export const {
-  setListFromStorage,
+  setList,
   setBaseItemForEdit,
   resetBaseItemForEdit,
   setBaseItemIdForDelete,

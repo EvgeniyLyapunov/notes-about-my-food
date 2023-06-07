@@ -1,22 +1,30 @@
 import { FC, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import { useAppDispatch } from '../../../hooks/reduxHooks';
+import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHooks';
 import {
   appBurgerMenuActive,
   changePageName,
   setPageFrom,
+  setStartBurgerMenuVisible,
 } from '../../../redux/slices/headerSlice';
+import {
+  setLoginViewVisible,
+  setRegViewVisible,
+} from '../../../redux/slices/AuthSlice';
 
 import './start-page.scss';
 
 const StartPage: FC = () => {
   const dispatch = useAppDispatch();
-
+  const user = useAppSelector((state) => state.authSlice.user);
   useEffect(() => {
     dispatch(changePageName('startScreen'));
     dispatch(setPageFrom('startScreen'));
     dispatch(appBurgerMenuActive(false));
+    dispatch(setStartBurgerMenuVisible(false));
+    dispatch(setLoginViewVisible(false));
+    dispatch(setRegViewVisible(false));
     // eslint-disable-next-line
   }, [dispatch]);
 
@@ -37,16 +45,19 @@ const StartPage: FC = () => {
           <div className='start-page__buttons-box-left'>
             <Link
               className='start-page__btn start-page__btn_mb'
-              to={'/knowledgebase'}
+              to={user ? '/knowledgebase' : '/auth'}
             >
               База Знаний
             </Link>
-            <Link className='start-page__btn' to={'/statistic'}>
+            <Link
+              className='start-page__btn'
+              to={user ? '/statistic' : '/auth'}
+            >
               Статистика
             </Link>
           </div>
           <div className='start-page__buttons-box-right'>
-            <Link className='start-page__btn' to={'/myday'}>
+            <Link className='start-page__btn' to={user ? '/myday' : '/auth'}>
               Мой день
             </Link>
           </div>
