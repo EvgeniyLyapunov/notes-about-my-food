@@ -87,6 +87,12 @@
   <a href="https://sass-scss.ru/">
     <img width="50" height="50" title="sass" src="https://user-images.githubusercontent.com/77357671/227791678-949b584b-dc12-457c-85d1-ed110e5a1faa.svg"/>
   </a>
+        <a href="https://www.php.net/">
+    <img width="60" height="60" title="php" src="https://user-images.githubusercontent.com/77357671/210012253-3439449f-b3ce-4da8-b0c3-91ab56fe2034.svg"/>
+  </a>
+  <a href="https://www.mysql.com/">
+    <img width="50" height="50" title="MySQL" src="https://user-images.githubusercontent.com/77357671/210012538-e47f8851-6417-4c9e-8b22-270d920abb44.svg"/>
+  </a>
 </div>
 
 ☘️&nbsp; [classnames](https://www.npmjs.com/package/classnames)<br>
