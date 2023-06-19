@@ -12,7 +12,7 @@ import { postMyDay } from '../asyncThunks/postMyDay';
 import {
   myDayLoadState,
   currentMealLoadState,
-  clearLocalStorage,
+  clearMyDayLocalStorage,
 } from '../../utils/browserStorage';
 
 interface IMyDayData {
@@ -134,6 +134,15 @@ const myDayDataSlice = createSlice({
         (item) => item.id !== action.payload
       );
     },
+    // применяется при выходе пользователя из аккаунта
+    resetMyDayToInitState: (state) => {
+      resetCurrenFoodItem();
+      resetCurrentMeal();
+      state.currentDay = {
+        date: new Date().toLocaleDateString(),
+        meals: [],
+      };
+    },
     resetLoadingStatus: (state) => {
       state.dataLoadingStatus = false;
     },
@@ -150,7 +159,7 @@ const myDayDataSlice = createSlice({
     builder
       .addCase(postMyDay.fulfilled, (state) => {
         state.dataLoadingStatus = false;
-        clearLocalStorage();
+        clearMyDayLocalStorage();
       })
       .addMatcher(isError, (state, action: PayloadAction<string>) => {
         state.dataLoadingError = action.payload;
@@ -177,6 +186,7 @@ export const {
   deleteNexEmptyCurrentMeal,
   resetCurrentMeal,
   clearMealFoodstuffItem,
+  resetMyDayToInitState,
   resetLoadingStatus,
   resetErrorStatus,
 } = actions;

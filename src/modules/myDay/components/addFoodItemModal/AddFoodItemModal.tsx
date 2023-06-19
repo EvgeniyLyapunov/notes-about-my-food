@@ -56,16 +56,6 @@ const AddFoodItemModal: FC = () => {
     'add-food-item_active': isModalVisible,
   });
 
-  const handleSelectVisible = () => {
-    dispatch(setSelectFoodItemVisible(true));
-  };
-
-  const handelCansel = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault();
-    dispatch(setAddFoodItemVisible(false));
-    formik.resetForm();
-  };
-
   // Formik
   const initialValues: IFormValues = {
     name: '',
@@ -114,6 +104,19 @@ const AddFoodItemModal: FC = () => {
     formik.setFieldValue('name', selectedFoodItem.name);
     formik.setFieldValue('weight', selectedFoodItem.weight);
   }, [selectedFoodItem]);
+
+  const handleSelectVisible = () => {
+    dispatch(setSelectFoodItemVisible(true));
+  };
+
+  const handelCansel = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    dispatch(setAddFoodItemVisible(false));
+    formik.setFieldValue('name', '');
+    formik.setFieldValue('weight', '');
+    dispatch(resetCurrenFoodItem());
+    formik.resetForm();
+  };
 
   return (
     <div className={modalClasses}>

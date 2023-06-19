@@ -70,6 +70,13 @@ const knowledgeBaseSlice = createSlice({
       state.dataLoadingError = null;
       state.isError = false;
     },
+    // выполняется при совершении Logout
+    resetKnowledgeBaseToInitState: (state) => {
+      state.baseItemsList = [];
+      state.baseItemIdForDelete = undefined;
+      state.baseItemForEdit = undefined;
+      state.baseItemCalcPrice = 0;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -154,6 +161,7 @@ export const {
   resetCalcResult,
   resetErrorStatus,
   resetLoadingStatus,
+  resetKnowledgeBaseToInitState,
 } = actions;
 
 function isError(action: AnyAction) {

@@ -22,12 +22,15 @@ import { postMyDay } from '../../redux/asyncThunks/postMyDay';
 
 import {
   currentMealSaveState,
+  knowledgeBaseLoadState,
   myDayLoadState,
   myDaySaveState,
 } from '../../utils/browserStorage';
 import { createMyDayForDB } from '../../utils/createMyDayForDB';
 
 import './my-day.scss';
+import { setList } from '../../redux/slices/knowledgeBaseDataSlice';
+import { getKnowledgeBaseList } from '../../redux/asyncThunks/getKnowledgeBaseList';
 
 const MyDay: FC = () => {
   const dispatch = useAppDispatch();
@@ -67,6 +70,15 @@ const MyDay: FC = () => {
     ) {
       // инициализация store
       dispatch(setDataFromLocalStorage());
+    }
+
+    if (dbFoodItemsList.length === 0) {
+      const localData = knowledgeBaseLoadState();
+      if (localData) {
+        dispatch(setList(localData));
+      } else {
+        dispatch(getKnowledgeBaseList(userId as string));
+      }
     }
 
     return () => {

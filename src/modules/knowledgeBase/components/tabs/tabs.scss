@@ -2,8 +2,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  overflow: hidden;
-  overflow-y: scroll;
+  overflow: scroll;
   &__panel {
     width: 100%;
     height: 35px;
@@ -31,8 +30,8 @@
     display: none;
     width: 100%;
     padding-bottom: 20px;
-    overflow: hidden;
-    overflow-y: scroll;
+    overflow: scroll;
+
     &_active {
       display: block;
     }

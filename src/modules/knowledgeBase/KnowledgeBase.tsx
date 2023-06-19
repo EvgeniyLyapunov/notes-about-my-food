@@ -27,6 +27,10 @@ const KnowledgeBase: FC = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((store) => store.authSlice.user);
 
+  const isListData = useAppSelector(
+    (state) => state.knowledgeBaseDataSlice.baseItemsList.length
+  );
+
   const isLoading = useAppSelector(
     (state) => state.knowledgeBaseDataSlice.dataLoadingStatus
   );
@@ -47,13 +51,15 @@ const KnowledgeBase: FC = () => {
 
   // работа с localStorage и БД
   useEffect(() => {
-    const localData = knowledgeBaseLoadState();
-    if (localData) {
-      dispatch(setList(localData));
-    } else {
-      dispatch(getKnowledgeBaseList(user?.userId as string));
+    if (isListData === 0) {
+      const localData = knowledgeBaseLoadState();
+      if (localData) {
+        dispatch(setList(localData));
+      } else {
+        dispatch(getKnowledgeBaseList(user?.userId as string));
+      }
     }
-  }, [dispatch]);
+  }, [isListData]);
 
   return (
     <div className='knowledge-base'>

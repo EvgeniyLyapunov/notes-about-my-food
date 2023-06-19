@@ -67,7 +67,7 @@ export async function currentMealSaveState(state: IMeal) {
   }
 }
 
-export function clearLocalStorage(): void {
+export function clearMyDayLocalStorage(): void {
   try {
     localStorage.removeItem(CMKEY);
     localStorage.removeItem(MDKEY);
@@ -76,6 +76,18 @@ export function clearLocalStorage(): void {
   }
 }
 
+export function totalClearLocalStorage(): void {
+  try {
+    localStorage.clear();
+  } catch (e) {
+    // ignore
+  }
+}
+
+/**
+ * Метод получает данные пользователя
+ * из localStorage
+ * */
 export function userLoadState(): IDataUser | undefined {
   try {
     const serializedState = localStorage.getItem(USER);
@@ -85,7 +97,11 @@ export function userLoadState(): IDataUser | undefined {
     return undefined;
   }
 }
-
+/**
+ * метод сохраняет данные о пользователе
+ * в localStorage
+ * @param state объект User
+ */
 export async function userSaveState(state: IDataUser) {
   try {
     const serializedState = JSON.stringify(state);

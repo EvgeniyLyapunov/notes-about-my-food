@@ -21,6 +21,8 @@ type AppMenuListVisible = {
 const AppMenu: FC = () => {
   const dispatch = useAppDispatch();
 
+  const user = useAppSelector((state) => state.authSlice.user);
+
   const appMenuListVisible: AppMenuListVisible = {
     myday: false,
     knowledgeBase: false,
@@ -89,17 +91,20 @@ const AppMenu: FC = () => {
         </Link>
       </li>
       <li className={myDayHide}>
-        <Link className='start-menu__link' to={'/myday'}>
+        <Link className='start-menu__link' to={user ? '/myday' : '/auth'}>
           Мой день
         </Link>
       </li>
       <li className={knowledgebaseHide}>
-        <Link className='start-menu__link' to={'/knowledgebase'}>
+        <Link
+          className='start-menu__link'
+          to={user ? '/knowledgebase' : '/auth'}
+        >
           База Знаний
         </Link>
       </li>
       <li className={statisticHide}>
-        <Link className='start-menu__link' to={'/statistic'}>
+        <Link className='start-menu__link' to={user ? '/statistic' : '/auth'}>
           Статистика
         </Link>
       </li>

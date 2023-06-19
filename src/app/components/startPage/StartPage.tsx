@@ -28,6 +28,11 @@ const StartPage: FC = () => {
     // eslint-disable-next-line
   }, [dispatch]);
 
+  useEffect(() => {
+    if (!user) {
+    }
+  }, [user]);
+
   return (
     <div className='start-page'>
       <div className='start-page__container'>

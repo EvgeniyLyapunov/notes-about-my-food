@@ -20,6 +20,9 @@ const statisticSlice = createSlice({
   name: 'statisticSlice',
   initialState,
   reducers: {
+    resetStatisticToInitState: (state) => {
+      state.daysList = [];
+    },
     resetErrorInfo: (state) => {
       state.dataLoadingError = null;
     },
@@ -47,7 +50,7 @@ const statisticSlice = createSlice({
 
 const { actions, reducer } = statisticSlice;
 export default reducer;
-export const { resetErrorInfo } = actions;
+export const { resetErrorInfo, resetStatisticToInitState } = actions;
 
 function isError(action: AnyAction) {
   return action.type.endsWith('rejected');

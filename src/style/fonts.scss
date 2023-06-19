@@ -45,36 +45,9 @@
 
 @font-face {
   font-family: 'Genos';
-  src: url('../assets/fonts/Genos-SemiBold.woff2') format('woff2'),
-    url('../assets/fonts/Genos-SemiBold.woff') format('woff');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Genos';
   src: url('../assets/fonts/Genos-Regular.woff2') format('woff2'),
     url('../assets/fonts/Genos-Regular.woff') format('woff');
   font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Genos';
-  src: url('../assets/fonts/Genos-Bold.woff2') format('woff2'),
-    url('../assets/fonts/Genos-Bold.woff') format('woff');
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Genos';
-  src: url('../assets/fonts/Genos-Medium.woff2') format('woff2'),
-    url('../assets/fonts/Genos-Medium.woff') format('woff');
-  font-weight: 500;
   font-style: normal;
   font-display: swap;
 }

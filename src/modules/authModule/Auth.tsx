@@ -5,6 +5,9 @@ import { Link } from 'react-router-dom';
 import Reg from './components/reg/Reg';
 import Login from './components/login/Login';
 import SelectAuth from './components/selectAuth/SelectAuth';
+import ConfirmLogoutModal from './components/confirmLogoutModal/ConfirmLogoutModal';
+import Loading from '../../app/components/loading/loading';
+import ErrorPage from './components/error/ErrorPage';
 
 import {
   startBurgerMenuActive,
@@ -30,6 +33,11 @@ const Auth: FC = () => {
   const isRegVisible = useAppSelector(
     (state) => state.authSlice.isRegViewVisible
   );
+  const isConfirmLogoutVisible = useAppSelector(
+    (state) => state.authSlice.isConfirmLogoutVisible
+  );
+  const isLoading = useAppSelector((state) => state.authSlice.isLoading);
+  const isError = useAppSelector((store) => store.authSlice.isErrorMessage);
 
   useEffect(() => {
     // закрываем панель меню
@@ -51,6 +59,9 @@ const Auth: FC = () => {
       {isSelectVisible ? <SelectAuth /> : null}
       {isLoginVisible ? <Login /> : null}
       {isRegVisible ? <Reg /> : null}
+      {isConfirmLogoutVisible && <ConfirmLogoutModal />}
+      {isLoading && <Loading />}
+      {isError && <ErrorPage />}
       <div className='auth__buttons-block'>
         <Link className='auth__button-close' to={'/'} onClick={handleClose}>
           Закрыть

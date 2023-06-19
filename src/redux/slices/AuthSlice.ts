@@ -8,6 +8,7 @@ interface IAuthSlice {
   isLoginViewVisible: boolean;
   isRegViewVisible: boolean;
   isSelectAuthVisible: boolean;
+  isConfirmLogoutVisible: boolean;
   isLoading: boolean;
   isErrorMessage: string | null;
   isRegSuccess: boolean;
@@ -19,6 +20,7 @@ const initialState: IAuthSlice = {
   isLoginViewVisible: false,
   isRegViewVisible: false,
   isSelectAuthVisible: false,
+  isConfirmLogoutVisible: false,
   isLoading: false,
   isErrorMessage: null,
   isRegSuccess: false,
@@ -30,7 +32,7 @@ const authSlice = createSlice({
   name: 'authSlice',
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<IDataUser>) => {
+    setUser: (state, action: PayloadAction<IDataUser | undefined>) => {
       state.user = action.payload;
     },
     setRegViewVisible: (state, action: PayloadAction<boolean>) => {
@@ -41,6 +43,9 @@ const authSlice = createSlice({
     },
     setSelectAuthVisible: (state, action: PayloadAction<boolean>) => {
       state.isSelectAuthVisible = action.payload;
+    },
+    setConfirmLogoutVisible: (state, action: PayloadAction<boolean>) => {
+      state.isConfirmLogoutVisible = action.payload;
     },
     setRegSuccess: (state, action: PayloadAction<boolean>) => {
       state.isRegSuccess = action.payload;
@@ -95,6 +100,7 @@ export const {
   setRegViewVisible,
   setLoginViewVisible,
   setSelectAuthVisible,
+  setConfirmLogoutVisible,
   setRegSuccess,
   setLogSuccess,
   resetErrorMessage,

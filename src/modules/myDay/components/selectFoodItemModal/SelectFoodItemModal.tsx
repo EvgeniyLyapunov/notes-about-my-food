@@ -14,6 +14,8 @@ interface IFoodItemListProps {
   list: IDataBaseItem[];
 }
 const SelectFoodItemModal: FC<IFoodItemListProps> = ({ list }) => {
+  const dispatch = useAppDispatch();
+
   let listForSort = [...list];
 
   if (listForSort && listForSort.length > 2) {
@@ -28,8 +30,6 @@ const SelectFoodItemModal: FC<IFoodItemListProps> = ({ list }) => {
     'select-food-item': true,
     'select-food-item_active': isVisible,
   });
-
-  const dispatch = useAppDispatch();
 
   const handleClose = () => {
     dispatch(setSelectFoodItemVisible(false));
