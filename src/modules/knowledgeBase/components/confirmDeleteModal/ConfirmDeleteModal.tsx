@@ -1,20 +1,26 @@
 import { FC } from 'react';
 import { useAppSelector, useAppDispatch } from '../../../../hooks/reduxHooks';
 import classNames from 'classnames';
-import { setConfirmForDeleteModalVisible } from '../../../../redux/slices/knowledgeBaseViewSlice';
+import { setConfirmForDeleteModalVisible } from '../../../../redux/slices/dataViewSlice';
 
-import { resetBaseItemIdForDelete } from '../../../../redux/slices/knowledgeBaseDataSlice';
-import { deleteKnowledgeBaseItem } from '../../../../redux/asyncThunks/deleteKnowledgeBaseItem';
+import { resetBaseItemIdForDelete } from '../../../../redux/slices/dataFoodSlice';
+import { resetSetsIdForDelete } from '../../../../redux/slices/dataSetsSlice';
+import { deleteBaseItem } from '../../../../redux/asyncThunks/deleteBaseItem';
+import { deleteSet } from '../../../../redux/asyncThunks/deleteSet';
 
 import './confirm-delete.scss';
 
 const ConfirmDeleteModal: FC = () => {
+  const activeTab = useAppSelector((store) => store.dataViewSlice.activeTab);
   const isVisible = useAppSelector(
-    (store) => store.knowledgeBaseViewSlice.isConfirmDeleteVisible
+    (store) => store.dataViewSlice.isConfirmDeleteVisible
   );
 
-  const deleteItemId = useAppSelector(
-    (store) => store.knowledgeBaseDataSlice.baseItemIdForDelete
+  const deleteFoodItemId = useAppSelector(
+    (store) => store.dataFoodSlice.baseItemIdForDelete
+  );
+  const deleteSetItemId = useAppSelector(
+    (store) => store.dataSetsSlice.setsIdForDelete
   );
 
   const dispatch = useAppDispatch();
@@ -27,14 +33,23 @@ const ConfirmDeleteModal: FC = () => {
   const handleCancel = () => {
     dispatch(setConfirmForDeleteModalVisible(false));
     dispatch(resetBaseItemIdForDelete());
+    dispatch(resetSetsIdForDelete());
   };
 
   const handleDelete = () => {
-    dispatch(
-      deleteKnowledgeBaseItem(JSON.stringify({ id: deleteItemId as number }))
-    );
+    switch (activeTab) {
+      case 'food':
+        dispatch(
+          deleteBaseItem(JSON.stringify({ id: deleteFoodItemId as number }))
+        );
+        dispatch(resetBaseItemIdForDelete());
+        break;
+      case 'set':
+        dispatch(deleteSet(JSON.stringify({ id: deleteSetItemId as number })));
+        dispatch(resetSetsIdForDelete());
+        break;
+    }
     dispatch(setConfirmForDeleteModalVisible(false));
-    dispatch(resetBaseItemIdForDelete());
   };
 
   return (

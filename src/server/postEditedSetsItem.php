@@ -1,22 +1,20 @@
 <?php
   require 'config.php';
-
   $connection = mysqli_connect($hostPath, $dbUserName, $dbPassword, $dbName);
 
   $_POST = json_decode(file_get_contents('php://input'), true);
 
+  $id = mysqli_real_escape_string($connection, $_POST["id"]);
   $name = mysqli_real_escape_string($connection, $_POST["name"]);
   $calories = mysqli_real_escape_string($connection, $_POST["calories"]);
   $userId = mysqli_real_escape_string($connection, $_POST["userId"]);
   $price = mysqli_real_escape_string($connection, $_POST["price"]);
- 
-  $queryInsert = "INSERT INTO `groceries`(`name`, `calories`, `price`, `userid`)
-                    VALUES ('$name', '$calories', '$price', '$userId')";
-  $result = mysqli_query($connection, $queryInsert);
 
-  $id = mysqli_insert_id($connection);
+  $queryUpdate = "UPDATE `sets` SET `name`= '$name',`calories`= '$calories',`price`= '$price',`userid`= '$userId' WHERE `id` = '$id'";
 
-  $querySelectLast = "SELECT * FROM `groceries` WHERE `id` = $id";
+  $result = mysqli_query($connection, $queryUpdate);
+
+  $querySelectLast = "SELECT * FROM `sets` WHERE `id` = '$id'";
   $resData = mysqli_query($connection, $querySelectLast);
 
   $data = array();

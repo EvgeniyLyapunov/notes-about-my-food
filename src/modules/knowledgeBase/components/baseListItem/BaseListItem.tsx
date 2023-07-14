@@ -1,15 +1,20 @@
 import { FC } from 'react';
 import classNames from 'classnames';
-
+import { useAppSelector } from '../../../../hooks/reduxHooks';
 import { useAppDispatch } from '../../../../hooks/reduxHooks';
+
 import {
   setEditItemModalVisible,
   setConfirmForDeleteModalVisible,
-} from '../../../../redux/slices/knowledgeBaseViewSlice';
+} from '../../../../redux/slices/dataViewSlice';
 import {
   setBaseItemForEdit,
   setBaseItemIdForDelete,
-} from '../../../../redux/slices/knowledgeBaseDataSlice';
+} from '../../../../redux/slices/dataFoodSlice';
+import {
+  setSetsItemForEdit,
+  setSetsIdForDelete,
+} from '../../../../redux/slices/dataSetsSlice';
 
 import './base-list-item.scss';
 
@@ -29,18 +34,35 @@ const BaseListItem: FC<IBaseListItemProps> = ({
   zebra,
 }) => {
   const dispatch = useAppDispatch();
+
+  const activeTab = useAppSelector((store) => store.dataViewSlice.activeTab);
+
   const classesWithZebra = classNames({
     'base-list-item': true,
     'base-list-item_zebra': zebra,
   });
 
   const handleEditItem = () => {
-    dispatch(setBaseItemForEdit(id));
+    switch (activeTab) {
+      case 'food':
+        dispatch(setBaseItemForEdit(id));
+        break;
+      case 'set':
+        dispatch(setSetsItemForEdit(id));
+        break;
+    }
     dispatch(setEditItemModalVisible());
   };
 
   const handleDeleteItem = () => {
-    dispatch(setBaseItemIdForDelete(id));
+    switch (activeTab) {
+      case 'food':
+        dispatch(setBaseItemIdForDelete(id));
+        break;
+      case 'set':
+        dispatch(setSetsIdForDelete(id));
+        break;
+    }
     dispatch(setConfirmForDeleteModalVisible(true));
   };
 

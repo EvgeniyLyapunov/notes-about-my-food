@@ -5,14 +5,15 @@ import {
   IDataUser,
 } from '../models/modelTypes';
 
-const KBKEY = 'knowledgeBase';
-const MDKEY = 'myDay';
-const CMKEY = 'currentMeal';
-const USER = 'userId';
+const food = 'knowledgeBase';
+const sets = 'knowledgeBaseSets';
+const myDay = 'myDay';
+const currentMeal = 'currentMeal';
+const userId = 'userId';
 
-export function knowledgeBaseLoadState(): IDataBaseItem[] | undefined {
+export function baseLoadState(): IDataBaseItem[] | undefined {
   try {
-    const serializedState = localStorage.getItem(KBKEY);
+    const serializedState = localStorage.getItem(food);
     if (!serializedState) return undefined;
     return JSON.parse(serializedState);
   } catch (e) {
@@ -20,10 +21,29 @@ export function knowledgeBaseLoadState(): IDataBaseItem[] | undefined {
   }
 }
 
-export async function knowledgeBaseSaveState(state: IDataBaseItem[]) {
+export async function baseSaveState(state: IDataBaseItem[]) {
   try {
     const serializedState = JSON.stringify(state);
-    localStorage.setItem(KBKEY, serializedState);
+    localStorage.setItem(food, serializedState);
+  } catch (e) {
+    // Ignore
+  }
+}
+
+export function setsLoadState(): IDataBaseItem[] | undefined {
+  try {
+    const serializedState = localStorage.getItem(sets);
+    if (!serializedState) return undefined;
+    return JSON.parse(serializedState);
+  } catch (e) {
+    return undefined;
+  }
+}
+
+export async function setsSaveState(state: IDataBaseItem[]) {
+  try {
+    const serializedState = JSON.stringify(state);
+    localStorage.setItem(sets, serializedState);
   } catch (e) {
     // Ignore
   }
@@ -31,7 +51,7 @@ export async function knowledgeBaseSaveState(state: IDataBaseItem[]) {
 
 export function myDayLoadState(): ICurrentDay | undefined {
   try {
-    const serializedState = localStorage.getItem(MDKEY);
+    const serializedState = localStorage.getItem(myDay);
     if (!serializedState) return undefined;
     return JSON.parse(serializedState);
   } catch (e) {
@@ -42,7 +62,7 @@ export function myDayLoadState(): ICurrentDay | undefined {
 export async function myDaySaveState(state: ICurrentDay) {
   try {
     const serializedState = JSON.stringify(state);
-    localStorage.setItem(MDKEY, serializedState);
+    localStorage.setItem(myDay, serializedState);
   } catch (e) {
     // Ignore
   }
@@ -50,7 +70,7 @@ export async function myDaySaveState(state: ICurrentDay) {
 
 export function currentMealLoadState(): IMeal | undefined {
   try {
-    const serializedState = localStorage.getItem(CMKEY);
+    const serializedState = localStorage.getItem(currentMeal);
     if (!serializedState) return undefined;
     return JSON.parse(serializedState);
   } catch (e) {
@@ -61,7 +81,7 @@ export function currentMealLoadState(): IMeal | undefined {
 export async function currentMealSaveState(state: IMeal) {
   try {
     const serializedState = JSON.stringify(state);
-    localStorage.setItem(CMKEY, serializedState);
+    localStorage.setItem(currentMeal, serializedState);
   } catch (e) {
     // Ignore
   }
@@ -69,8 +89,8 @@ export async function currentMealSaveState(state: IMeal) {
 
 export function clearMyDayLocalStorage(): void {
   try {
-    localStorage.removeItem(CMKEY);
-    localStorage.removeItem(MDKEY);
+    localStorage.removeItem(currentMeal);
+    localStorage.removeItem(myDay);
   } catch (e) {
     // Ignore
   }
@@ -90,7 +110,7 @@ export function totalClearLocalStorage(): void {
  * */
 export function userLoadState(): IDataUser | undefined {
   try {
-    const serializedState = localStorage.getItem(USER);
+    const serializedState = localStorage.getItem(userId);
     if (!serializedState) return undefined;
     return JSON.parse(serializedState);
   } catch (e) {
@@ -105,7 +125,7 @@ export function userLoadState(): IDataUser | undefined {
 export async function userSaveState(state: IDataUser) {
   try {
     const serializedState = JSON.stringify(state);
-    localStorage.setItem(USER, serializedState);
+    localStorage.setItem(userId, serializedState);
   } catch (e) {
     // Ignore
   }

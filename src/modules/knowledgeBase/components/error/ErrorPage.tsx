@@ -1,16 +1,14 @@
 import { FC } from 'react';
 import { useAppSelector, useAppDispatch } from '../../../../hooks/reduxHooks';
 
-import { resetErrorStatus } from '../../../../redux/slices/knowledgeBaseDataSlice';
+import { resetErrorStatus } from '../../../../redux/slices/dataFoodSlice';
 
 import './error-page.scss';
 
 const ErrorPage: FC = () => {
   const dispatch = useAppDispatch();
 
-  const error = useAppSelector(
-    (state) => state.knowledgeBaseDataSlice.dataLoadingError
-  );
+  const error = useAppSelector((state) => state.dataFoodSlice.dataLoadingError);
 
   const handleClose = () => {
     dispatch(resetErrorStatus());

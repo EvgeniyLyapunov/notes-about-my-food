@@ -10,7 +10,7 @@ import {
   setSelectAuthVisible,
   setUser,
 } from '../../../../redux/slices/AuthSlice';
-import { resetKnowledgeBaseToInitState } from '../../../../redux/slices/knowledgeBaseDataSlice';
+import { resetKnowledgeBaseToInitState } from '../../../../redux/slices/dataFoodSlice';
 import { resetMyDayToInitState } from '../../../../redux/slices/myDayDataSlice';
 import { resetStatisticToInitState } from '../../../../redux/slices/statisticSlice';
 

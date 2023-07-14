@@ -2,14 +2,14 @@ import { createSlice, PayloadAction, AnyAction } from '@reduxjs/toolkit';
 
 import { IDataBaseItem } from '../../models/modelTypes';
 
-import { getKnowledgeBaseList } from '../asyncThunks/getKnowledgeBaseList';
-import { postNewKnowledgeBaseItem } from '../asyncThunks/postNewKnowledgeBaseItem';
-import { postEditedKnowledgeBaseItem } from '../asyncThunks/postEditedKnowledgeBaseItem';
-import { deleteKnowledgeBaseItem } from '../asyncThunks/deleteKnowledgeBaseItem';
+import { getBaseList } from '../asyncThunks/getBaseList';
+import { postNewFoodItem } from '../asyncThunks/postNewFoodItem';
+import { postEditedFoodItem } from '../asyncThunks/postEditedFoodItem';
+import { deleteBaseItem } from '../asyncThunks/deleteBaseItem';
 
-import { knowledgeBaseSaveState } from '../../utils/browserStorage';
+import { baseSaveState } from '../../utils/browserStorage';
 
-interface IKnowledgeBase {
+interface IDataFood {
   baseItemsList: IDataBaseItem[];
   baseItemForEdit?: IDataBaseItem;
   baseItemIdForDelete?: number;
@@ -19,7 +19,7 @@ interface IKnowledgeBase {
   isError: boolean;
 }
 
-const initialState: IKnowledgeBase = {
+const initialState: IDataFood = {
   baseItemsList: [],
   baseItemForEdit: undefined,
   baseItemIdForDelete: undefined,
@@ -29,12 +29,12 @@ const initialState: IKnowledgeBase = {
   isError: false,
 };
 
-const knowledgeBaseSlice = createSlice({
-  name: 'knowledgeBaseData',
+const dataFoodSlice = createSlice({
+  name: 'dataFood',
   initialState,
   reducers: {
     // инициализация baseItemsList из localStorage
-    setList: (state, action: PayloadAction<IDataBaseItem[]>) => {
+    initItemsList: (state, action: PayloadAction<IDataBaseItem[]>) => {
       state.baseItemsList = action.payload;
     },
     // выбор объекта для редактирования и сохранение его в стэйт для передачи в модальное окно
@@ -80,64 +80,64 @@ const knowledgeBaseSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getKnowledgeBaseList.pending, (state) => {
+      .addCase(getBaseList.pending, (state) => {
         state.dataLoadingStatus = true;
         state.dataLoadingError = null;
       })
       // загрузка всего списка продуктов из БД
       // и обновления базы знаний в localStorage
       .addCase(
-        getKnowledgeBaseList.fulfilled,
+        getBaseList.fulfilled,
         (state, action: PayloadAction<IDataBaseItem[]>) => {
           state.dataLoadingStatus = false;
           state.baseItemsList = action.payload;
-          knowledgeBaseSaveState(state.baseItemsList);
+          baseSaveState(state.baseItemsList);
         }
       )
-      .addCase(postNewKnowledgeBaseItem.pending, (state) => {
+      .addCase(postNewFoodItem.pending, (state) => {
         state.dataLoadingStatus = true;
         state.dataLoadingError = null;
       })
       // добавление новой записи в базе знаний (сюда приходит значение уже с id из БД)
       // и обновления базы знаний в localStorage
       .addCase(
-        postNewKnowledgeBaseItem.fulfilled,
+        postNewFoodItem.fulfilled,
         (state, action: PayloadAction<IDataBaseItem>) => {
           state.dataLoadingStatus = false;
           state.baseItemsList.push(action.payload);
-          knowledgeBaseSaveState(state.baseItemsList);
+          baseSaveState(state.baseItemsList);
         }
       )
-      .addCase(postEditedKnowledgeBaseItem.pending, (state) => {
+      .addCase(postEditedFoodItem.pending, (state) => {
         state.dataLoadingStatus = true;
         state.dataLoadingError = null;
       })
       // сохранение отредактированной записи
       .addCase(
-        postEditedKnowledgeBaseItem.fulfilled,
+        postEditedFoodItem.fulfilled,
         (state, action: PayloadAction<IDataBaseItem>) => {
           state.dataLoadingStatus = false;
           state.baseItemsList = state.baseItemsList.filter(
             (item) => item.id !== action.payload.id
           );
           state.baseItemsList.push(action.payload);
-          knowledgeBaseSaveState(state.baseItemsList);
+          baseSaveState(state.baseItemsList);
         }
       )
-      .addCase(deleteKnowledgeBaseItem.pending, (state) => {
+      .addCase(deleteBaseItem.pending, (state) => {
         state.dataLoadingStatus = true;
         state.dataLoadingError = null;
       })
       // удаление одной записи в базе знаний (сюда приходит значение id удалённой записи)
       // и обновления базы знаний в localStorage
       .addCase(
-        deleteKnowledgeBaseItem.fulfilled,
+        deleteBaseItem.fulfilled,
         (state, action: PayloadAction<number>) => {
           state.dataLoadingStatus = false;
           state.baseItemsList = state.baseItemsList.filter(
             (item) => item.id !== action.payload
           );
-          knowledgeBaseSaveState(state.baseItemsList);
+          baseSaveState(state.baseItemsList);
         }
       )
       .addMatcher(isError, (state, action: PayloadAction<string>) => {
@@ -149,10 +149,10 @@ const knowledgeBaseSlice = createSlice({
   },
 });
 
-const { actions, reducer } = knowledgeBaseSlice;
+const { actions, reducer } = dataFoodSlice;
 export default reducer;
 export const {
-  setList,
+  initItemsList,
   setBaseItemForEdit,
   resetBaseItemForEdit,
   setBaseItemIdForDelete,

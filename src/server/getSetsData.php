@@ -4,7 +4,7 @@
   $connection = mysqli_connect($hostPath, $dbUserName, $dbPassword, $dbName);
   $userId = $_GET['userId'];
 
-  $querySelect = "SELECT * FROM `groceries` WHERE `userid` = '$userId'";
+  $querySelect = "SELECT * FROM `sets` WHERE `userid` = '$userId'";
   $resData = mysqli_query($connection, $querySelect);
 
   $data = array();
@@ -18,4 +18,3 @@
   ]);
 
   mysqli_close($connection);
-?>

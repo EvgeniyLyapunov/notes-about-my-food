@@ -2,6 +2,12 @@ import { FC, useState } from 'react';
 import classNames from 'classnames';
 
 import { useAppSelector } from '../../../../hooks/reduxHooks';
+import { useAppDispatch } from '../../../../hooks/reduxHooks';
+
+import { TypeActiveTab } from '../../../../models/modelTypes';
+
+import { setViewTab } from '../../../../redux/slices/dataViewSlice';
+
 import BaseList from '../baseList/BaseList';
 
 import './tabs.scss';
@@ -13,9 +19,11 @@ type ActiveTabs = {
 };
 
 const Tabs: FC = () => {
+  const dispatch = useAppDispatch();
   const foodItems = useAppSelector(
-    (state) => state.knowledgeBaseDataSlice.baseItemsList
+    (state) => state.dataFoodSlice.baseItemsList
   );
+  const setsItems = useAppSelector((state) => state.dataSetsSlice.setsList);
 
   const activeTabsList: ActiveTabs = { food: true, set: false, recipe: false };
   const [activeTab, setActiveTab] = useState(activeTabsList);
@@ -26,6 +34,7 @@ const Tabs: FC = () => {
     for (k in changedActiveTabsList) {
       if (k === e.currentTarget.id) {
         changedActiveTabsList[k] = true;
+        dispatch(setViewTab(e.currentTarget.id as TypeActiveTab));
       } else {
         changedActiveTabsList[k] = false;
       }
@@ -80,10 +89,13 @@ const Tabs: FC = () => {
           Рецепты
         </li>
       </ul>
+
       <div className={tabContantFood}>
         <BaseList items={foodItems} />
       </div>
-      <div className={tabContantSet}>Наборы</div>
+      <div className={tabContantSet}>
+        <BaseList items={setsItems} />
+      </div>
       <div className={tabContantRecipe}>Рецепты</div>
     </div>
   );

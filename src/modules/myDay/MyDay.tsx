@@ -22,15 +22,15 @@ import { postMyDay } from '../../redux/asyncThunks/postMyDay';
 
 import {
   currentMealSaveState,
-  knowledgeBaseLoadState,
+  baseLoadState,
   myDayLoadState,
   myDaySaveState,
 } from '../../utils/browserStorage';
 import { createMyDayForDB } from '../../utils/createMyDayForDB';
 
 import './my-day.scss';
-import { setList } from '../../redux/slices/knowledgeBaseDataSlice';
-import { getKnowledgeBaseList } from '../../redux/asyncThunks/getKnowledgeBaseList';
+import { initItemsList } from '../../redux/slices/dataFoodSlice';
+import { getBaseList } from '../../redux/asyncThunks/getBaseList';
 
 const MyDay: FC = () => {
   const dispatch = useAppDispatch();
@@ -43,7 +43,7 @@ const MyDay: FC = () => {
   );
   const currentDay = useAppSelector((store) => store.myDayDataSlice.currentDay);
   const dbFoodItemsList = useAppSelector(
-    (state) => state.knowledgeBaseDataSlice.baseItemsList
+    (state) => state.dataFoodSlice.baseItemsList
   );
   const isViewMode = useAppSelector((store) => store.myDayViewSlice.isViewMode);
 
@@ -73,13 +73,15 @@ const MyDay: FC = () => {
     }
 
     if (dbFoodItemsList.length === 0) {
-      const localData = knowledgeBaseLoadState();
+      const localData = baseLoadState();
       if (localData) {
-        dispatch(setList(localData));
+        dispatch(initItemsList(localData));
       } else {
-        dispatch(getKnowledgeBaseList(userId as string));
+        dispatch(getBaseList(userId as string));
       }
     }
+
+    //TODO инициализировать setsList из базы знаний
 
     return () => {
       dispatch(appBurgerMenuActive(false));

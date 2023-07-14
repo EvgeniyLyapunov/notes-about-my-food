@@ -6,7 +6,7 @@
 
   $id = mysqli_real_escape_string($connection, $_POST["id"]);
 
-  $queryDelete = "DELETE FROM `groceries` WHERE `id` = $id";
+  $queryDelete = "DELETE FROM `sets` WHERE `id` = $id";
   $result = mysqli_query($connection, $queryDelete);
 
   echo json_encode([
@@ -15,4 +15,3 @@
   ]);
 
   mysqli_close($connection);
-?>

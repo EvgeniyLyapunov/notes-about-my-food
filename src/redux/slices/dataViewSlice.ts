@@ -1,21 +1,27 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { TypeActiveTab } from '../../models/modelTypes';
 
-interface KnowledgeBaseView {
+interface dataView {
+  activeTab: TypeActiveTab;
   isAddItemModalVisible: boolean;
   isConfirmDeleteVisible: boolean;
   isCalcPriceVisible: boolean;
 }
 
-const initialState: KnowledgeBaseView = {
+const initialState: dataView = {
+  activeTab: 'food',
   isAddItemModalVisible: false,
   isConfirmDeleteVisible: false,
   isCalcPriceVisible: false,
 };
 
-const knowledgeBaseViewSlice = createSlice({
-  name: 'knowledgeBaseView',
+const dataViewSlice = createSlice({
+  name: 'dataView',
   initialState,
   reducers: {
+    setViewTab: (state, action: PayloadAction<TypeActiveTab>) => {
+      state.activeTab = action.payload;
+    },
     // установка флага для открытия окна редактирования в режиме создания нового объекта
     setCreateItemModalVisible: (state, action: PayloadAction<boolean>) => {
       state.isAddItemModalVisible = action.payload;
@@ -38,9 +44,10 @@ const knowledgeBaseViewSlice = createSlice({
   },
 });
 
-const { actions, reducer } = knowledgeBaseViewSlice;
+const { actions, reducer } = dataViewSlice;
 export default reducer;
 export const {
+  setViewTab,
   setCreateItemModalVisible,
   setEditItemModalVisible,
   setConfirmForDeleteModalVisible,

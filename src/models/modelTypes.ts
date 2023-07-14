@@ -52,6 +52,8 @@ interface IDataUser {
   password: string;
 }
 
+type TypeActiveTab = 'food' | 'set' | 'recipe';
+
 export type {
   BaseItem,
   IBaseItem,
@@ -61,4 +63,5 @@ export type {
   ICurrentDay,
   IMyDayResult,
   IDataUser,
+  TypeActiveTab,
 };

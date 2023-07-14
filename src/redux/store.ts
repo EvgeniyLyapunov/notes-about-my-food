@@ -1,8 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import headerSlice from './slices/headerSlice';
-import knowledgeBaseViewSlice from './slices/knowledgeBaseViewSlice';
-import knowledgeBaseDataSlice from './slices/knowledgeBaseDataSlice';
+import dataViewSlice from './slices/dataViewSlice';
+import dataFoodSlice from './slices/dataFoodSlice';
+import dataSetsSlice from './slices/dataSetsSlice';
 import myDayViewSlice from './slices/myDayViewSlice';
 import myDayDataSlice from './slices/myDayDataSlice';
 import statisticSlice from './slices/statisticSlice';
@@ -11,8 +12,9 @@ import authSlice from './slices/AuthSlice';
 const store = configureStore({
   reducer: {
     headerSlice,
-    knowledgeBaseViewSlice,
-    knowledgeBaseDataSlice,
+    dataViewSlice,
+    dataFoodSlice,
+    dataSetsSlice,
     myDayViewSlice,
     myDayDataSlice,
     statisticSlice,

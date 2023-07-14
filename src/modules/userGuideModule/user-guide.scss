@@ -6,7 +6,7 @@
   flex-direction: column;
   justify-content: space-between;
   &__book {
-    overflow: scroll;
+    overflow: auto;
     padding: 5px 0;
   }
   &__buttons-block {
