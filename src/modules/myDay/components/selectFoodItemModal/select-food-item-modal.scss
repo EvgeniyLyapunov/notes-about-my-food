@@ -44,4 +44,17 @@
         cover no-repeat;
     }
   }
+  &__cansel {
+    margin-top: 10px;
+    width: 95%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    &-btn {
+      width: 25px;
+      height: 25px;
+      background: url('../../../../assets/icons/myDay/arrow-cancel.svg') center /
+        cover no-repeat;
+    }
+  }
 }

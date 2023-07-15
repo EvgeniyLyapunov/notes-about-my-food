@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { useAppSelector, useAppDispatch } from '../../../../hooks/reduxHooks';
 
 import {
+  setSourseForSelect,
   setTotalCalories,
   setTotalPrice,
   addToFoodStuff,
@@ -44,6 +45,9 @@ const AddFoodItemModal: FC = () => {
   const isModalVisible = useAppSelector(
     (store) => store.myDayViewSlice.isAddFoodItemVisible
   );
+  const sourceForSelect = useAppSelector(
+    (state) => state.myDayDataSlice.sourceForSelect
+  );
   const selectedFoodItem = useAppSelector(
     (store) => store.myDayDataSlice.foodItem
   );
@@ -66,21 +70,30 @@ const AddFoodItemModal: FC = () => {
     initialValues,
     validate,
     onSubmit: (values) => {
-      // расчёт калорий веса выбранного продукта
-      const foodWeightCalories = caloriesCalc(
-        selectedFoodItem.calories,
-        values.weight
-      );
-      // расчёт цены веса выбранного продукта
-      const foodWeightPrice = priceCalc(selectedFoodItem.price, values.weight);
-      // формирование продукта со значениями для заданного веса для записи в лист текущего приёма пищи
-      const foodItem = {
+      let foodItem = {
         ...selectedFoodItem,
-        price: foodWeightPrice,
-        calories: foodWeightCalories,
-        weight: values.weight,
+        price: +selectedFoodItem.price,
+        calories: +selectedFoodItem.calories,
       };
 
+      if (sourceForSelect === 'food') {
+        // расчёт калорий веса выбранного продукта
+        const foodWeightCalories = caloriesCalc(
+          selectedFoodItem.calories,
+          values.weight
+        );
+        // расчёт цены веса выбранного продукта
+        const foodWeightPrice = priceCalc(
+          selectedFoodItem.price,
+          values.weight
+        );
+        foodItem = {
+          ...selectedFoodItem,
+          price: foodWeightPrice,
+          calories: foodWeightCalories,
+          weight: values.weight,
+        };
+      }
       // проверяем, есть ли уже такой продукт в списке, и если да, то получаем его
       const checkedItem = foodstuffList.find((item) => item.id === foodItem.id);
       // если добавляемый продукт уже был в списке, вычитаем значение его полей из общего значения этих полей
@@ -105,7 +118,12 @@ const AddFoodItemModal: FC = () => {
     formik.setFieldValue('weight', selectedFoodItem.weight);
   }, [selectedFoodItem]);
 
-  const handleSelectVisible = () => {
+  const handleFoodSelectVisible = () => {
+    dispatch(setSourseForSelect('food'));
+    dispatch(setSelectFoodItemVisible(true));
+  };
+  const handleSetsSelectVisible = () => {
+    dispatch(setSourseForSelect('set'));
     dispatch(setSelectFoodItemVisible(true));
   };
 
@@ -121,7 +139,7 @@ const AddFoodItemModal: FC = () => {
   return (
     <div className={modalClasses}>
       <form className='add-food-item__form form' onSubmit={formik.handleSubmit}>
-        <h3 className='form__title'>Добавить продукт:</h3>
+        <h3 className='form__title'>Добавить:</h3>
         <div className='form__content'>
           <div className='form__input-block'>
             <label className='form__name-label' htmlFor='name'>
@@ -157,7 +175,20 @@ const AddFoodItemModal: FC = () => {
             </label>
           </div>
           <div className='form__buttons-block'>
-            <span className='form__addBtn' onClick={handleSelectVisible}></span>
+            <label
+              className='form__label-addBtn'
+              onClick={handleFoodSelectVisible}
+            >
+              <span className='form__addBtn form__addBtn-food'></span>
+              <span className='form__addBtn-food-text'>Продукт</span>
+            </label>
+            <label
+              className='form__label-addBtn'
+              onClick={handleSetsSelectVisible}
+            >
+              <span className='form__addBtn form__addBtn-set'></span>
+              <span className='form__addBtn-set-text'>Набор</span>
+            </label>
             <div className='form__confirm-block'>
               <button
                 className='form__btn form__btn-cansel'

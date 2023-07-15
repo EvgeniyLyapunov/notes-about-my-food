@@ -31,7 +31,7 @@ const MyDayUserGuide: FC = () => {
       </p>
       <p className='my-day-ug__text'>
         В&nbsp;окне &laquo;Добавить продукт&raquo; нажатие на&nbsp;иконку{' '}
-        <span className='text-icon text-icon_add'></span> открывает список
+        <span className='text-icon text-icon_select'></span> открывает список
         продуктов из&nbsp;Базы Знания.
       </p>
       <p className='my-day-ug__text'>
@@ -39,10 +39,14 @@ const MyDayUserGuide: FC = () => {
         Приёма пищи, только выбрав из&nbsp;уже сохранённых в&nbsp;Базе Знания.
       </p>
       <p className='my-day-ug__text'>
-        Вес добавляемого продукта вводится в&nbsp;граммах. Нажатие иконки{' '}
-        <span className='text-icon text-icon_ok'></span> возвращает
-        в&nbsp;главное окно, где уже отображается выбранный продукт. Справа
-        от&nbsp;наименования продукта выводися введённое количество
+        Вес добавляемого продукта вводится в&nbsp;граммах. При выборе продукта
+        из&nbsp;раздела &laquo;Наборы&raquo;, вес автоматически ставится как
+        единица.
+      </p>
+      <p className='my-day-ug__text'>
+        Нажатие иконки <span className='text-icon text-icon_ok'></span>{' '}
+        возвращает в&nbsp;главное окно, где уже отображается выбранный продукт.
+        Справа от&nbsp;наименования продукта выводися введённое количество
         грамм&nbsp;&nbsp;&nbsp;&mdash;{' '}
         <span className='text-icon text-icon_weight'></span> и&nbsp;расчитанная
         программой калорийность&nbsp;&nbsp;&nbsp;&mdash;{' '}

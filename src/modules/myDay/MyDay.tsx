@@ -22,6 +22,7 @@ import { postMyDay } from '../../redux/asyncThunks/postMyDay';
 
 import {
   currentMealSaveState,
+  setsLoadState,
   baseLoadState,
   myDayLoadState,
   myDaySaveState,
@@ -30,7 +31,9 @@ import { createMyDayForDB } from '../../utils/createMyDayForDB';
 
 import './my-day.scss';
 import { initItemsList } from '../../redux/slices/dataFoodSlice';
+import { initSetsList } from '../../redux/slices/dataSetsSlice';
 import { getBaseList } from '../../redux/asyncThunks/getBaseList';
+import { getSetsList } from '../../redux/asyncThunks/getSetsList';
 
 const MyDay: FC = () => {
   const dispatch = useAppDispatch();
@@ -42,11 +45,16 @@ const MyDay: FC = () => {
     (store) => store.myDayDataSlice.currentMeal
   );
   const currentDay = useAppSelector((store) => store.myDayDataSlice.currentDay);
+
+  const sourceForSelect = useAppSelector(
+    (store) => store.myDayDataSlice.sourceForSelect
+  );
   const dbFoodItemsList = useAppSelector(
     (state) => state.dataFoodSlice.baseItemsList
   );
-  const isViewMode = useAppSelector((store) => store.myDayViewSlice.isViewMode);
+  const dbSetsList = useAppSelector((state) => state.dataSetsSlice.setsList);
 
+  const isViewMode = useAppSelector((store) => store.myDayViewSlice.isViewMode);
   const isLoading = useAppSelector(
     (state) => state.myDayDataSlice.dataLoadingStatus
   );
@@ -80,6 +88,14 @@ const MyDay: FC = () => {
         dispatch(getBaseList(userId as string));
       }
     }
+    if (dbSetsList.length === 0) {
+      const localData = setsLoadState();
+      if (localData) {
+        dispatch(initSetsList(localData));
+      } else {
+        dispatch(getSetsList(userId as string));
+      }
+    }
 
     //TODO инициализировать setsList из базы знаний
 
@@ -104,7 +120,9 @@ const MyDay: FC = () => {
           <ButtonsBlock />
           <ChangeMealNameModal />
           <AddFoodItemModal />
-          <SelectFoodItemModal list={dbFoodItemsList} />
+          <SelectFoodItemModal
+            list={sourceForSelect === 'food' ? dbFoodItemsList : dbSetsList}
+          />
         </>
       ) : null}
     </div>

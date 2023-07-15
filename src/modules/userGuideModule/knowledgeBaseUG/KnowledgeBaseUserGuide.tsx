@@ -19,11 +19,36 @@ const KnowledgeBaseUserGuide: FC = () => {
         <br /> - <span className='text-icon text-icon_price'></span> - цены
         за&nbsp;100гр.
       </p>
+      <h3 className='knowledge-base-ug__subtitle'>Про разделы</h3>
+      <p className='knowledge-base-ug__text'>
+        База Знаний разделена на&nbsp;три раздела: &laquo;Продукты&raquo;,
+        &laquo;Наборы&raquo;, &laquo;Рецепты&raquo;.
+      </p>
+      <p className='knowledge-base-ug__text'>
+        Раздел &laquo;Продукты&raquo;&nbsp;&mdash; сюда добавляются элементы,
+        количество которых в разных приёмах пищи может быть разным.
+        Например&nbsp;&mdash; хлеб, помидоры, сыр, рис и&nbsp;т.д.
+        Соответственно, указываются ККал на&nbsp;100гр.&nbsp;и&nbsp;цена
+        за&nbsp;100гр. продукта.
+      </p>
+      <p className='knowledge-base-ug__text'>
+        Раздел &laquo;Наборы&raquo;&nbsp;&mdash; создан для продуктов, которые
+        в&nbsp;приёме пищи идут не&nbsp;на вес, а&nbsp;за&nbsp;штуку.
+        Например&nbsp;&mdash; пачка Доширака, или чашка кофе с&nbsp;сахаром.
+        ККал и&nbsp;цена указываются не&nbsp;за&nbsp;100гр,
+        а&nbsp;за&nbsp;единицу.
+      </p>
+      <p className='knowledge-base-ug__text'>
+        Раздел &laquo;Рецепты&raquo; будет реализован в&nbsp;следующих
+        обновлениях приложения.
+      </p>
       <h3 className='knowledge-base-ug__subtitle'>Добавление в Базу Знания</h3>
       <p className='knowledge-base-ug__text'>
-        Пользователь создаёт Базу Знаний сам. Для добавления записи нужно нажать
-        кнопку &laquo;Добавить&raquo; в&nbsp;нижнем правом углу и&nbsp;вписать
-        название продукта, данные о&nbsp;калориях и&nbsp;цену.
+        Пользователь создаёт Базу Знаний сам. Для добавления записи нужно
+        выбрать раздел&nbsp;&mdash; &laquo;Продукты&raquo; или
+        &laquo;Наборы&raquo;, нажать кнопку &laquo;Добавить&raquo; в&nbsp;нижнем
+        правом углу и&nbsp;вписать название продукта, данные о&nbsp;калориях
+        и&nbsp;цену.
       </p>
       <p className='knowledge-base-ug__text'>
         Данные о&nbsp;количестве ККал на&nbsp;100гр. можно посмотреть
@@ -40,6 +65,9 @@ const KnowledgeBaseUserGuide: FC = () => {
         например&nbsp;&mdash; пачка печений, и&nbsp;вес единицы товара,
         например&nbsp;&mdash; пачка печений весит 230гр. Дальше цена посчитается
         автоматически.
+      </p>
+      <p className='knowledge-base-ug__text'>
+        Во вкладке "Наборы" цена вносится за единицу продукта.
       </p>
       <p className='knowledge-base-ug__text'>
         Данные о&nbsp;цене&nbsp;&mdash; необязательный параметр. Если

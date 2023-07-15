@@ -19,6 +19,7 @@ interface IMyDayData {
   currentDay: ICurrentDay;
   currentMeal: IMeal;
   foodItem: IFoodItem;
+  sourceForSelect: 'food' | 'set';
   dataLoadingStatus: boolean;
   dataLoadingError: string | null;
   isError: boolean;
@@ -43,6 +44,7 @@ const initialState: IMyDayData = {
     price: 0,
     weight: 0,
   },
+  sourceForSelect: 'food',
   dataLoadingStatus: false,
   dataLoadingError: null,
   isError: false,
@@ -61,6 +63,9 @@ const myDayDataSlice = createSlice({
     setMealName: (state, action: PayloadAction<string>) => {
       state.currentMeal.name = action.payload;
     },
+    setSourseForSelect: (state, action: PayloadAction<'food' | 'set'>) => {
+      state.sourceForSelect = action.payload;
+    },
     // сохранение выбранного продукта из базы знания
     setSelectedItemOne: (state, action: PayloadAction<BaseItem>) => {
       state.foodItem = {
@@ -69,7 +74,7 @@ const myDayDataSlice = createSlice({
         name: action.payload.name,
         calories: action.payload.calories,
         price: action.payload.price as number,
-        weight: 0,
+        weight: state.sourceForSelect === 'food' ? 0 : 1,
       };
     },
     // установка общего количества калорий с учётом добавленного продукта
@@ -175,6 +180,7 @@ export default reducer;
 export const {
   setDataFromLocalStorage,
   setMealName,
+  setSourseForSelect,
   setSelectedItemOne,
   setTotalCalories,
   setTotalCaloriesMinus,

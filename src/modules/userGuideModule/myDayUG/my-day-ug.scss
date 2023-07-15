@@ -90,12 +90,22 @@
   &_add {
     position: relative;
     top: 2px;
-    width: 25px;
+    width: 18px;
     height: 16px;
     margin-right: 5px;
     margin-left: 5px;
     background: url('../../../assets/icons/myDay/food-item-add.svg') center /
       cover no-repeat;
+  }
+  &_select {
+    position: relative;
+    top: 2px;
+    width: 18px;
+    height: 16px;
+    margin-right: 5px;
+    margin-left: 5px;
+    background: url('../../../assets/icons/myDay/food-plus.svg') center / cover
+      no-repeat;
   }
   &_ok {
     position: relative;

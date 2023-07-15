@@ -25,7 +25,6 @@ const SelectFoodItemModal: FC<IFoodItemListProps> = ({ list }) => {
   const isVisible = useAppSelector(
     (state) => state.myDayViewSlice.isSelectFoodItemVisible
   );
-
   const selectClasses = classNames({
     'select-food-item': true,
     'select-food-item_active': isVisible,
@@ -54,6 +53,11 @@ const SelectFoodItemModal: FC<IFoodItemListProps> = ({ list }) => {
             <span className='select__empty-cansel' onClick={handleClose}></span>
           </div>
         )}
+        {listForSort ? (
+          <div className='select__cansel'>
+            <span className='select__cansel-btn' onClick={handleClose}></span>
+          </div>
+        ) : null}
       </div>
     </div>
   );
