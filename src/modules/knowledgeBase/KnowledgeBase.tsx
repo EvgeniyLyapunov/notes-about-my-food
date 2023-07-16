@@ -18,6 +18,7 @@ import ButtonsBlock from './components/buttonsBlock/ButtonsBlock';
 import CreateAndEditModal from './components/createAndEditModal/CreateAndEditModal';
 import ConfirmDeleteModal from './components/confirmDeleteModal/ConfirmDeleteModal';
 import CalcPriceModal from './components/calcPriceModal/CalcPriceModal';
+import CalcCaloriesModal from './components/calcCaloriesModal/CalcCaloriesModal';
 import Loading from '../../app/components/loading/loading';
 import ErrorPage from './components/error/ErrorPage';
 
@@ -90,6 +91,7 @@ const KnowledgeBase: FC = () => {
           <CreateAndEditModal />
           <ConfirmDeleteModal />
           <CalcPriceModal />
+          <CalcCaloriesModal />
         </>
       ) : null}
     </div>

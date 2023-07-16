@@ -1,0 +1,66 @@
+@import '../../../../style/variables.scss';
+@import '../../../../style/mixins.scss';
+
+.calc-calories {
+  @include modalOverlay;
+  &_active {
+    display: flex;
+  }
+  &__window {
+    @include modalWindow;
+  }
+  &__title {
+    width: 100%;
+    margin-bottom: 30px;
+    font-weight: 400;
+    font-size: 16px;
+    text-align-last: left;
+  }
+  &__box-calories,
+  &__box-weight {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    &-label {
+      width: 70%;
+      font-size: 14px;
+    }
+    &-input {
+      width: 25%;
+      padding: 4px 5px;
+      font-size: 14px;
+      @include modalInput;
+    }
+    &-error {
+      position: absolute;
+      right: 43px;
+      bottom: -15px;
+      font-size: 12px;
+      color: $error-message;
+    }
+  }
+  &__box-buttons {
+    margin-left: auto;
+    margin-right: 30px;
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    &-btn {
+      width: 30px;
+      height: 30px;
+      @include modalIconButton;
+      &-cansel {
+        margin-right: 30px;
+        background: url('../../../../assets/icons/knowledgeBase/arrow-cancel.svg')
+          center / cover no-repeat;
+      }
+      &-submit {
+        background: url('../../../../assets/icons/knowledgeBase/ok-check-custom.svg')
+          center / cover no-repeat;
+      }
+    }
+  }
+}

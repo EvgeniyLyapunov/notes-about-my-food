@@ -6,6 +6,7 @@ interface dataView {
   isAddItemModalVisible: boolean;
   isConfirmDeleteVisible: boolean;
   isCalcPriceVisible: boolean;
+  isCalcCaloriesVisible: boolean;
 }
 
 const initialState: dataView = {
@@ -13,6 +14,7 @@ const initialState: dataView = {
   isAddItemModalVisible: false,
   isConfirmDeleteVisible: false,
   isCalcPriceVisible: false,
+  isCalcCaloriesVisible: false,
 };
 
 const dataViewSlice = createSlice({
@@ -41,6 +43,10 @@ const dataViewSlice = createSlice({
     setCalcPriceVisible: (state, action: PayloadAction<boolean>) => {
       state.isCalcPriceVisible = action.payload;
     },
+    // установка флага для открытия окна калькулятора калорийности набора
+    setCalcCaloriesVisible: (state, action: PayloadAction<boolean>) => {
+      state.isCalcCaloriesVisible = action.payload;
+    },
   },
 });
 
@@ -52,4 +58,5 @@ export const {
   setEditItemModalVisible,
   setConfirmForDeleteModalVisible,
   setCalcPriceVisible,
+  setCalcCaloriesVisible,
 } = actions;

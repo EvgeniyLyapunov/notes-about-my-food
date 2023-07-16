@@ -12,6 +12,7 @@ import { setsSaveState } from '../../utils/browserStorage';
 interface IDataSets {
   setsList: IDataBaseItem[];
   setsForEdit?: IDataBaseItem;
+  setsCalcCalories: number;
   setsIdForDelete?: number;
   setsLoadingStatus: boolean;
   setsLoadingError: string | null;
@@ -21,6 +22,7 @@ interface IDataSets {
 const initialState: IDataSets = {
   setsList: [],
   setsForEdit: undefined,
+  setsCalcCalories: 0,
   setsIdForDelete: undefined,
   setsLoadingStatus: false,
   setsLoadingError: null,
@@ -52,6 +54,14 @@ const dataSetsSlice = createSlice({
     // сброс поля где сохраняется id записи перед подтверждением удаления
     resetSetsIdForDelete: (state) => {
       state.setsIdForDelete = undefined;
+    },
+    // промежуточное сохранение результата вычисления количества Ккал набора
+    setSetsCalcResult: (state, action: PayloadAction<number>) => {
+      state.setsCalcCalories = action.payload;
+    },
+    // сброс промежуточного результата вычисления количества Ккал набора
+    resetSetsCalcResult: (state) => {
+      state.setsCalcCalories = 0;
     },
   },
   extraReducers: (builder) => {
@@ -130,6 +140,8 @@ export const {
   resetSetsItemForEdit,
   setSetsIdForDelete,
   resetSetsIdForDelete,
+  setSetsCalcResult,
+  resetSetsCalcResult,
 } = actions;
 
 function isError(action: AnyAction) {

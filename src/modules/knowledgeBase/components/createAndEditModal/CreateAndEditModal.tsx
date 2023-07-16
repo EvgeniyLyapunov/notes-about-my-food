@@ -8,12 +8,16 @@ import { useAppSelector, useAppDispatch } from '../../../../hooks/reduxHooks';
 import {
   setCreateItemModalVisible,
   setCalcPriceVisible,
+  setCalcCaloriesVisible,
 } from '../../../../redux/slices/dataViewSlice';
 import {
   resetBaseItemForEdit,
   resetCalcResult,
 } from '../../../../redux/slices/dataFoodSlice';
-import { resetSetsItemForEdit } from '../../../../redux/slices/dataSetsSlice';
+import {
+  resetSetsItemForEdit,
+  resetSetsCalcResult,
+} from '../../../../redux/slices/dataSetsSlice';
 
 import { postEditedFoodItem } from '../../../../redux/asyncThunks/postEditedFoodItem';
 import { postEditedSetsItem } from '../../../../redux/asyncThunks/postEditedSetsItem';
@@ -74,16 +78,25 @@ const CreateAndEditModal: FC = () => {
   const calcPrice = useAppSelector(
     (store) => store.dataFoodSlice.baseItemCalcPrice
   );
+  const calcCalories = useAppSelector(
+    (store) => store.dataSetsSlice.setsCalcCalories
+  );
 
   const handleModalClose = (): void => {
     dispatch(resetBaseItemForEdit());
     dispatch(resetSetsItemForEdit());
+    dispatch(resetCalcResult());
+    dispatch(resetSetsCalcResult());
     dispatch(setCreateItemModalVisible(false));
     formik.resetForm();
   };
 
   const handleCalcVisible = () => {
-    dispatch(setCalcPriceVisible(true));
+    if (tabActive === 'food') {
+      dispatch(setCalcPriceVisible(true));
+    } else if (tabActive === 'set') {
+      dispatch(setCalcCaloriesVisible(true));
+    }
   };
 
   const addItemModalClasses = classNames({
@@ -128,7 +141,6 @@ const CreateAndEditModal: FC = () => {
             break;
         }
       }
-      dispatch(resetCalcResult());
       handleModalClose();
     },
   });
@@ -144,6 +156,10 @@ const CreateAndEditModal: FC = () => {
   useEffect(() => {
     formik.setFieldValue('price', calcPrice);
   }, [calcPrice]);
+
+  useEffect(() => {
+    formik.setFieldValue('calories', calcCalories);
+  }, [calcCalories]);
 
   return (
     <div className={addItemModalClasses}>
@@ -184,15 +200,23 @@ const CreateAndEditModal: FC = () => {
                 ) : (
                   <span>ккал / ед.</span>
                 )}
-                <input
-                  className='add-item__form-input-group-item'
-                  id='calories'
-                  type='number'
-                  name='calories'
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.calories || ''}
-                />
+                <div className='add-item__form-input-calc-group'>
+                  <input
+                    className='add-item__form-input-group-item add-item__form-input-group-item-calc'
+                    id='calories'
+                    type='number'
+                    name='calories'
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.calories || ''}
+                  />
+                  {tabActive === 'set' ? (
+                    <span
+                      className='add-item__form-input-calc-btn'
+                      onClick={handleCalcVisible}
+                    ></span>
+                  ) : null}
+                </div>
                 {formik.touched.calories && formik.errors.calories ? (
                   <div className='add-item__form-error'>
                     {formik.errors.calories}
